@@ -1,10 +1,27 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity(name="bairro")
 public class Bairro {
 
+    @Id
+    @GeneratedValue
     private int id;
+    
+    @Column
     private String nome;    //OBRIGATÓRIO
+    
+    @Column
     private boolean status; //OBRIGATÓRIO
+    
+    @JoinColumn(name="cidadeid")
+    @ManyToOne
     private Cidade cidade;  //OBRIGATÓRIO
 
     private Bairro(BairroBuilder bairroBuilder) {

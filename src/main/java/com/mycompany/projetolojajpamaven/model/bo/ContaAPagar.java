@@ -1,9 +1,27 @@
 package com.mycompany.projetolojajpamaven.model.bo;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity(name = "contaapagar")
 public class ContaAPagar {
 
+    @Id
+    @GeneratedValue
     private int id;
+    
+    @JoinColumn(name="compraid")
+    @ManyToOne
     private int compraId;
+    
+    @Column
     private float valor;
+    
+    @Column
     private boolean status;
 
     private ContaAPagar(ContaAPagarBuilder contaAPagarBuilder) {

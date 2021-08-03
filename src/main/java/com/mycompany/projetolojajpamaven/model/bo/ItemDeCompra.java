@@ -1,11 +1,31 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity(name = "itemdecompra")
 public class ItemDeCompra {
 
+    @Id
+    @GeneratedValue
     private int id;
+    
+    @Column
     private int quantidade;
+    
+    @Column(name="subtotal")
     private float subTotal;
+    
+    @JoinColumn(name="produtoid")
+    @ManyToOne
     private Produto produto;
+    
+    @JoinColumn(name="compraid")
+    @ManyToOne
     private int compraId;
 
     private ItemDeCompra(ItemDeCompraBuilder itemDeCompraBuilder) {

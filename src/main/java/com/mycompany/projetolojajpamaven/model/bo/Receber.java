@@ -1,14 +1,37 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity(name = "receber")
 public class Receber {
 
+    @Id
+    @GeneratedValue
     private int id;//1
+    
+    @Column(name="datarecebimento")
     private String dataRecebimento;//2
+    
+    @Column
     private String hora;//3
 //    private float valorDesconto;//4
+    
+    @Column(name="valoracrescimo")
     private float valorAcrescimo;//5
+    
+    @Column(name="valorrecebido")
     private float valorRecebido;//6
+    
+    @Column
     private String observacao;//7
+    
+    @JoinColumn(name="contaareceber")
+    @ManyToOne
     private ContaAReceber contaAReceber;//8
 
     private Receber(ReceberBuilder receberBuilder) {

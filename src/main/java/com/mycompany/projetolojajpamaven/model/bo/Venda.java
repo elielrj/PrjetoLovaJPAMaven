@@ -4,19 +4,49 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity(name = "venda")
 public class Venda {
 
+    @Id
+    @GeneratedValue
     private int id;//1
+    
+    @Column(name="datavenda")
     private String data;//2
+    
+    @Column
     private String hora;//3
+    
+    @Column(name="usercaixa")
     private String userCaixa;//4
+    
+    @Column(name="datadevencimento")
     private String dataDeVencimento;//5
+    
+    @Column
     private String observacao;//6
+    
+    @Column(name="valordesconto")
     private float valorDoDesconto;//7
+    
+    @Column(name="valortotal")
     private float valorTotal;//8
+    
+    @Column
     private boolean status;//9
+    
+    @JoinColumn(name="pessoafisicaid")
+    @ManyToOne
     private PessoaFisica pessoaFisica;//10
+    
+    //@Column(name="itemdevenda")
     private List<ItemDeVenda> itensDeVenda;//11
 
     private Venda(VendaBuilder vendaBuilder) {

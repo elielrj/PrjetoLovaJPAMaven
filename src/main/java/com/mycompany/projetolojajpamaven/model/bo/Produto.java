@@ -1,15 +1,39 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity(name="produto")
 public class Produto {
 
+    @Id
+    @GeneratedValue
     private int id;//1
+    
+    @Column
     private String descricao;//2
+    
+    @Column(name="unidadedecompra")
     private String unidadeDeCompra;//3
+    
+    @Column(name="unidadedevenda")
     private String unidadeDeVenda;//4
+    
+    @Column(name="correlacaounidade")
     private String correlacaoUnidade;//5
+    
+    @Column
     private float valor;//6
+    
+    @Column(name="codigodebarras")
     private String codigoDeBarras;//7
+    
+    @Column
     private boolean status;//8
+    
+    @Column
     private String observacao;//9
 
     private Produto(ProdutoBuilder produtoBuilder) {

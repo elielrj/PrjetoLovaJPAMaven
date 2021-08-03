@@ -4,19 +4,49 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity(name = "compra")
 public class Compra {
 
+    @Id
+    @GeneratedValue
     private int id;
+    
+    @Column(name="datacompra")
     private String data;
+    
+    @Column
     private String hora;
+    
+    @Column(name="datavencimento")
     private String dataDeVencimento;
+    
+    @Column
     private String observacao;
+    
+    @Column(name="valordesconto")
     private float valorDeDesconto;
+    
+    @Column(name="valortotal")
     private float valorTotal;
+    
+    @Column
     private boolean status;
+    
+    //@Column(name="itemdecompra")
     private List<ItemDeCompra> itensDeCompra;
+    
+    @JoinColumn(name="fornecedorid")
+    @ManyToOne
     private Fornecedor fornecedor;
+    
+   // @Column(name="usercaixa")
     private String userCaixa;
 
     private Compra(CompraBuilder compraBuilder) {

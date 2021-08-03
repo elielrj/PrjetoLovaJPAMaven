@@ -1,19 +1,54 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity(name = "pessoafisica")
 public class PessoaFisica {
 
+    @Id
+    @GeneratedValue
     private int id;//1
+    
+    @Column
     private String nome;//2
+    
+    @Column
     private String rg;//3
+    
+    @Column
     private String cpf;//4
+    
+    @Column(name="datanascimento")
     private String dataDeNascimento;//5
+    
+    @JoinColumn(name="enderecoid")
+    @ManyToOne
     private Endereco endereco;//6
+    
+    @Column
     private String tipo;//7
+    
+    @Column
     private String telefone1;//8
+    
+    @Column
     private String telefone2;//9
+    
+    @Column
     private String email;//10
+    
+    @Column
     private String observacao;//11
+    
+    @Column
     private boolean status;//12
+    
+    @Column
     private String complemento;//13
 
     private PessoaFisica(PessoaFisicaBuilder pessoaFisicaBuilder) {

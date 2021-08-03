@@ -1,10 +1,25 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity(name = "estoque")
 public class Estoque {
 
-private int id;
-private int produtoId;
-private int quantidade;
+    @Id
+    @GeneratedValue
+    private int id;
+    
+    @JoinColumn(name="produtoid")
+    @ManyToOne
+    private int produtoId;
+    
+    @Column
+    private int quantidade;
 
     private Estoque(EstoqueBuilder estoqueBuilder) {
         this.id = estoqueBuilder.id;
@@ -35,7 +50,6 @@ private int quantidade;
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
-    
 
     public static class EstoqueBuilder {
 

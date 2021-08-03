@@ -1,12 +1,33 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity(name = "endereco")
 public class Endereco {
 
+    @Id
+    @GeneratedValue
     private int id;//1
+    
+    @Column
     private String logradouro;//2
+    
+    @Column
     private String numero;//3
+    
+    @JoinColumn(name="bairroid")
+    @ManyToOne
     private Bairro bairro;//4
+    
+    @Column
     private String cep;//5
+    
+    @Column
     private boolean status;//6
 
     private Endereco(EnderecoBuilder enderecoBuilder) {

@@ -1,10 +1,27 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity(name = "contaareceber")
 public class ContaAReceber {
 
+    @Id
+    @GeneratedValue
     private int id;
+    
+    @JoinColumn(name="vendaid")
+    @ManyToOne
     private int vendaId;
+    
+    @Column
     private float valor;
+    
+    @Column
     private boolean status;
 
     private ContaAReceber(ContaAReceberBuilder contaAReceberBuilder) {

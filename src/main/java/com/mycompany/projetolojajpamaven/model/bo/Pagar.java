@@ -1,16 +1,39 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity(name = "pagar")
 public class Pagar {
 
+    @Id
+    @GeneratedValue
     private int id;//1
+    
+    @Column(name="datapagamento")
     private String dataPagamento;//2
+    
+    @Column
     private String hora;//3
    // private float valorDesconto;//4
+    
+    @Column(name="valoracrescimo")
     private float valorAcrescimo;//5
+    
+    @Column(name="valorpago")
     private float valorPago;//6
+    
+    @Column
     private String observacao;//7
     //private Compra compra;//8
     //private boolean status;//9
+    
+    @JoinColumn(name="contaapagarid")
+    @ManyToOne
     private ContaAPagar contaAPagar;
 
     private Pagar(PagarBuilder pagarBuilder) {
