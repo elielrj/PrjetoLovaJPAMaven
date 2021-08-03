@@ -16,7 +16,7 @@ public class Cidade implements Serializable {
     @Column
     private String nome;
     
-    @Column
+    @Column 
     private boolean status;
 
     public Cidade(CidadeBuilder cidadeBuilder) {
