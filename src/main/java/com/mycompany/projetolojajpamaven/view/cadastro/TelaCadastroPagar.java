@@ -6,7 +6,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import view.FormModeloCadastros;
+import com.mycompany.projetolojajpamaven.view.FormModeloCadastros;
 
 public class TelaCadastroPagar extends javax.swing.JFrame {
 
@@ -50,7 +50,7 @@ public class TelaCadastroPagar extends javax.swing.JFrame {
         jFormattedTextFieldValorPago = new javax.swing.JFormattedTextField();
         jFormattedTextFieldDataEmissao = new javax.swing.JFormattedTextField();
         jFormattedTextFieldDataVencimento = new javax.swing.JFormattedTextField();
-        jFormattedTextFieldDataEmiss√£o = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldDataEmiss„o = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jFormattedTextField_Hora = new javax.swing.JFormattedTextField();
@@ -66,7 +66,7 @@ public class TelaCadastroPagar extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Formul√°rio de Cadastro de ...");
+        setTitle("Formul·rio de Cadastro de ...");
         setMinimumSize(new java.awt.Dimension(700, 600));
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
@@ -150,7 +150,7 @@ public class TelaCadastroPagar extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Data de Emiss√£o");
+        jLabel2.setText("Data de Emiss„o");
 
         jLabel3.setText("Valor Emitido");
 
@@ -158,11 +158,11 @@ public class TelaCadastroPagar extends javax.swing.JFrame {
 
         jLabel5.setText("Data de Pagamento");
 
-        jLabel8.setText("Observa√ß√£o:");
+        jLabel8.setText("ObservaÁ„o:");
 
         jLabel9.setText("Valor Pago");
 
-        jLabel10.setText("Valor Acr√©scimo");
+        jLabel10.setText("Valor AcrÈscimo");
 
         jTextAreaObs.setColumns(20);
         jTextAreaObs.setRows(5);
@@ -191,11 +191,11 @@ public class TelaCadastroPagar extends javax.swing.JFrame {
         jFormattedTextFieldDataVencimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         try {
-            jFormattedTextFieldDataEmiss√£o.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            jFormattedTextFieldDataEmiss„o.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextFieldDataEmiss√£o.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jFormattedTextFieldDataEmiss„o.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel7.setText("Valor da Compra");
 
@@ -290,7 +290,7 @@ public class TelaCadastroPagar extends javax.swing.JFrame {
                                     .addComponent(jLabel9))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jFormattedTextFieldDataEmiss√£o, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                                    .addComponent(jFormattedTextFieldDataEmiss„o, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
                                     .addComponent(jFormattedTextFieldValorPago)))
                             .addGroup(jPanelDadosLayout.createSequentialGroup()
                                 .addComponent(jLabel12)
@@ -340,7 +340,7 @@ public class TelaCadastroPagar extends javax.swing.JFrame {
                     .addComponent(jFormattedTextFieldDataEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jFormattedTextFieldDataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jFormattedTextFieldDataEmiss√£o, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFormattedTextFieldDataEmiss„o, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(39, 39, 39)
                 .addGroup(jPanelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -422,7 +422,7 @@ public class TelaCadastroPagar extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSair;
     private javax.swing.JButton jButton_CompraBuscaId;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataEmissao;
-    private javax.swing.JFormattedTextField jFormattedTextFieldDataEmiss√£o;
+    private javax.swing.JFormattedTextField jFormattedTextFieldDataEmiss„o;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataVencimento;
     private javax.swing.JFormattedTextField jFormattedTextFieldValorAcrescimo;
     private javax.swing.JFormattedTextField jFormattedTextFieldValorEmitido;
@@ -481,7 +481,7 @@ public class TelaCadastroPagar extends javax.swing.JFrame {
     }
 
     public JFormattedTextField getjFormattedTextFieldDataPagamento() {
-        return jFormattedTextFieldDataEmiss√£o;
+        return jFormattedTextFieldDataEmissao;
     }
 
     public JFormattedTextField getjFormattedTextFieldDataVencimento() {

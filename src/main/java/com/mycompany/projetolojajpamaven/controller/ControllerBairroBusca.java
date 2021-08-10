@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import view.busca.TelaBuscaBairro;
-import model.bo.Bairro;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaBairro;
+import com.mycompany.projetolojajpamaven.model.bo.Bairro;
 
 public class ControllerBairroBusca implements ActionListener {
 
@@ -31,7 +31,7 @@ public class ControllerBairroBusca implements ActionListener {
             this.telaBuscaBairro.dispose();                
         }else if (e.getSource() == this.telaBuscaBairro.getjButton_deletar()){
             try{
-                service.ServiceBairro.Deletar((int) this.telaBuscaBairro.getjTable1().getValueAt(this.telaBuscaBairro.getjTable1().getSelectedRow(),0));
+                com.mycompany.projetolojajpamaven.service.ServiceBairro.Deletar((int) this.telaBuscaBairro.getjTable1().getValueAt(this.telaBuscaBairro.getjTable1().getSelectedRow(),0));
                 JOptionPane.showMessageDialog(null, "Bairro deletado com sucesso!");
                 carregarDadosNaTabela();
             } catch (Exception ex) {
@@ -48,7 +48,7 @@ public class ControllerBairroBusca implements ActionListener {
         DefaultTableModel tabela = (DefaultTableModel) this.telaBuscaBairro.getjTable1().getModel();
         tabela.getDataVector().removeAllElements();
         
-        for (Bairro bairroDaLista : service.ServiceBairro.Buscar()) {
+        for (Bairro bairroDaLista : com.mycompany.projetolojajpamaven.service.ServiceBairro.Buscar()) {
             tabela.addRow(new Object[]{
                 bairroDaLista.getId(),
                 bairroDaLista.getNome(),

@@ -1,12 +1,12 @@
 package com.mycompany.projetolojajpamaven.model.DAO;
 
 import java.util.List;
-import model.bo.Produto;
+import com.mycompany.projetolojajpamaven.model.bo.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import model.bo.Estoque;
+import com.mycompany.projetolojajpamaven.model.bo.Estoque;
 
 public class ProdutoDAO implements InterfaceDAO<Produto> {
 
@@ -164,8 +164,8 @@ public class ProdutoDAO implements InterfaceDAO<Produto> {
 
     @Override
     public void Delete(Produto objeto) {        
-        Estoque estoque = service.ServiceEstoque.BuscarEstoquePorIdDoProduto(objeto.getId());
-        service.ServiceEstoque.Deletar(estoque);
+        Estoque estoque = com.mycompany.projetolojajpamaven.service.ServiceEstoque.BuscarEstoquePorIdDoProduto(objeto.getId());
+        com.mycompany.projetolojajpamaven.service.ServiceEstoque.Deletar(estoque);
         try {
             Connection conexao = ConectionFactory.getConection();
             PreparedStatement pstm = null;            
@@ -183,7 +183,7 @@ public class ProdutoDAO implements InterfaceDAO<Produto> {
     }
     
      public void Delete(int idProduto) {
-        Produto produto = service.ServiceProduto.Buscar(idProduto);
+        Produto produto = com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar(idProduto);
         Delete(produto);
         
     }

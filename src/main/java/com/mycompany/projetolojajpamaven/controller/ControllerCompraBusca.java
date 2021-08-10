@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import view.busca.TelaBuscaCompra;
-import model.bo.Compra;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaCompra;
+import com.mycompany.projetolojajpamaven.model.bo.Compra;
 
 public class ControllerCompraBusca implements ActionListener {
 
@@ -37,7 +37,7 @@ public class ControllerCompraBusca implements ActionListener {
             this.telaBuscaCompra.dispose();
         }else if (e.getSource() == this.telaBuscaCompra.getjButton_deletar()){
             try{
-                service.ServiceCompra.Deletar((int) 
+                com.mycompany.projetolojajpamaven.service.ServiceCompra.Deletar((int) 
                         
                         this.telaBuscaCompra.getjTable_BuscaCompras().getValueAt(
                         this.telaBuscaCompra.getjTable_BuscaCompras().getSelectedRow(),0)
@@ -59,7 +59,7 @@ public class ControllerCompraBusca implements ActionListener {
         DefaultTableModel tabela = (DefaultTableModel) this.telaBuscaCompra.getjTable_BuscaCompras().getModel();
         tabela.getDataVector().removeAllElements();
         
-        for (Compra compraDaLista : service.ServiceCompra.Buscar()) {
+        for (Compra compraDaLista : com.mycompany.projetolojajpamaven.service.ServiceCompra.Buscar()) {
             tabela.addRow(new Object[]{
                 compraDaLista.getId(),//1
                 compraDaLista.getData(),//2

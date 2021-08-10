@@ -1,15 +1,15 @@
 package com.mycompany.projetolojajpamaven.model.DAO;
 
 import java.util.List;
-import model.bo.Venda;
+import com.mycompany.projetolojajpamaven.model.bo.Venda;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import model.bo.ContaAReceber;
-import model.bo.Estoque;
-import model.bo.ItemDeVenda;
-import model.bo.PessoaFisica;
+import com.mycompany.projetolojajpamaven.model.bo.ContaAReceber;
+import com.mycompany.projetolojajpamaven.model.bo.Estoque;
+import com.mycompany.projetolojajpamaven.model.bo.ItemDeVenda;
+import com.mycompany.projetolojajpamaven.model.bo.PessoaFisica;
 
 public class VendaDAO implements InterfaceDAO<Venda> {
 
@@ -59,7 +59,7 @@ public class VendaDAO implements InterfaceDAO<Venda> {
                 venda.setValorTotal(rs.getFloat("valortotal"));
                 venda.setStatus(rs.getBoolean("status"));
                 venda.setPessoaFisica(
-                        service.ServicePessoaFisica.Buscar(rs.getInt("pessoafisicaid"))
+                        com.mycompany.projetolojajpamaven.service.ServicePessoaFisica.Buscar(rs.getInt("pessoafisicaid"))
                 );
                 venda.setUserCaixa(rs.getString("usercaixa"));
             }
@@ -94,7 +94,7 @@ public class VendaDAO implements InterfaceDAO<Venda> {
                         .setValorTotal(rs.getFloat("valortotal"))
                         .setStatus(rs.getBoolean("status"))
                         .setPessoaFisica(
-                                service.ServicePessoaFisica.Buscar(rs.getInt("pessoafisicaid"))
+                                com.mycompany.projetolojajpamaven.service.ServicePessoaFisica.Buscar(rs.getInt("pessoafisicaid"))
                         )
                         .setUserCaixa(rs.getString("usercaixa"))
                         .createVenda();
@@ -131,11 +131,11 @@ public class VendaDAO implements InterfaceDAO<Venda> {
                         .setValorTotal(rs.getFloat("valortotal"))
                         .setStatus(rs.getBoolean("status"))
                         .setPessoaFisica(
-                                service.ServicePessoaFisica.Buscar(rs.getInt("pessoafisicaid"))
+                                com.mycompany.projetolojajpamaven.service.ServicePessoaFisica.Buscar(rs.getInt("pessoafisicaid"))
                         )
                         .setUserCaixa(rs.getString("usercaixa"))
                         .setItensDeVenda(
-                                service.ServiceItemDeVenda.BuscarUmaListaDeItemDeVendaPeloIdDaVenda(
+                                com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.BuscarUmaListaDeItemDeVendaPeloIdDaVenda(
                                         rs.getInt("id")
                                 )
                         )
@@ -174,11 +174,11 @@ public class VendaDAO implements InterfaceDAO<Venda> {
                         .setValorTotal(rs.getFloat("valortotal"))
                         .setStatus(rs.getBoolean("status"))
                         .setPessoaFisica(
-                                service.ServicePessoaFisica.Buscar(rs.getInt("pessoafisicaid"))
+                                com.mycompany.projetolojajpamaven.service.ServicePessoaFisica.Buscar(rs.getInt("pessoafisicaid"))
                         )
                         .setUserCaixa(rs.getString("usercaixa"))
                         .setItensDeVenda(
-                                service.ServiceItemDeVenda.BuscarUmaListaDeItemDeVendaPeloIdDaVenda(
+                                com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.BuscarUmaListaDeItemDeVendaPeloIdDaVenda(
                                         rs.getInt("id")
                                 )
                         )
@@ -222,13 +222,13 @@ public class VendaDAO implements InterfaceDAO<Venda> {
 
     @Override
     public void Delete(Venda objeto) {
-        ContaAReceber contaaReceber = service.ServiceContaAReceber.BuscarIdDaContaAReceberPeloIdDaVenda(objeto.getId());
-        service.ServiceContaAReceber.Deletar(contaaReceber);
+        ContaAReceber contaaReceber = com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.BuscarIdDaContaAReceberPeloIdDaVenda(objeto.getId());
+        com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Deletar(contaaReceber);
         for (ItemDeVenda i : objeto.getItensDeVenda()) {
-            Estoque estoque = service.ServiceEstoque.BuscarEstoquePorIdDoProduto(i.getProduto().getId());
+            Estoque estoque = com.mycompany.projetolojajpamaven.service.ServiceEstoque.BuscarEstoquePorIdDoProduto(i.getProduto().getId());
             estoque.setQuantidade(estoque.getQuantidade() + i.getQuantidade());
-            service.ServiceEstoque.Atualizar(estoque);
-            service.ServiceItemDeVenda.Deletar(i);
+            com.mycompany.projetolojajpamaven.service.ServiceEstoque.Atualizar(estoque);
+            com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.Deletar(i);
         }
         try {
             Connection conexao = ConectionFactory.getConection();
@@ -245,7 +245,7 @@ public class VendaDAO implements InterfaceDAO<Venda> {
     }
 
     public void Delete(int idVenda) {
-        Venda venda = service.ServiceVenda.Buscar(idVenda);
+        Venda venda = com.mycompany.projetolojajpamaven.service.ServiceVenda.Buscar(idVenda);
         //Delete(venda);
         /*Connection conexao = ConectionFactory.getConection();
         PreparedStatement pstm = null;
@@ -271,13 +271,13 @@ public class VendaDAO implements InterfaceDAO<Venda> {
                     + ex.getLocalizedMessage()
             );
         }*/
-        ContaAReceber contaaReceber = service.ServiceContaAReceber.BuscarIdDaContaAReceberPeloIdDaVenda(idVenda);
-        service.ServiceContaAReceber.Deletar(contaaReceber);
+        ContaAReceber contaaReceber = com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.BuscarIdDaContaAReceberPeloIdDaVenda(idVenda);
+        com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Deletar(contaaReceber);
         for (ItemDeVenda i : venda.getItensDeVenda()) {
-            Estoque estoque = service.ServiceEstoque.BuscarEstoquePorIdDoProduto(i.getProduto().getId());
+            Estoque estoque = com.mycompany.projetolojajpamaven.service.ServiceEstoque.BuscarEstoquePorIdDoProduto(i.getProduto().getId());
             estoque.setQuantidade(estoque.getQuantidade() + i.getQuantidade());
-            service.ServiceEstoque.Atualizar(estoque);
-            service.ServiceItemDeVenda.Deletar(i);
+            com.mycompany.projetolojajpamaven.service.ServiceEstoque.Atualizar(estoque);
+            com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.Deletar(i);
         }
         try {
             Connection conexao = ConectionFactory.getConection();

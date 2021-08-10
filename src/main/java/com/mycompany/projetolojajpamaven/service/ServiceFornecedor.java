@@ -1,8 +1,8 @@
 package com.mycompany.projetolojajpamaven.service;
 
 import java.util.List;
-import model.bo.Fornecedor;
-import model.DAO.FornecedorDAO;
+import com.mycompany.projetolojajpamaven.model.bo.Fornecedor;
+import com.mycompany.projetolojajpamaven.model.DAO.FornecedorDAO;
 
 public class ServiceFornecedor {
 

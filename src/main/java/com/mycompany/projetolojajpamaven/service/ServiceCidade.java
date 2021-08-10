@@ -1,8 +1,8 @@
 package com.mycompany.projetolojajpamaven.service;
 
 import java.util.List;
-import model.bo.Cidade;
-import model.DAO.CidadeDAO;
+import com.mycompany.projetolojajpamaven.model.bo.Cidade;
+import com.mycompany.projetolojajpamaven.model.DAO.CidadeDAO;
 
 public class ServiceCidade {
 

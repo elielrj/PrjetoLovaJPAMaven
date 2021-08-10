@@ -4,7 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.ArrayList;import model.bo.ContaAPagar;
+import java.util.ArrayList;
+import com.mycompany.projetolojajpamaven.model.bo.ContaAPagar;
 
 public class ContaAPagarDAO implements InterfaceDAO<ContaAPagar> {
 

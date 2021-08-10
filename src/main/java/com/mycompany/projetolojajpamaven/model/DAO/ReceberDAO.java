@@ -1,12 +1,12 @@
 package com.mycompany.projetolojajpamaven.model.DAO;
 
 import java.util.List;
-import model.bo.Receber;
+import com.mycompany.projetolojajpamaven.model.bo.Receber;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import static service.ServiceReceber.Deletar;
+import static com.mycompany.projetolojajpamaven.service.ServiceReceber.Deletar;
 
 public class ReceberDAO implements InterfaceDAO<Receber> {
 
@@ -50,7 +50,7 @@ public class ReceberDAO implements InterfaceDAO<Receber> {
                         .setValorRecebido(rs.getFloat("valorrecebido"))
                         .setObservacao(rs.getString("observacao"))
                         .setContaAReceber(
-                                service.ServiceContaAReceber.Buscar(rs.getInt("contaareceberid"))
+                                com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Buscar(rs.getInt("contaareceberid"))
                         )
                         .createReceber();
                 recebimentos.add(recebimento);
@@ -82,7 +82,7 @@ public class ReceberDAO implements InterfaceDAO<Receber> {
                         .setValorRecebido(rs.getFloat("valorrecebido"))
                         .setObservacao(rs.getString("observacao"))
                         .setContaAReceber(
-                                service.ServiceContaAReceber.Buscar(rs.getInt("contaareceberid"))
+                                com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Buscar(rs.getInt("contaareceberid"))
                         )
                         .createReceber();
                 recebimentos.add(recebimento);
@@ -115,7 +115,7 @@ public class ReceberDAO implements InterfaceDAO<Receber> {
                         .setValorRecebido(rs.getFloat("valorrecebido"))
                         .setObservacao(rs.getString("observacao"))
                         .setContaAReceber(
-                                service.ServiceContaAReceber.Buscar(rs.getInt("contaareceberid"))
+                                com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Buscar(rs.getInt("contaareceberid"))
                         )
                         .createReceber();
                 recebimentos.add(recebimento);
@@ -146,7 +146,7 @@ public class ReceberDAO implements InterfaceDAO<Receber> {
                 recebimento.setValorRecebido(rs.getFloat("valorrecebido"));
                 recebimento.setObservacao(rs.getString("observacao"));
                 recebimento.setContaAReceber(
-                        service.ServiceContaAReceber.Buscar(rs.getInt("contaareceberid"))
+                        com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Buscar(rs.getInt("contaareceberid"))
                 );
             }
             return recebimento;
@@ -221,7 +221,7 @@ public class ReceberDAO implements InterfaceDAO<Receber> {
                 recebimento.setValorRecebido(rs.getFloat("valorrecebido"));
                 recebimento.setObservacao(rs.getString("observacao"));
                 recebimento.setContaAReceber(
-                        service.ServiceContaAReceber.Buscar(rs.getInt("contaareceberid"))
+                        com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Buscar(rs.getInt("contaareceberid"))
                 );
             }
             return recebimento;

@@ -1,8 +1,8 @@
 package com.mycompany.projetolojajpamaven.service;
 
 import java.util.List;
-import model.bo.Receber;
-import model.DAO.ReceberDAO;
+import com.mycompany.projetolojajpamaven.model.bo.Receber;
+import com.mycompany.projetolojajpamaven.model.DAO.ReceberDAO;
 
 public class ServiceItemDeReceber {
 

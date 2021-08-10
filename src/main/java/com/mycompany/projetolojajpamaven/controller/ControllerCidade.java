@@ -7,9 +7,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import model.bo.Cidade;
-import view.busca.TelaBuscaCidade;
-import view.cadastro.TelaCadastroCidade;
+import com.mycompany.projetolojajpamaven.model.bo.Cidade;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaCidade;
+import com.mycompany.projetolojajpamaven.view.cadastro.TelaCadastroCidade;
 
 public class ControllerCidade implements ActionListener {
 
@@ -48,10 +48,10 @@ public class ControllerCidade implements ActionListener {
                     .createCidade();
 
             if (codigo == 0) {
-                service.ServiceCidade.Incluir(cidade);
+                com.mycompany.projetolojajpamaven.service.ServiceCidade.Incluir(cidade);
             } else {
                 cidade.setId(Integer.parseInt(this.telaCadastroCidade.getjTextFieldId().getText()));
-                service.ServiceCidade.Atualizar(cidade);
+                com.mycompany.projetolojajpamaven.service.ServiceCidade.Atualizar(cidade);
             }
             Ativa(true);
             LimpaEstadoComponentes(false);
@@ -69,7 +69,7 @@ public class ControllerCidade implements ActionListener {
                 LimpaEstadoComponentes(true);
 
                 Cidade cidade = new Cidade.CidadeBuilder().createCidade();
-                cidade = service.ServiceCidade.Buscar(codigo);
+                cidade = com.mycompany.projetolojajpamaven.service.ServiceCidade.Buscar(codigo);
 
                 this.telaCadastroCidade.getjTextFieldId().setText(cidade.getId() + "");
                 this.telaCadastroCidade.getjTextFieldDescricao().setText(cidade.getNome());

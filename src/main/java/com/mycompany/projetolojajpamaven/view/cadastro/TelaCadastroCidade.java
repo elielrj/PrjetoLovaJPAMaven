@@ -4,7 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import view.FormModeloCadastros;
+import com.mycompany.projetolojajpamaven.view.FormModeloCadastros;
 
 public class TelaCadastroCidade extends javax.swing.JFrame {
 
@@ -45,7 +45,7 @@ public class TelaCadastroCidade extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Formul√°rio de Cadastro de ...");
+        setTitle("Formul·rio de Cadastro de ...");
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 

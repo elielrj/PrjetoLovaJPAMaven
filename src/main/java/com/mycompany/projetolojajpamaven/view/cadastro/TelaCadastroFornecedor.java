@@ -5,7 +5,7 @@
  */
 package com.mycompany.projetolojajpamaven.view.cadastro;
 
-import controller.ControllerEndereco;
+import com.mycompany.projetolojajpamaven.controller.ControllerEndereco;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -15,11 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import model.bo.Bairro;
-import model.bo.Cidade;
-import model.bo.Endereco;
-import service.ServiceEndereco;
-import view.FormModeloCadastros;
+import com.mycompany.projetolojajpamaven.model.bo.Bairro;
+import com.mycompany.projetolojajpamaven.model.bo.Cidade;
+import com.mycompany.projetolojajpamaven.model.bo.Endereco;
+import com.mycompany.projetolojajpamaven.service.ServiceEndereco;
+import com.mycompany.projetolojajpamaven.view.FormModeloCadastros;
 
 /**
  *
@@ -37,11 +37,11 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         jComboBoxStatus.addItem("NÃ£o");
 
         
-        for(Bairro b : service.ServiceBairro.Buscar()){
+        for(Bairro b : com.mycompany.projetolojajpamaven.service.ServiceBairro.Buscar()){
             jComboBox_EnderecoBairro.addItem(b);
         }
         
-        for(Cidade c : service.ServiceCidade.Buscar()){
+        for(Cidade c : com.mycompany.projetolojajpamaven.service.ServiceCidade.Buscar()){
             jComboBox_EnderecoCidade.addItem(c);
         }
     }
@@ -99,7 +99,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("FormulÃ¡rio de Cadastro de ...");
+        setTitle("Formulário de Cadastro de ...");
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
@@ -194,7 +194,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
 
         jLabel7.setText("Tel 2");
 
-        jLabel9.setText("RazÃ£o Social");
+        jLabel9.setText("Razão Social");
 
         jTextFieldRazaoSocial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,7 +204,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
 
         jLabel10.setText("CNPJ");
 
-        jLabel11.setText("InscrÃ§Ã£o Estadual");
+        jLabel11.setText("Inscrção Estadual");
 
         try {
             jFormattedTextFieldInscEst.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
@@ -234,7 +234,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         }
         jFormattedTextFieldtel2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jLabel1.setText("ObservaÃ§Ã£o");
+        jLabel1.setText("Observação");
 
         jTextAreaObs.setColumns(20);
         jTextAreaObs.setRows(5);
@@ -244,9 +244,9 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
 
         jLabel3.setText("Logradouro");
 
-        jLabel8.setText("NÃºmero");
+        jLabel8.setText("Número");
 
-        jLabel12.setText("Id EndereÃ§o");
+        jLabel12.setText("Id Endereço");
 
         jLabel13.setText("Bairro");
 

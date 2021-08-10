@@ -8,12 +8,12 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import model.bo.Bairro;
-import model.bo.Cidade;
-import model.bo.Endereco;
-import view.busca.TelaBuscaEndereco;
+import com.mycompany.projetolojajpamaven.model.bo.Bairro;
+import com.mycompany.projetolojajpamaven.model.bo.Cidade;
+import com.mycompany.projetolojajpamaven.model.bo.Endereco;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaEndereco;
 
-import view.cadastro.TelaCadastroEndereco;
+import com.mycompany.projetolojajpamaven.view.cadastro.TelaCadastroEndereco;
 
 public class ControllerEndereco implements ActionListener {
 
@@ -55,11 +55,11 @@ public class ControllerEndereco implements ActionListener {
                     .createEndereco();
 
             if (codigo == 0) {
-                service.ServiceEndereco.Incluir(endereco);
+                com.mycompany.projetolojajpamaven.service.ServiceEndereco.Incluir(endereco);
             } else {
 
                 endereco.setId(Integer.parseInt(this.telaCadastroEndereco.getjTextFieldId().getText()));
-                service.ServiceEndereco.Atualizar(endereco);
+                com.mycompany.projetolojajpamaven.service.ServiceEndereco.Atualizar(endereco);
             }
             Ativa(true);
             LimpaEstadoComponentes(false);
@@ -77,7 +77,7 @@ public class ControllerEndereco implements ActionListener {
                 LimpaEstadoComponentes(true);
 
                 Endereco endereco = new Endereco.EnderecoBuilder().createEndereco();
-                endereco = service.ServiceEndereco.Buscar(codigo);
+                endereco = com.mycompany.projetolojajpamaven.service.ServiceEndereco.Buscar(codigo);
 
                 this.telaCadastroEndereco.getjTextFieldId().setText(endereco.getId() + "");  //1
                 this.telaCadastroEndereco.getjTextFieldLogradouro().setText(endereco.getLogradouro());  //2

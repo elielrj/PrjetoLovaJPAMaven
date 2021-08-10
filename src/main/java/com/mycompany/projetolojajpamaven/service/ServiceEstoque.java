@@ -1,8 +1,8 @@
 package com.mycompany.projetolojajpamaven.service;
 
 import java.util.List;
-import model.bo.Estoque;
-import model.DAO.EstoqueDAO;
+import com.mycompany.projetolojajpamaven.model.bo.Estoque;
+import com.mycompany.projetolojajpamaven.model.DAO.EstoqueDAO;
 
 public class ServiceEstoque {
 

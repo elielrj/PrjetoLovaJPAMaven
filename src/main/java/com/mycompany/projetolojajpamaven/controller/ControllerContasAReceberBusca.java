@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.bo.ContaAReceber;
-import view.busca.TelaBuscaContaAReceber;
-import view.cadastro.TelaCadastroContaAReceber;
+import com.mycompany.projetolojajpamaven.model.bo.ContaAReceber;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaContaAReceber;
+import com.mycompany.projetolojajpamaven.view.cadastro.TelaCadastroContaAReceber;
 
 public class ControllerContasAReceberBusca implements ActionListener {
 
@@ -33,7 +33,7 @@ public class ControllerContasAReceberBusca implements ActionListener {
         DefaultTableModel tabela = (DefaultTableModel) this.telaBuscaContaAReceber.getjTable_ContaAReceber().getModel();
         tabela.getDataVector().removeAllElements();
         
-        for (ContaAReceber contaAReceberDaLista : service.ServiceContaAReceber.Buscar()) {
+        for (ContaAReceber contaAReceberDaLista : com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Buscar()) {
             tabela.addRow(new Object[]{
                 contaAReceberDaLista.getId(),
                 contaAReceberDaLista.getVendaId(),

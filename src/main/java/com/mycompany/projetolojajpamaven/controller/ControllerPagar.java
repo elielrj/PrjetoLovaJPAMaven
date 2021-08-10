@@ -9,11 +9,11 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import model.bo.Compra;
-import model.bo.Pagar;
-import view.busca.TelaBuscaCompra;
-import view.busca.TelaBuscaPagar;
-import view.cadastro.TelaCadastroPagar;
+import com.mycompany.projetolojajpamaven.model.bo.Compra;
+import com.mycompany.projetolojajpamaven.model.bo.Pagar;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaCompra;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaPagar;
+import com.mycompany.projetolojajpamaven.view.cadastro.TelaCadastroPagar;
 
 public class ControllerPagar implements ActionListener {
 
@@ -78,18 +78,18 @@ public class ControllerPagar implements ActionListener {
                     .setValorAcrescimo(Float.parseFloat(this.substituirVirgolaPorPonto(this.telaCadastroPagar.getjFormattedTextFieldValorAcrescimo().getText())))//6            
                     .setObservacao(this.telaCadastroPagar.getjTextAreaObs().getText())//7
                     .setContaAPagar(
-                            service.ServiceContaAPagar.BuscarIdDaContaAPagarPeloIdDaCompra(
+                            com.mycompany.projetolojajpamaven.service.ServiceContaAPagar.BuscarIdDaContaAPagarPeloIdDaCompra(
                                     Integer.parseInt(this.telaCadastroPagar.getjTextField_CompraId().getText())
                             )
                     )//8
                     .createPagar();
 
             if (codigo == 0) {
-                service.ServicePagar.Incluir(pagar);
+                com.mycompany.projetolojajpamaven.service.ServicePagar.Incluir(pagar);
                 
             } else {
                 pagar.setId(Integer.parseInt(this.telaCadastroPagar.getjTextFieldId().getText()));
-                service.ServicePagar.Atualizar(pagar);
+                com.mycompany.projetolojajpamaven.service.ServicePagar.Atualizar(pagar);
             }
             Ativa(true);
             LimpaEstadoComponentes(false);
@@ -104,13 +104,13 @@ public class ControllerPagar implements ActionListener {
             if (codigo != 0) {
                 Ativa(false);
                 LimpaEstadoComponentes(true);
-                Pagar pagar = service.ServicePagar.Buscar(codigo);
+                Pagar pagar = com.mycompany.projetolojajpamaven.service.ServicePagar.Buscar(codigo);
                 
                //ID'S
                 this.telaCadastroPagar.getjTextFieldId().setText(pagar.getId() + "");
                 this.telaCadastroPagar.getjTextField_CompraId().setText(pagar.getContaAPagar().getCompraId() + "");
                 //COMPRA
-                this.compra = service.ServiceCompra.Buscar(pagar.getContaAPagar().getCompraId());
+                this.compra = com.mycompany.projetolojajpamaven.service.ServiceCompra.Buscar(pagar.getContaAPagar().getCompraId());
                 this.telaCadastroPagar.getjTextField_CompraId().setText(pagar.getContaAPagar().getCompraId() + "");
                 this.telaCadastroPagar.getjTextField_CompraFornecedor().setText(compra.getFornecedor().getRazaoSocial());
                 this.telaCadastroPagar.getjFormattedTextField_CompraData().setText(compra.getData());
@@ -147,7 +147,7 @@ public class ControllerPagar implements ActionListener {
                 telaBuscaCompra.setVisible(true);
 
                 //VENDA
-                compra = service.ServiceCompra.Buscar(telaBuscaCompra.getIdCompra());
+                compra = com.mycompany.projetolojajpamaven.service.ServiceCompra.Buscar(telaBuscaCompra.getIdCompra());
                 this.telaCadastroPagar.getjTextField_CompraFornecedor().setText(compra.getFornecedor().getRazaoSocial());
                 this.telaCadastroPagar.getjFormattedTextField_CompraData().setText(compra.getData());
                 this.telaCadastroPagar.getjFormattedTextField_CompraValor().setText(compra.getValorTotal() + "");

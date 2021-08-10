@@ -1,8 +1,8 @@
 package com.mycompany.projetolojajpamaven.service;
 
 import java.util.List;
-import model.bo.ContaAReceber;
-import model.DAO.ContaAReceberDAO;
+import com.mycompany.projetolojajpamaven.model.bo.ContaAReceber;
+import com.mycompany.projetolojajpamaven.model.DAO.ContaAReceberDAO;
 
 public class ServiceContaAReceber {
 

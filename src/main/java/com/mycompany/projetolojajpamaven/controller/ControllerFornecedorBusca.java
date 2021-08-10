@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import view.busca.TelaBuscaFornecedor;
-import model.bo.Fornecedor;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaFornecedor;
+import com.mycompany.projetolojajpamaven.model.bo.Fornecedor;
 
 public class ControllerFornecedorBusca implements ActionListener {
 
@@ -34,7 +34,7 @@ public class ControllerFornecedorBusca implements ActionListener {
             this.telaBuscaFornecedor.dispose();
         }else if(e.getSource() == this.telaBuscaFornecedor.getjButton_Deletar()) {
             try{
-                service.ServiceFornecedor.Deletar(
+                com.mycompany.projetolojajpamaven.service.ServiceFornecedor.Deletar(
                         (int) this.telaBuscaFornecedor.getjTable_Fornecedor().getValueAt(
                                 this.telaBuscaFornecedor.getjTable_Fornecedor().getSelectedRow(),0
                         )
@@ -55,7 +55,7 @@ public class ControllerFornecedorBusca implements ActionListener {
         DefaultTableModel tabela = (DefaultTableModel) this.telaBuscaFornecedor.getjTable_Fornecedor().getModel();
         tabela.getDataVector().removeAllElements();
         
-        for (Fornecedor fornecedorDaLista : service.ServiceFornecedor.Buscar()) {
+        for (Fornecedor fornecedorDaLista : com.mycompany.projetolojajpamaven.service.ServiceFornecedor.Buscar()) {
             tabela.addRow(new Object[]{
                 fornecedorDaLista.getId(),
                 fornecedorDaLista.getRazaoSocial(),

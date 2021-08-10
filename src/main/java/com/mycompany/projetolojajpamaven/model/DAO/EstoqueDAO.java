@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import model.bo.Estoque;
+import com.mycompany.projetolojajpamaven.model.bo.Estoque;
 import java.util.ArrayList;
 
 public class EstoqueDAO implements InterfaceDAO<Estoque> {

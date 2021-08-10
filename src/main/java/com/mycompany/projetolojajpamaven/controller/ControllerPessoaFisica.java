@@ -7,12 +7,12 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import model.bo.Bairro;
-import model.bo.PessoaFisica;
-import model.bo.Endereco;
+import com.mycompany.projetolojajpamaven.model.bo.Bairro;
+import com.mycompany.projetolojajpamaven.model.bo.PessoaFisica;
+import com.mycompany.projetolojajpamaven.model.bo.Endereco;
 
-import view.busca.TelaBuscaPessoaFisica;
-import view.cadastro.TelaCadastroPessoaFisica;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaPessoaFisica;
+import com.mycompany.projetolojajpamaven.view.cadastro.TelaCadastroPessoaFisica;
 
 public class ControllerPessoaFisica implements ActionListener {
 
@@ -71,11 +71,11 @@ public class ControllerPessoaFisica implements ActionListener {
                     .createPessoaFisica();
 
             if (codigo == 0) {
-                service.ServicePessoaFisica.Incluir(pessoaFisica);
+                com.mycompany.projetolojajpamaven.service.ServicePessoaFisica.Incluir(pessoaFisica);
             } else {
                 pessoaFisica.setId(Integer.parseInt(this.telaCadastroPessoaFisica.getjTextFieldId().getText()));
                 pessoaFisica.getEndereco().setId(Integer.parseInt(this.telaCadastroPessoaFisica.getjTextField_EnderecoId().getText()));
-                service.ServicePessoaFisica.Atualizar(pessoaFisica);
+                com.mycompany.projetolojajpamaven.service.ServicePessoaFisica.Atualizar(pessoaFisica);
             }
             Ativa(true);
             LimpaEstadoComponentes(false);
@@ -91,7 +91,7 @@ public class ControllerPessoaFisica implements ActionListener {
                 Ativa(false);
                 LimpaEstadoComponentes(true);
 
-                PessoaFisica pessoaFisica = service.ServicePessoaFisica.Buscar(codigo);
+                PessoaFisica pessoaFisica = com.mycompany.projetolojajpamaven.service.ServicePessoaFisica.Buscar(codigo);
 
                 this.telaCadastroPessoaFisica.getjTextFieldId().setText(pessoaFisica.getId() + "");//1
                 this.telaCadastroPessoaFisica.getjTextFieldNome().setText(pessoaFisica.getNome());//2

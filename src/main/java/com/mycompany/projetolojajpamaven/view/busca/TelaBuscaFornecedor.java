@@ -7,7 +7,7 @@ package com.mycompany.projetolojajpamaven.view.busca;
 
 import javax.swing.JButton;
 import javax.swing.JTable;
-import view.FormModeloBuscas;
+import com.mycompany.projetolojajpamaven.view.FormModeloBuscas;
 
 /**
  *

@@ -7,12 +7,12 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import model.bo.Bairro;
-import model.bo.Fornecedor;
-import model.bo.Endereco;
+import com.mycompany.projetolojajpamaven.model.bo.Bairro;
+import com.mycompany.projetolojajpamaven.model.bo.Fornecedor;
+import com.mycompany.projetolojajpamaven.model.bo.Endereco;
 
-import view.busca.TelaBuscaFornecedor;
-import view.cadastro.TelaCadastroFornecedor;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaFornecedor;
+import com.mycompany.projetolojajpamaven.view.cadastro.TelaCadastroFornecedor;
 
 public class ControllerFornecedor implements ActionListener {
 
@@ -70,12 +70,12 @@ public class ControllerFornecedor implements ActionListener {
                     .createFornecedor();
 
             if (codigo == 0) {
-                service.ServiceFornecedor.Incluir(fornecedor);
+                com.mycompany.projetolojajpamaven.service.ServiceFornecedor.Incluir(fornecedor);
             } else {
                 
                 fornecedor.setId(Integer.parseInt(this.telaCadastroFornecedor.getjTextFieldId().getText())); //1
                 fornecedor.getEndereco().setId(Integer.parseInt(this.telaCadastroFornecedor.getjTextField_EnderecoID().getText())); //2
-                service.ServiceFornecedor.Atualizar(fornecedor);
+                com.mycompany.projetolojajpamaven.service.ServiceFornecedor.Atualizar(fornecedor);
             }
             Ativa(true);
             LimpaEstadoComponentes(false);
@@ -90,7 +90,7 @@ public class ControllerFornecedor implements ActionListener {
             if (codigo != 0) {
                 Ativa(false);
                 LimpaEstadoComponentes(true);
-                Fornecedor fornecedor = service.ServiceFornecedor.Buscar(codigo);
+                Fornecedor fornecedor = com.mycompany.projetolojajpamaven.service.ServiceFornecedor.Buscar(codigo);
 
                 this.telaCadastroFornecedor.getjTextFieldId().setText(fornecedor.getId() + "");//1
                 this.telaCadastroFornecedor.getjTextFieldRazaoSocial().setText(fornecedor.getRazaoSocial());//2

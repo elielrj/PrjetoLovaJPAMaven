@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.bo.Pagar;
-import view.busca.TelaBuscaPagar;
+import com.mycompany.projetolojajpamaven.model.bo.Pagar;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaPagar;
 
 public class ControllerPagarBusca implements ActionListener {
 
@@ -34,7 +34,7 @@ public class ControllerPagarBusca implements ActionListener {
             this.telaBuscaPagar.dispose();
         }else if (e.getSource() == this.telaBuscaPagar.getjButton_Deletar()){
             try{
-                service.ServicePagar.Deletar((int) this.telaBuscaPagar.getjTable_PagarBusca().getValueAt(
+                com.mycompany.projetolojajpamaven.service.ServicePagar.Deletar((int) this.telaBuscaPagar.getjTable_PagarBusca().getValueAt(
                         this.telaBuscaPagar.getjTable_PagarBusca().getSelectedRow(),0)); 
                 JOptionPane.showMessageDialog(null, "Pagar deletado com sucesso!");
                 carregarDadosNaTabela();
@@ -52,7 +52,7 @@ public class ControllerPagarBusca implements ActionListener {
         DefaultTableModel tabela = (DefaultTableModel) this.telaBuscaPagar.getjTable_PagarBusca().getModel();
         tabela.getDataVector().removeAllElements();
 
-        for (Pagar pagamentosDaLista : service.ServicePagar.Buscar()) {
+        for (Pagar pagamentosDaLista : com.mycompany.projetolojajpamaven.service.ServicePagar.Buscar()) {
             tabela.addRow(new Object[]{
                 pagamentosDaLista.getId(),
                 pagamentosDaLista.getDataPagamento(),

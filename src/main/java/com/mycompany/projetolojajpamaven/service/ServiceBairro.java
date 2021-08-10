@@ -1,8 +1,8 @@
 package com.mycompany.projetolojajpamaven.service;
 
 import java.util.List;
-import model.bo.Bairro;
-import model.DAO.BairroDAO;
+import com.mycompany.projetolojajpamaven.model.bo.Bairro;
+import com.mycompany.projetolojajpamaven.model.DAO.BairroDAO;
 
 public class ServiceBairro {
 

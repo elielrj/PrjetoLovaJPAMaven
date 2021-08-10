@@ -1,8 +1,8 @@
 package com.mycompany.projetolojajpamaven.service;
 
 import java.util.List;
-import model.bo.Compra;
-import model.DAO.CompraDAO;
+import com.mycompany.projetolojajpamaven.model.bo.Compra;
+import com.mycompany.projetolojajpamaven.model.DAO.CompraDAO;
 
 public class ServiceCompra {
 

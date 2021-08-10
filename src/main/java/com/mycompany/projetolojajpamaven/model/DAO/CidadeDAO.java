@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import model.bo.Cidade;
+import com.mycompany.projetolojajpamaven.model.bo.Cidade;
 import java.util.ArrayList;
 
 public class CidadeDAO implements InterfaceDAO<Cidade> {

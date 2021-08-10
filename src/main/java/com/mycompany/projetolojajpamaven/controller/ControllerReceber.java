@@ -10,12 +10,12 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import model.bo.ContaAReceber;
-import model.bo.Receber;
-import model.bo.Venda;
-import view.busca.TelaBuscaReceber;
-import view.busca.TelaBuscaVenda;
-import view.cadastro.TelaCadastroReceber;
+import com.mycompany.projetolojajpamaven.model.bo.ContaAReceber;
+import com.mycompany.projetolojajpamaven.model.bo.Receber;
+import com.mycompany.projetolojajpamaven.model.bo.Venda;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaReceber;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaVenda;
+import com.mycompany.projetolojajpamaven.view.cadastro.TelaCadastroReceber;
 
 public class ControllerReceber implements ActionListener {
 
@@ -78,17 +78,17 @@ public class ControllerReceber implements ActionListener {
                     .setValorRecebido(Float.parseFloat(substituirVirgolaPorPonto(this.telaCadastroReceber.getjFormattedTextFieldValorPago().getText())))//6
                     .setObservacao(this.telaCadastroReceber.getjTextAreaObs().getText())//7
                     .setContaAReceber(
-                            service.ServiceContaAReceber.BuscarIdDaContaAReceberPeloIdDaVenda(
+                            com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.BuscarIdDaContaAReceberPeloIdDaVenda(
                                     Integer.parseInt(this.telaCadastroReceber.getjTextField_VendaId().getText())
                             )
                     )//8
                     .createReceber();
             if (codigo == 0) {
-                service.ServiceReceber.Incluir(receber);
+                com.mycompany.projetolojajpamaven.service.ServiceReceber.Incluir(receber);
                 atualizarStatusDeContasAReceber(receber);
             } else {
                 receber.setId(Integer.parseInt(substituirVirgolaPorPonto(this.telaCadastroReceber.getjTextFieldId().getText())));//1
-                service.ServiceReceber.Atualizar(receber);
+                com.mycompany.projetolojajpamaven.service.ServiceReceber.Atualizar(receber);
                 atualizarStatusDeContasAReceber(receber);
             }
             Ativa(true);
@@ -104,12 +104,12 @@ public class ControllerReceber implements ActionListener {
             if (codigo != 0) {
                 Ativa(false);
                 LimpaEstadoComponentes(true);
-                Receber receber = service.ServiceReceber.Buscar(codigo);
+                Receber receber = com.mycompany.projetolojajpamaven.service.ServiceReceber.Buscar(codigo);
                 //ID'S
                 this.telaCadastroReceber.getjTextFieldId().setText(receber.getId() + "");
                 this.telaCadastroReceber.getjTextField_VendaId().setText(receber.getContaAReceber().getVendaId() + "");
                 //VENDA
-                this.venda = service.ServiceVenda.Buscar(receber.getContaAReceber().getVendaId());
+                this.venda = com.mycompany.projetolojajpamaven.service.ServiceVenda.Buscar(receber.getContaAReceber().getVendaId());
                 this.telaCadastroReceber.getjTextField_VendaId().setText(receber.getContaAReceber().getVendaId() + "");
                 this.telaCadastroReceber.getjTextField_VendaCliente().setText(venda.getPessoaFisica().getNome());
                 this.telaCadastroReceber.getjFormattedTextField_VendaData().setText(venda.getData());
@@ -145,7 +145,7 @@ public class ControllerReceber implements ActionListener {
             telaBuscaVenda.setVisible(true);
 
             //VENDA
-            venda = service.ServiceVenda.Buscar(telaBuscaVenda.getIdVenda());
+            venda = com.mycompany.projetolojajpamaven.service.ServiceVenda.Buscar(telaBuscaVenda.getIdVenda());
             this.telaCadastroReceber.getjTextField_VendaCliente().setText(venda.getPessoaFisica().getNome());
             this.telaCadastroReceber.getjFormattedTextField_VendaData().setText(venda.getData());
             this.telaCadastroReceber.getjFormattedTextField_VendaValor().setText(venda.getValorTotal() + "");
@@ -255,20 +255,20 @@ public class ControllerReceber implements ActionListener {
 
     private void atualizarStatusDeContasAReceber(Receber receber) {
 
-        List<Receber> recebimentosDeUmaVenda = service.ServiceReceber.BuscarPorVendasRecebidas(receber.getContaAReceber().getId());
+        List<Receber> recebimentosDeUmaVenda = com.mycompany.projetolojajpamaven.service.ServiceReceber.BuscarPorVendasRecebidas(receber.getContaAReceber().getId());
         
         float totalRecebido = 0;
         for( Receber r : recebimentosDeUmaVenda){
             totalRecebido += r.getValorRecebido();
         }
         
-        ContaAReceber contaAReceber = service.ServiceContaAReceber.Buscar(receber.getContaAReceber().getId());
+        ContaAReceber contaAReceber = com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Buscar(receber.getContaAReceber().getId());
         
         float resultado = contaAReceber.getValor() - totalRecebido;
         
         if(resultado <= 0){
             contaAReceber.setStatus(false);
-            service.ServiceContaAReceber.Atualizar(contaAReceber);
+            com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Atualizar(contaAReceber);
         }
 
     }

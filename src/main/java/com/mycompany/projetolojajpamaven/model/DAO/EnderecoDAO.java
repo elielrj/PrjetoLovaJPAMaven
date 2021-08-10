@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import model.bo.Endereco;
+import com.mycompany.projetolojajpamaven.model.bo.Endereco;
 import java.util.ArrayList;
 
 public class EnderecoDAO implements InterfaceDAO<Endereco> {
@@ -45,7 +45,7 @@ public class EnderecoDAO implements InterfaceDAO<Endereco> {
                         .setLogradouro(rs.getString("logradouro"))
                         .setNumero(rs.getString("numero"))
                         .setBairro(
-                                service.ServiceBairro.Buscar(rs.getInt("bairroid"))
+                                com.mycompany.projetolojajpamaven.service.ServiceBairro.Buscar(rs.getInt("bairroid"))
                         )
                         .setCep(rs.getString("cep"))
                         .setStatus(rs.getBoolean("status"))
@@ -77,7 +77,7 @@ public class EnderecoDAO implements InterfaceDAO<Endereco> {
                 endereco.setLogradouro(rs.getString("logradouro"));
                 endereco.setNumero(rs.getString("numero"));
                 endereco.setBairro(
-                    service.ServiceBairro.Buscar(rs.getInt("bairroid"))
+                    com.mycompany.projetolojajpamaven.service.ServiceBairro.Buscar(rs.getInt("bairroid"))
                 );
                 endereco.setCep(rs.getString("cep"));
                 endereco.setStatus(rs.getBoolean("status"));

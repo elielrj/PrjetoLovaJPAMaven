@@ -1,9 +1,9 @@
 package com.mycompany.projetolojajpamaven.service;
 
 import java.util.List;
-import model.bo.Venda;
-import model.DAO.VendaDAO;
-import model.bo.PessoaFisica;
+import com.mycompany.projetolojajpamaven.model.bo.Venda;
+import com.mycompany.projetolojajpamaven.model.DAO.VendaDAO;
+import com.mycompany.projetolojajpamaven.model.bo.PessoaFisica;
 
 public class ServiceVenda {
 

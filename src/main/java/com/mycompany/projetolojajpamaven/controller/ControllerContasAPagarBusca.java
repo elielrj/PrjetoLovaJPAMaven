@@ -4,11 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import view.busca.TelaBuscaBairro;
-import model.bo.Bairro;
-import model.bo.ContaAPagar;
-import model.bo.ContaAPagar;
-import view.busca.TelaBuscaContaAPagar;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaBairro;
+import com.mycompany.projetolojajpamaven.model.bo.Bairro;
+import com.mycompany.projetolojajpamaven.model.bo.ContaAPagar;
+import com.mycompany.projetolojajpamaven.model.bo.ContaAPagar;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaContaAPagar;
 
 public class ControllerContasAPagarBusca implements ActionListener {
 
@@ -34,7 +34,7 @@ public class ControllerContasAPagarBusca implements ActionListener {
         DefaultTableModel tabela = (DefaultTableModel) this.telaBuscaContaAPagar.getjTable_ContasAPagar().getModel();
         tabela.getDataVector().removeAllElements();
         
-        for (ContaAPagar contaAPagarDaLista : service.ServiceContaAPagar.Buscar()) {
+        for (ContaAPagar contaAPagarDaLista : com.mycompany.projetolojajpamaven.service.ServiceContaAPagar.Buscar()) {
             tabela.addRow(new Object[]{
                 contaAPagarDaLista.getId(),
                 contaAPagarDaLista.getCompraId(),

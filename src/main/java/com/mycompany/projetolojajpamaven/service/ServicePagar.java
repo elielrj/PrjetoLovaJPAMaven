@@ -1,8 +1,8 @@
 package com.mycompany.projetolojajpamaven.service;
 
 import java.util.List;
-import model.bo.Pagar;
-import model.DAO.PagarDAO;
+import com.mycompany.projetolojajpamaven.model.bo.Pagar;
+import com.mycompany.projetolojajpamaven.model.DAO.PagarDAO;
 
 public class ServicePagar {
 

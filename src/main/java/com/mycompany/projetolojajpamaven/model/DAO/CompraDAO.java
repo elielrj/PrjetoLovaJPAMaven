@@ -1,12 +1,12 @@
 package com.mycompany.projetolojajpamaven.model.DAO;
 
 import java.util.List;
-import model.bo.Compra;
+import com.mycompany.projetolojajpamaven.model.bo.Compra;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import model.bo.ContaAPagar;
+import com.mycompany.projetolojajpamaven.model.bo.ContaAPagar;
 
 public class CompraDAO implements InterfaceDAO<Compra> {
 
@@ -60,7 +60,7 @@ public class CompraDAO implements InterfaceDAO<Compra> {
                         .setValorTotal(rs.getFloat("valortotal"))
                         .setStatus(rs.getBoolean("status"))
                         .setFornecedor(
-                                service.ServiceFornecedor.Buscar(rs.getInt("fornecedorid"))
+                                com.mycompany.projetolojajpamaven.service.ServiceFornecedor.Buscar(rs.getInt("fornecedorid"))
                         )
                         .createCompra();
 
@@ -104,7 +104,7 @@ public class CompraDAO implements InterfaceDAO<Compra> {
                 compra.setStatus(rs.getBoolean("status"));
 
                 compra.setFornecedor(
-                        service.ServiceFornecedor.Buscar(rs.getInt("fornecedorid"))
+                        com.mycompany.projetolojajpamaven.service.ServiceFornecedor.Buscar(rs.getInt("fornecedorid"))
                 );
             }
             ConectionFactory.closeConnection(conexao, pstm, rs);
@@ -153,8 +153,8 @@ public class CompraDAO implements InterfaceDAO<Compra> {
             pstm.setInt(1, objeto.getId());
             pstm.executeUpdate();
 
-            ContaAPagar contaAPagar = service.ServiceContaAPagar.BuscarIdDaContaAPagarPeloIdDaCompra(objeto.getId());
-            service.ServiceContaAPagar.Deletar(contaAPagar);
+            ContaAPagar contaAPagar = com.mycompany.projetolojajpamaven.service.ServiceContaAPagar.BuscarIdDaContaAPagarPeloIdDaCompra(objeto.getId());
+            com.mycompany.projetolojajpamaven.service.ServiceContaAPagar.Deletar(contaAPagar);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -195,8 +195,8 @@ public class CompraDAO implements InterfaceDAO<Compra> {
             pstm = conexao.prepareStatement(SQL.COMPRA_DELETE);
             pstm.setInt(1, idDaCompra);
             pstm.executeUpdate();
-            ContaAPagar contaAPagar = service.ServiceContaAPagar.BuscarIdDaContaAPagarPeloIdDaCompra(idDaCompra);
-            service.ServiceContaAPagar.Deletar(contaAPagar);
+            ContaAPagar contaAPagar = com.mycompany.projetolojajpamaven.service.ServiceContaAPagar.BuscarIdDaContaAPagarPeloIdDaCompra(idDaCompra);
+            com.mycompany.projetolojajpamaven.service.ServiceContaAPagar.Deletar(contaAPagar);
             ConectionFactory.closeConnection(conexao, pstm);
         } catch (Exception ex) {
             throw new RuntimeException(" \nCLASSE: CompraDAO->Delete\nMENSAGEM:"

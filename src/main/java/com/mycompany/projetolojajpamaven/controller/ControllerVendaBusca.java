@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.bo.ContaAReceber;
-import model.bo.Estoque;
-import model.bo.ItemDeVenda;
-import view.busca.TelaBuscaVenda;
-import model.bo.Venda;
+import com.mycompany.projetolojajpamaven.model.bo.ContaAReceber;
+import com.mycompany.projetolojajpamaven.model.bo.Estoque;
+import com.mycompany.projetolojajpamaven.model.bo.ItemDeVenda;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaVenda;
+import com.mycompany.projetolojajpamaven.model.bo.Venda;
 
 public class ControllerVendaBusca implements ActionListener {
 
@@ -40,7 +40,7 @@ public class ControllerVendaBusca implements ActionListener {
             this.telaBuscaVenda.dispose();
         } else if (e.getSource() == this.telaBuscaVenda.getjButton_deletar()) {
             Venda venda
-                    = service.ServiceVenda.Buscar(
+                    = com.mycompany.projetolojajpamaven.service.ServiceVenda.Buscar(
                             (int) this.telaBuscaVenda.getjTable_BuscaVendas().getValueAt(
                                     this.telaBuscaVenda.getjTable_BuscaVendas().getSelectedRow(), 0)
                     );
@@ -48,21 +48,21 @@ public class ControllerVendaBusca implements ActionListener {
 
             //1º RECEBER
             //2º CONTAS A RECEBER
-            ContaAReceber contaAReceber = service.ServiceContaAReceber.BuscarIdDaContaAReceberPeloIdDaVenda(venda.getId());
-            service.ServiceContaAReceber.Deletar(contaAReceber);
+            ContaAReceber contaAReceber = com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.BuscarIdDaContaAReceberPeloIdDaVenda(venda.getId());
+            com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Deletar(contaAReceber);
             //3º ITEM DE VENDA
-            List<ItemDeVenda> itensDeVenda = service.ServiceItemDeVenda.BuscarUmaListaDeItemDeVendaPeloIdDaVenda(venda.getId());
+            List<ItemDeVenda> itensDeVenda = com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.BuscarUmaListaDeItemDeVendaPeloIdDaVenda(venda.getId());
             for (ItemDeVenda item : itensDeVenda) {
-                service.ServiceItemDeVenda.Deletar(item);
+                com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.Deletar(item);
             }
             //4º ESTOQUE
             for (ItemDeVenda item : itensDeVenda) {
-                Estoque estoque = service.ServiceEstoque.BuscarEstoquePorIdDoProduto(item.getProduto().getId());
+                Estoque estoque = com.mycompany.projetolojajpamaven.service.ServiceEstoque.BuscarEstoquePorIdDoProduto(item.getProduto().getId());
                 estoque.setQuantidade(estoque.getQuantidade() + item.getQuantidade());
-                service.ServiceEstoque.Atualizar(estoque);
+                com.mycompany.projetolojajpamaven.service.ServiceEstoque.Atualizar(estoque);
             }
             //5º VENDA
-            service.ServiceVenda.Deletar(venda);
+            com.mycompany.projetolojajpamaven.service.ServiceVenda.Deletar(venda);
             JOptionPane.showMessageDialog(null, "Venda deletado com sucesso!");
             carregarDadosNaTabela();
             /*} catch (Exception ex) {
@@ -79,7 +79,7 @@ public class ControllerVendaBusca implements ActionListener {
 
         DefaultTableModel tabela = (DefaultTableModel) this.telaBuscaVenda.getjTable_BuscaVendas().getModel();
         tabela.getDataVector().removeAllElements();
-        List<Venda> vendas = service.ServiceVenda.Buscar();
+        List<Venda> vendas = com.mycompany.projetolojajpamaven.service.ServiceVenda.Buscar();
         for (Venda vendaDaLista : vendas) {
             if (vendas.size() > 0) {
                 tabela.addRow(new Object[]{

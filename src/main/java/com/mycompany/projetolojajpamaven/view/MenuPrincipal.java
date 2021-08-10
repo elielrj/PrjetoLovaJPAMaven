@@ -1,9 +1,9 @@
 
 package com.mycompany.projetolojajpamaven.view;
 
-import view.cadastro.*;
-import view.busca.*;
-import controller.*;
+import com.mycompany.projetolojajpamaven.view.cadastro.*;
+import com.mycompany.projetolojajpamaven.view.busca.*;
+import com.mycompany.projetolojajpamaven.controller.*;
 
 public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal() {
@@ -460,7 +460,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         TelaBuscaVenda telaBuscaVenda = new TelaBuscaVenda();
-        ControllerVendaBusca controllerVendaBusca = new controller.ControllerVendaBusca(telaBuscaVenda);
+        ControllerVendaBusca controllerVendaBusca = new ControllerVendaBusca(telaBuscaVenda);
         telaBuscaVenda.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 

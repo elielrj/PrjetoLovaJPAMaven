@@ -6,7 +6,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import view.FormModeloCadastros;
+import com.mycompany.projetolojajpamaven.view.FormModeloCadastros;
 
 public class TelaCadastroProduto extends javax.swing.JFrame {
 
@@ -55,7 +55,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         jTextField_EstoqueID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Formul√°rio de Cadastro de Produtos");
+        setTitle("Formul·rio de Cadastro de Produtos");
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
@@ -140,7 +140,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Descri√ß√£o");
+        jLabel2.setText("DescriÁ„o");
 
         jTextFieldDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,7 +152,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         jLabel4.setText("Unidade de Venda");
 
-        jLabel5.setText("Correla√ß√£o");
+        jLabel5.setText("CorrelaÁ„o");
 
         jLabel6.setText("Valor do Produto");
 
@@ -170,7 +170,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setText("C√≥d Barras");
+        jLabel8.setText("CÛd Barras");
 
         jLabel9.setText("Ativo?");
 
@@ -180,7 +180,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setText("Observa√ß√£o:");
+        jLabel10.setText("ObservaÁ„o:");
 
         jTextAreaObs.setColumns(20);
         jTextAreaObs.setRows(5);

@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import view.busca.TelaBuscaPessoaFisica;
-import model.bo.PessoaFisica;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaPessoaFisica;
+import com.mycompany.projetolojajpamaven.model.bo.PessoaFisica;
 
 public class ControllerPessoaFisicaAlunoBusca implements ActionListener {
 
@@ -34,7 +34,7 @@ public class ControllerPessoaFisicaAlunoBusca implements ActionListener {
             this.telaBuscaPessoaFisica.dispose();
         } else if (e.getSource() == this.telaBuscaPessoaFisica.getjButton_Deletar()) {
             try {
-                service.ServicePessoaFisica.Deletar(
+                com.mycompany.projetolojajpamaven.service.ServicePessoaFisica.Deletar(
                         (int) this.telaBuscaPessoaFisica.getjTable1().getValueAt(
                                 this.telaBuscaPessoaFisica.getjTable1().getSelectedRow(), 0
                         )
@@ -56,7 +56,7 @@ public class ControllerPessoaFisicaAlunoBusca implements ActionListener {
         DefaultTableModel tabela = (DefaultTableModel) this.telaBuscaPessoaFisica.getjTable1().getModel();
         tabela.getDataVector().removeAllElements();
 
-        for (PessoaFisica pessoaFisica : service.ServicePessoaFisica.BuscarAluno()) {
+        for (PessoaFisica pessoaFisica : com.mycompany.projetolojajpamaven.service.ServicePessoaFisica.BuscarAluno()) {
             tabela.addRow(new Object[]{
                 pessoaFisica.getId(),
                 pessoaFisica.getNome(),

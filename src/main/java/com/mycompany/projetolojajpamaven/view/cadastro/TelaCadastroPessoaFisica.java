@@ -14,13 +14,13 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import model.bo.Bairro;
-import model.bo.Cidade;
-import model.bo.Endereco;
-import controller.ControllerEndereco;
+import com.mycompany.projetolojajpamaven.model.bo.Bairro;
+import com.mycompany.projetolojajpamaven.model.bo.Cidade;
+import com.mycompany.projetolojajpamaven.model.bo.Endereco;
+import com.mycompany.projetolojajpamaven.controller.ControllerEndereco;
 import javax.swing.JTextArea;
-import service.ServiceEndereco;
-import view.FormModeloCadastros;
+import com.mycompany.projetolojajpamaven.service.ServiceEndereco;
+import com.mycompany.projetolojajpamaven.view.FormModeloCadastros;
 
 
 public class TelaCadastroPessoaFisica extends javax.swing.JFrame {
@@ -34,11 +34,11 @@ public class TelaCadastroPessoaFisica extends javax.swing.JFrame {
         jComboBoxTipo.addItem("Aluno");
         jComboBoxTipo.addItem("Personal");
         
-        for (Bairro b : service.ServiceBairro.Buscar()){
+        for (Bairro b : com.mycompany.projetolojajpamaven.service.ServiceBairro.Buscar()){
             jComboBox_EnderecoBairro.addItem(b);
         }
         
-        for (Cidade c : service.ServiceCidade.Buscar()){
+        for (Cidade c : com.mycompany.projetolojajpamaven.service.ServiceCidade.Buscar()){
             jComboBox_EnderecoCidade.addItem(c);
         }
 
@@ -102,7 +102,7 @@ public class TelaCadastroPessoaFisica extends javax.swing.JFrame {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("FormulÃ¡rio de Cadastro de ...");
+        setTitle("Formulário de Cadastro de ...");
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
@@ -266,7 +266,7 @@ public class TelaCadastroPessoaFisica extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTextAreaObservacao);
 
-        jLabel6.setText("ObservaÃ§Ã£o");
+        jLabel6.setText("Observação");
 
         jComboBoxStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,13 +290,13 @@ public class TelaCadastroPessoaFisica extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("NÃºmero");
+        jLabel3.setText("Número");
 
         jLabel14.setText("Cidade");
 
         jLabel15.setText("Bairro");
 
-        jLabel16.setText("Id EndereÃ§o");
+        jLabel16.setText("Id Endereço");
 
         jTextField_Complemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

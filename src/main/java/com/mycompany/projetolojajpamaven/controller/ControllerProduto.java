@@ -7,10 +7,10 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import model.bo.Estoque;
-import model.bo.Produto;
-import view.busca.TelaBuscaProduto;
-import view.cadastro.TelaCadastroProduto;
+import com.mycompany.projetolojajpamaven.model.bo.Estoque;
+import com.mycompany.projetolojajpamaven.model.bo.Produto;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaProduto;
+import com.mycompany.projetolojajpamaven.view.cadastro.TelaCadastroProduto;
 
 public class ControllerProduto implements ActionListener {
 
@@ -60,21 +60,21 @@ public class ControllerProduto implements ActionListener {
             
             
             if (codigo == 0) {
-                service.ServiceProduto.Incluir(produto);
+                com.mycompany.projetolojajpamaven.service.ServiceProduto.Incluir(produto);
                 
-                produto = service.ServiceProduto.Buscar(produto.getCodigoDeBarras());
+                produto = com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar(produto.getCodigoDeBarras());
                 estoque.setProdutoId(produto.getId());
-                service.ServiceEstoque.Incluir(estoque);
+                com.mycompany.projetolojajpamaven.service.ServiceEstoque.Incluir(estoque);
                 
                 
             } else {
                 produto.setId(Integer.parseInt(this.telaCadastroProduto.getjTextFieldId().getText()));
-                service.ServiceProduto.Atualizar(produto);
+                com.mycompany.projetolojajpamaven.service.ServiceProduto.Atualizar(produto);
                 
                 estoque.setProdutoId(produto.getId());                
                 estoque.setId(Integer.parseInt(this.telaCadastroProduto.getjTextField_EstoqueID().getText()));
                         
-                service.ServiceEstoque.Atualizar(estoque);
+                com.mycompany.projetolojajpamaven.service.ServiceEstoque.Atualizar(estoque);
 
             }
             Ativa(true);
@@ -90,7 +90,7 @@ public class ControllerProduto implements ActionListener {
             if (codigo != 0) {
                 Ativa(false);
                 LimpaEstadoComponentes(true);
-                Produto produto = service.ServiceProduto.Buscar(codigo);
+                Produto produto = com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar(codigo);
                 
                 this.telaCadastroProduto.getjTextFieldId().setText(produto.getId() + "");//1
                 this.telaCadastroProduto.getjTextFieldDescricao().setText(produto.getDescricao());//2
@@ -102,7 +102,7 @@ public class ControllerProduto implements ActionListener {
                 this.telaCadastroProduto.getjComboBoxStatus().setSelectedItem(produto.getStatus());//8
                 this.telaCadastroProduto.getjTextAreaObs().setText(produto.getObservacao());//9
                 
-                Estoque estoque = service.ServiceEstoque.BuscarEstoquePorIdPeloProduto(produto.getId());
+                Estoque estoque = com.mycompany.projetolojajpamaven.service.ServiceEstoque.BuscarEstoquePorIdPeloProduto(produto.getId());
                 this.telaCadastroProduto.getjTextFieldQtdEstoque().setText(estoque.getQuantidade()+"");
                 this.telaCadastroProduto.getjTextField_EstoqueID().setText(estoque.getId()+"");
                 

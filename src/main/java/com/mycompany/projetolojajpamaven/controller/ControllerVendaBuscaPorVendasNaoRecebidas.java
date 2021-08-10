@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.bo.ContaAReceber;
-import model.bo.Estoque;
-import model.bo.ItemDeVenda;
-import view.busca.TelaBuscaVenda;
-import model.bo.Venda;
+import com.mycompany.projetolojajpamaven.model.bo.ContaAReceber;
+import com.mycompany.projetolojajpamaven.model.bo.Estoque;
+import com.mycompany.projetolojajpamaven.model.bo.ItemDeVenda;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaVenda;
+import com.mycompany.projetolojajpamaven.model.bo.Venda;
 
 public class ControllerVendaBuscaPorVendasNaoRecebidas implements ActionListener {
 
@@ -46,7 +46,7 @@ public class ControllerVendaBuscaPorVendasNaoRecebidas implements ActionListener
 
         DefaultTableModel tabela = (DefaultTableModel) this.telaBuscaVenda.getjTable_BuscaVendas().getModel();
         tabela.getDataVector().removeAllElements();
-        List<Venda> vendas = service.ServiceVenda.Buscar();
+        List<Venda> vendas = com.mycompany.projetolojajpamaven.service.ServiceVenda.Buscar();
         for (Venda vendaDaLista : vendas) {
                 tabela.addRow(new Object[]{
                     vendaDaLista.getId(),//1

@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import view.busca.TelaBuscaEndereco;
-import model.bo.Endereco;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaEndereco;
+import com.mycompany.projetolojajpamaven.model.bo.Endereco;
 
 public class ControllerEnderecoBusca implements ActionListener {
 
@@ -31,7 +31,7 @@ public class ControllerEnderecoBusca implements ActionListener {
             this.telaBuscaEndereco.dispose();
         } else if(e.getSource() == this.telaBuscaEndereco.getjButton_Deletar()) {
             try{
-                service.ServiceEndereco.Deletar(
+                com.mycompany.projetolojajpamaven.service.ServiceEndereco.Deletar(
                         (int) this.telaBuscaEndereco.getjTable_Enderecos().getValueAt(
                                 this.telaBuscaEndereco.getjTable_Enderecos().getSelectedRow(),0
                         )
@@ -51,7 +51,7 @@ public class ControllerEnderecoBusca implements ActionListener {
         DefaultTableModel tabela = (DefaultTableModel) this.telaBuscaEndereco.getjTable_Enderecos().getModel();
         tabela.getDataVector().removeAllElements();
 
-        for (Endereco enderecoDaLista : service.ServiceEndereco.Buscar()) {
+        for (Endereco enderecoDaLista : com.mycompany.projetolojajpamaven.service.ServiceEndereco.Buscar()) {
             tabela.addRow(new Object[]{
                 enderecoDaLista.getId(),
                 enderecoDaLista.getLogradouro(),

@@ -1,7 +1,7 @@
 package com.mycompany.projetolojajpamaven.model.DAO;
 
 import java.util.List;
-import model.bo.Pagar;
+import com.mycompany.projetolojajpamaven.model.bo.Pagar;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,7 +52,7 @@ public class PagarDAO implements InterfaceDAO<Pagar> {
                         .setValorPago(rs.getFloat("valorpago"))
                         .setObservacao(rs.getString("observacao"))
                         .setContaAPagar(
-                                service.ServiceContaAPagar.Buscar(rs.getInt("contaapagarid"))
+                                com.mycompany.projetolojajpamaven.service.ServiceContaAPagar.Buscar(rs.getInt("contaapagarid"))
                         )
                         .createPagar();
 
@@ -88,7 +88,7 @@ public class PagarDAO implements InterfaceDAO<Pagar> {
                 pagamento.setValorPago(rs.getFloat("valorpago"));
                 pagamento.setObservacao(rs.getString("observacao"));
                 pagamento.setContaAPagar(
-                        service.ServiceContaAPagar.Buscar(rs.getInt("contaapagarid"))
+                        com.mycompany.projetolojajpamaven.service.ServiceContaAPagar.Buscar(rs.getInt("contaapagarid"))
                 );
             }
             ConectionFactory.closeConnection(conexao, pstm, rs);

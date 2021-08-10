@@ -3,7 +3,7 @@ package com.mycompany.projetolojajpamaven.model.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
-import model.bo.ItemDeCompra;
+import com.mycompany.projetolojajpamaven.model.bo.ItemDeCompra;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -51,7 +51,7 @@ public class ItemDeCompraDAO implements InterfaceDAO<ItemDeCompra> {
                         .setId(rs.getInt("id"))//1
                         .setQuantidade(rs.getInt("quantidade"))//2
                         .setProduto(
-                                service.ServiceProduto.Buscar(rs.getInt("produtoid"))
+                                com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar(rs.getInt("produtoid"))
                         )//4                        
                         .setSubTotal(rs.getFloat("valor"))//3
                         .setCompraId(rs.getInt("compraid"))//5
@@ -86,7 +86,7 @@ public class ItemDeCompraDAO implements InterfaceDAO<ItemDeCompra> {
                 itemDeCompra.setId(rs.getInt("id"));
                 itemDeCompra.setQuantidade(rs.getInt("quantidade"));
                 itemDeCompra.setProduto(
-                        service.ServiceProduto.Buscar(rs.getInt("produtoid"))
+                        com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar(rs.getInt("produtoid"))
                 );
                 itemDeCompra.setSubTotal(rs.getFloat("valor"));
                 itemDeCompra.setCompraId(rs.getInt("compraid"));
@@ -153,7 +153,7 @@ public class ItemDeCompraDAO implements InterfaceDAO<ItemDeCompra> {
                         .setCompraId(rs.getInt("compraid")
                         )//6   
                         .setProduto(
-                                service.ServiceProduto.Buscar(rs.getInt("produtoid"))
+                                com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar(rs.getInt("produtoid"))
                         )//4
                         .setSubTotal(rs.getFloat("subtotal"))//5
                         .createItemDeCompra();

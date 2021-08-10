@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import view.busca.TelaBuscaProduto;
-import model.bo.Produto;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaProduto;
+import com.mycompany.projetolojajpamaven.model.bo.Produto;
 
 public class ControllerProdutoBusca implements ActionListener {
 
@@ -34,7 +34,7 @@ public class ControllerProdutoBusca implements ActionListener {
             this.telaBuscaProduto.dispose();        
         }else if(e.getSource() == this.telaBuscaProduto.getjButton_Deletar()) {
             try{
-                service.ServiceProduto.Deletar(
+                com.mycompany.projetolojajpamaven.service.ServiceProduto.Deletar(
                         (int) this.telaBuscaProduto.getjTable1().getValueAt(
                                 this.telaBuscaProduto.getjTable1().getSelectedRow(),0
                         )
@@ -59,7 +59,7 @@ public class ControllerProdutoBusca implements ActionListener {
         DefaultTableModel tabela = (DefaultTableModel) this.telaBuscaProduto.getjTable1().getModel();
         tabela.getDataVector().removeAllElements();
 
-        for (Produto produtoDaLista : service.ServiceProduto.Buscar()) {
+        for (Produto produtoDaLista : com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar()) {
             tabela.addRow(new Object[]{
                 produtoDaLista.getId(),
                 produtoDaLista.getDescricao(),
@@ -67,7 +67,7 @@ public class ControllerProdutoBusca implements ActionListener {
                 produtoDaLista.getUnidadeDeVenda(),
                 produtoDaLista.getCorrelacaoUnidade(),
                 produtoDaLista.getValor(),
-                service.ServiceEstoque.BuscarAQuantidadeNoEstoqueComOIdDoProduto(produtoDaLista.getId()),
+                com.mycompany.projetolojajpamaven.service.ServiceEstoque.BuscarAQuantidadeNoEstoqueComOIdDoProduto(produtoDaLista.getId()),
                 produtoDaLista.getCodigoDeBarras(),
                 produtoDaLista.getObservacao(),
                 produtoDaLista.getStatus()

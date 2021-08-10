@@ -1,8 +1,8 @@
 package com.mycompany.projetolojajpamaven.service;
 
 import java.util.List;
-import model.bo.Endereco;
-import model.DAO.EnderecoDAO;
+import com.mycompany.projetolojajpamaven.model.bo.Endereco;
+import com.mycompany.projetolojajpamaven.model.DAO.EnderecoDAO;
 
 public class ServiceEndereco {
 

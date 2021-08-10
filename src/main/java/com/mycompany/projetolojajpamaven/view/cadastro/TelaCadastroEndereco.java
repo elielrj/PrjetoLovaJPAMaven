@@ -9,9 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import model.bo.Bairro;
-import model.bo.Cidade;
-import view.FormModeloCadastros;
+import com.mycompany.projetolojajpamaven.model.bo.Bairro;
+import com.mycompany.projetolojajpamaven.model.bo.Cidade;
+import com.mycompany.projetolojajpamaven.view.FormModeloCadastros;
 
 public class TelaCadastroEndereco extends javax.swing.JFrame {
 
@@ -20,11 +20,11 @@ public class TelaCadastroEndereco extends javax.swing.JFrame {
 
 
 
-        for (Cidade cidade : service.ServiceCidade.Buscar()) {
+        for (Cidade cidade : com.mycompany.projetolojajpamaven.service.ServiceCidade.Buscar()) {
             getjComboBox_Cidade().addItem(cidade);
         }
         
-        for (Bairro bairro : service.ServiceBairro.Buscar()){
+        for (Bairro bairro : com.mycompany.projetolojajpamaven.service.ServiceBairro.Buscar()){
             getjComboBoxBairro().addItem(bairro);
         }
 
@@ -67,7 +67,7 @@ public class TelaCadastroEndereco extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("FormulÃ¡rio de Cadastro de ...");
+        setTitle("Formulário de Cadastro de ...");
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
@@ -78,7 +78,7 @@ public class TelaCadastroEndereco extends javax.swing.JFrame {
         jLabelTitulo.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabelTitulo.setForeground(new java.awt.Color(51, 0, 153));
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitulo.setText("Cadastro de EndereÃ§o");
+        jLabelTitulo.setText("Cadastro de Endereço");
         jLabelTitulo.setPreferredSize(new java.awt.Dimension(533, 50));
 
         javax.swing.GroupLayout jPanelTituloLayout = new javax.swing.GroupLayout(jPanelTitulo);
@@ -182,7 +182,7 @@ public class TelaCadastroEndereco extends javax.swing.JFrame {
         }
         jFormattedTextFieldCep.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jLabel7.setText("NÂº");
+        jLabel7.setText("Nº");
 
         jLabel10.setText("Ativo?");
 

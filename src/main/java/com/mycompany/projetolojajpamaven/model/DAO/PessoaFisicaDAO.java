@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import model.bo.PessoaFisica;
+import com.mycompany.projetolojajpamaven.model.bo.PessoaFisica;
 
 public class PessoaFisicaDAO implements InterfaceDAO<PessoaFisica> {
 
@@ -25,9 +25,9 @@ public class PessoaFisicaDAO implements InterfaceDAO<PessoaFisica> {
             pstm.setString(8, objeto.getObservacao());
             pstm.setBoolean(9, objeto.getStatus());
             //inclui e resgata Id End
-            service.ServiceEndereco.Incluir(objeto.getEndereco());
+            com.mycompany.projetolojajpamaven.service.ServiceEndereco.Incluir(objeto.getEndereco());
             pstm.setInt(10,
-                    service.ServiceEndereco.BuscarPorId(objeto.getEndereco())
+                    com.mycompany.projetolojajpamaven.service.ServiceEndereco.BuscarPorId(objeto.getEndereco())
             );
             pstm.setString(11, objeto.getTipo());
             pstm.setString(12, objeto.getComplemento());
@@ -68,7 +68,7 @@ public class PessoaFisicaDAO implements InterfaceDAO<PessoaFisica> {
                         .setObservacao(rs.getString("observacao"))
                         .setStatus(rs.getBoolean("status"))
                         .setEndereco(
-                                service.ServiceEndereco.Buscar(rs.getInt("enderecoid"))
+                                com.mycompany.projetolojajpamaven.service.ServiceEndereco.Buscar(rs.getInt("enderecoid"))
                         )
                         .setTipo(rs.getString("tipo"))
                         .setComplemento(rs.getString("complemento"))
@@ -110,7 +110,7 @@ public class PessoaFisicaDAO implements InterfaceDAO<PessoaFisica> {
                 pessoaFisica.setObservacao(rs.getString("observacao"));
                 pessoaFisica.setStatus(rs.getBoolean("status"));
                 pessoaFisica.setEndereco(
-                        service.ServiceEndereco.Buscar(rs.getInt("enderecoid"))
+                        com.mycompany.projetolojajpamaven.service.ServiceEndereco.Buscar(rs.getInt("enderecoid"))
                 );
                 pessoaFisica.setTipo(rs.getString("tipo"));
                 pessoaFisica.setComplemento(rs.getString("complemento"));
@@ -147,7 +147,7 @@ public class PessoaFisicaDAO implements InterfaceDAO<PessoaFisica> {
             pstm.setString(8, objeto.getObservacao());
             pstm.setBoolean(9, objeto.getStatus());
             //atualiza
-            service.ServiceEndereco.Atualizar(objeto.getEndereco());
+            com.mycompany.projetolojajpamaven.service.ServiceEndereco.Atualizar(objeto.getEndereco());
             pstm.setInt(10, (objeto.getEndereco().getId()));
             pstm.setString(11, objeto.getTipo());
             pstm.setString(12, objeto.getComplemento());
@@ -174,7 +174,7 @@ public class PessoaFisicaDAO implements InterfaceDAO<PessoaFisica> {
             pstm = conexao.prepareStatement(SQL.PESSOA_FISICA_DELETE);
             pstm.setInt(1, objeto.getId());
             pstm.executeUpdate();
-            service.ServiceEndereco.Deletar(objeto.getEndereco());
+            com.mycompany.projetolojajpamaven.service.ServiceEndereco.Deletar(objeto.getEndereco());
         } catch (Exception ex) {
             throw new RuntimeException(" \nCLASSE: PessoaFisicaDAO->Delete\nMENSAGEM:"
                     + ex.getMessage() + "\nLOCALIZADO:"
@@ -190,11 +190,11 @@ public class PessoaFisicaDAO implements InterfaceDAO<PessoaFisica> {
         PreparedStatement pstm = null;
 
         try {
-            PessoaFisica objeto = service.ServicePessoaFisica.Buscar(idPessoaFisica);
+            PessoaFisica objeto = com.mycompany.projetolojajpamaven.service.ServicePessoaFisica.Buscar(idPessoaFisica);
             pstm = conexao.prepareStatement(SQL.PESSOA_FISICA_DELETE);
             pstm.setInt(1, objeto.getId());
             pstm.executeUpdate();
-            service.ServiceEndereco.Deletar(objeto.getEndereco());
+            com.mycompany.projetolojajpamaven.service.ServiceEndereco.Deletar(objeto.getEndereco());
         } catch (Exception ex) {
             throw new RuntimeException(" \nCLASSE: PessoaFisicaDAO->Delete\nMENSAGEM:"
                     + ex.getMessage() + "\nLOCALIZADO:"
@@ -223,7 +223,7 @@ public class PessoaFisicaDAO implements InterfaceDAO<PessoaFisica> {
                         .setCpf(rs.getString("cpf"))
                         .setDataDeNascimento(rs.getString("datanascimento"))
                         .setEndereco(
-                                service.ServiceEndereco.Buscar(rs.getInt("enderecoid"))
+                                com.mycompany.projetolojajpamaven.service.ServiceEndereco.Buscar(rs.getInt("enderecoid"))
                         )
                         .setTipo(rs.getString("tipo"))
                         .setTelefone1(rs.getString("telefone1"))
@@ -265,7 +265,7 @@ public class PessoaFisicaDAO implements InterfaceDAO<PessoaFisica> {
                         .setCpf(rs.getString("cpf"))
                         .setDataDeNascimento(rs.getString("datanascimento"))
                         .setEndereco(
-                                service.ServiceEndereco.Buscar(rs.getInt("enderecoid"))
+                                com.mycompany.projetolojajpamaven.service.ServiceEndereco.Buscar(rs.getInt("enderecoid"))
                         )
                         .setTipo(rs.getString("tipo"))
                         .setTelefone1(rs.getString("telefone1"))

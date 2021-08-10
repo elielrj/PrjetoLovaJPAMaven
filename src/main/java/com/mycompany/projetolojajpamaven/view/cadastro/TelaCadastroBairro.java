@@ -9,11 +9,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import model.DAO.CidadeDAO;
+import com.mycompany.projetolojajpamaven.model.DAO.CidadeDAO;
 
-import model.bo.Cidade;
-import service.ServiceCidade;
-import view.FormModeloCadastros;
+import com.mycompany.projetolojajpamaven.model.bo.Cidade;
+import com.mycompany.projetolojajpamaven.service.ServiceCidade;
+import com.mycompany.projetolojajpamaven.view.FormModeloCadastros;
 
 public class TelaCadastroBairro extends javax.swing.JFrame {
 
@@ -25,7 +25,7 @@ public class TelaCadastroBairro extends javax.swing.JFrame {
         jComboBoxStatus.addItem("Não");
         
         
-        getjComboBox_cidade().addItem(service.ServiceCidade.Buscar(4429));
+        getjComboBox_cidade().addItem(com.mycompany.projetolojajpamaven.service.ServiceCidade.Buscar(4429));
         
 
     }
@@ -58,7 +58,7 @@ public class TelaCadastroBairro extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Formulário de Cadastro de ...");
+        setTitle("Formul�rio de Cadastro de ...");
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 

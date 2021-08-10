@@ -6,10 +6,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
-import model.bo.Bairro;
-import model.bo.Cidade;
-import view.busca.TelaBuscaBairro;
-import view.cadastro.TelaCadastroContaAPagar; 
+import com.mycompany.projetolojajpamaven.model.bo.Bairro;
+import com.mycompany.projetolojajpamaven.model.bo.Cidade;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaBairro;
+import com.mycompany.projetolojajpamaven.view.cadastro.TelaCadastroContaAPagar; 
 
 
 public class ControllerContaAPagar implements ActionListener {
@@ -53,10 +53,10 @@ public class ControllerContaAPagar implements ActionListener {
             .createBairro();            
 
             if (codigo == 0) {
-                service.ServiceBairro.Incluir(bairro);
+                com.mycompany.projetolojajpamaven.service.ServiceBairro.Incluir(bairro);
             } else {
                 bairro.setId(Integer.parseInt(this.telaCadastroContaAPagar.getjTextFieldId().getText()));
-                service.ServiceBairro.Atualizar(bairro);
+                com.mycompany.projetolojajpamaven.service.ServiceBairro.Atualizar(bairro);
             }
             Ativa(true);
             LimpaEstadoComponentes(false);
@@ -73,7 +73,7 @@ public class ControllerContaAPagar implements ActionListener {
                 Ativa(false);
                 LimpaEstadoComponentes(true);
                 Bairro bairro = new Bairro.BairroBuilder().createBairro();
-                bairro = service.ServiceBairro.Buscar(codigo);
+                bairro = com.mycompany.projetolojajpamaven.service.ServiceBairro.Buscar(codigo);
 
                 this.telaCadastroContaAPagar.getjTextFieldId().setText(bairro.getId() + "");
                 this.telaCadastroContaAPagar.getjTextFieldDescricao().setText(bairro.getNome());

@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import view.busca.TelaBuscaCidade;
-import model.bo.Cidade;
-import service.ServiceCidade;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaCidade;
+import com.mycompany.projetolojajpamaven.model.bo.Cidade;
+import com.mycompany.projetolojajpamaven.service.ServiceCidade;
 
 public class ControllerCidadeBusca implements ActionListener {
 

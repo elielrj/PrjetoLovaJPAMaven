@@ -4,7 +4,7 @@ package com.mycompany.projetolojajpamaven.view.busca;
 import java.awt.Frame;
 import javax.swing.JButton;
 import javax.swing.JTable;
-import view.FormModeloBuscas;
+import com.mycompany.projetolojajpamaven.view.FormModeloBuscas;
 
 
 public class TelaBuscaPessoaFisica extends javax.swing.JDialog {

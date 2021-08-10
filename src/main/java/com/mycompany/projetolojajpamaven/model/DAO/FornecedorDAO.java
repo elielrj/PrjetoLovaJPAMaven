@@ -1,7 +1,7 @@
 package com.mycompany.projetolojajpamaven.model.DAO;
 
 import java.util.List;
-import model.bo.Fornecedor;
+import com.mycompany.projetolojajpamaven.model.bo.Fornecedor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,9 +26,9 @@ public class FornecedorDAO implements InterfaceDAO<Fornecedor> {
             pstm.setString(6, objeto.getEmail());
             pstm.setString(7, objeto.getObservacao());
             pstm.setBoolean(8, objeto.getStatus());
-            service.ServiceEndereco.Incluir(objeto.getEndereco());            
+            com.mycompany.projetolojajpamaven.service.ServiceEndereco.Incluir(objeto.getEndereco());            
             pstm.setInt(9,
-                    service.ServiceEndereco.BuscarPorId(objeto.getEndereco())
+                    com.mycompany.projetolojajpamaven.service.ServiceEndereco.BuscarPorId(objeto.getEndereco())
             );
             pstm.setString(10, objeto.getComplemento());
             pstm.executeUpdate();
@@ -64,7 +64,7 @@ public class FornecedorDAO implements InterfaceDAO<Fornecedor> {
                         .setObservacao(rs.getString("observacao"))//9
                         .setStatus(rs.getBoolean("status"))//10
                         .setEndereco(
-                                service.ServiceEndereco.Buscar(rs.getInt("enderecoid"))
+                                com.mycompany.projetolojajpamaven.service.ServiceEndereco.Buscar(rs.getInt("enderecoid"))
                         )//5
                         .setComplemento(rs.getString("complemento"))//11
                         .createFornecedor();
@@ -96,7 +96,7 @@ public class FornecedorDAO implements InterfaceDAO<Fornecedor> {
                 fornecedor.setInscricaoEstadual(rs.getString("inscricaoestadual"));//3
                 fornecedor.setCnpj(rs.getString("cnpj"));//4
                 fornecedor.setEndereco(
-                        service.ServiceEndereco.Buscar(rs.getInt("enderecoid"))
+                        com.mycompany.projetolojajpamaven.service.ServiceEndereco.Buscar(rs.getInt("enderecoid"))
                 );//5
                 fornecedor.setTelefone1(rs.getString("telefone1"));//6
                 fornecedor.setTelefone2(rs.getString("telefone2"));//7
@@ -132,7 +132,7 @@ public class FornecedorDAO implements InterfaceDAO<Fornecedor> {
             pstm.setString(7, objeto.getObservacao());
             pstm.setBoolean(8, objeto.getStatus());
             pstm.setInt(9, objeto.getEndereco().getId());
-            service.ServiceEndereco.Atualizar(objeto.getEndereco());
+            com.mycompany.projetolojajpamaven.service.ServiceEndereco.Atualizar(objeto.getEndereco());
             pstm.setString(10, objeto.getComplemento());
             pstm.setInt(11, objeto.getId());
             pstm.executeUpdate();
@@ -152,7 +152,7 @@ public class FornecedorDAO implements InterfaceDAO<Fornecedor> {
             pstm = conexao.prepareStatement(SQL.FORNECEFOR_DELETE);
             pstm.setInt(1, objeto.getId());
             pstm.executeUpdate();
-            service.ServiceEndereco.Deletar(objeto.getEndereco());
+            com.mycompany.projetolojajpamaven.service.ServiceEndereco.Deletar(objeto.getEndereco());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -164,12 +164,12 @@ public class FornecedorDAO implements InterfaceDAO<Fornecedor> {
         PreparedStatement pstm = null;
         
         try {
-            Fornecedor objeto = service.ServiceFornecedor.Buscar(idFornecedor);
+            Fornecedor objeto = com.mycompany.projetolojajpamaven.service.ServiceFornecedor.Buscar(idFornecedor);
             
             pstm = conexao.prepareStatement(SQL.FORNECEFOR_DELETE);
             pstm.setInt(1, idFornecedor);
             pstm.executeUpdate();
-            service.ServiceEndereco.Deletar(objeto.getEndereco());
+            com.mycompany.projetolojajpamaven.service.ServiceEndereco.Deletar(objeto.getEndereco());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

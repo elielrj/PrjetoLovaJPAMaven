@@ -1,8 +1,8 @@
 package com.mycompany.projetolojajpamaven.service;
 
 import java.util.List;
-import model.bo.ItemDeCompra;
-import model.DAO.ItemDeCompraDAO;
+import com.mycompany.projetolojajpamaven.model.bo.ItemDeCompra;
+import com.mycompany.projetolojajpamaven.model.DAO.ItemDeCompraDAO;
 
 public class ServiceItemDeCompra {
 

@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.ArrayList;
-import model.bo.ContaAReceber;
+import com.mycompany.projetolojajpamaven.model.bo.ContaAReceber;
 
 public class ContaAReceberDAO implements InterfaceDAO<ContaAReceber> {
 

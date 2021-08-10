@@ -1,8 +1,8 @@
 package com.mycompany.projetolojajpamaven.service;
 
 import java.util.List;
-import model.bo.ContaAPagar;
-import model.DAO.ContaAPagarDAO;
+import com.mycompany.projetolojajpamaven.model.bo.ContaAPagar;
+import com.mycompany.projetolojajpamaven.model.DAO.ContaAPagarDAO;
 
 public class ServiceContaAPagar {
 

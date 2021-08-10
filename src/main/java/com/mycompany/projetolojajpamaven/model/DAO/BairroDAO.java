@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import model.bo.Bairro;
+import com.mycompany.projetolojajpamaven.model.bo.Bairro;
 import java.util.ArrayList;
 
 public class BairroDAO implements InterfaceDAO<Bairro> {
@@ -43,7 +43,7 @@ public class BairroDAO implements InterfaceDAO<Bairro> {
                         .setNome(rs.getString("nome"))
                         .setStatus(rs.getBoolean("status"))
                         .setCidade(
-                                service.ServiceCidade.Buscar(rs.getInt("cidadeId"))
+                                com.mycompany.projetolojajpamaven.service.ServiceCidade.Buscar(rs.getInt("cidadeId"))
                         )
                         .createBairro();
 
@@ -74,7 +74,7 @@ public class BairroDAO implements InterfaceDAO<Bairro> {
                 bairro.setNome(rs.getString("nome"));
                 bairro.setStatus(rs.getBoolean("status"));
                 bairro.setCidade(
-                        service.ServiceCidade.Buscar(rs.getInt("cidadeid"))
+                        com.mycompany.projetolojajpamaven.service.ServiceCidade.Buscar(rs.getInt("cidadeid"))
                 );
             }
             ConectionFactory.closeConnection(conexao, pstm, rs);
@@ -155,7 +155,7 @@ public class BairroDAO implements InterfaceDAO<Bairro> {
                 bairro.setNome(rs.getString("nome"));
                 bairro.setStatus(rs.getBoolean("status"));
                 bairro.setCidade(
-                        service.ServiceCidade.Buscar(rs.getInt("cidadeId"))
+                        com.mycompany.projetolojajpamaven.service.ServiceCidade.Buscar(rs.getInt("cidadeId"))
                 );
                 bairros.add(bairro);
             }
@@ -180,7 +180,7 @@ public class BairroDAO implements InterfaceDAO<Bairro> {
             Bairro bairro = new Bairro.BairroBuilder().createBairro();
             while (rs.next()) {
                 bairro.setCidade(
-                        service.ServiceCidade.Buscar(rs.getInt("cidadeId"))
+                        com.mycompany.projetolojajpamaven.service.ServiceCidade.Buscar(rs.getInt("cidadeId"))
                 );
             }
             ConectionFactory.closeConnection(conexao, pstm, rs);

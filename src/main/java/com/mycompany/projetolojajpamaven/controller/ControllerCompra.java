@@ -13,16 +13,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import model.bo.Estoque;
-import model.bo.ItemDeCompra;
-import model.bo.Produto;
-import view.busca.TelaBuscaFornecedor;
-import view.busca.TelaBuscaProduto;
-import model.bo.Compra;
-import model.bo.ContaAPagar;
-import view.busca.TelaBuscaCompra;
-import view.busca.TelaBuscaFornecedor;
-import view.cadastro.TelaCadastroCompra;
+import com.mycompany.projetolojajpamaven.model.bo.Estoque;
+import com.mycompany.projetolojajpamaven.model.bo.ItemDeCompra;
+import com.mycompany.projetolojajpamaven.model.bo.Produto;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaFornecedor;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaProduto;
+import com.mycompany.projetolojajpamaven.model.bo.Compra;
+import com.mycompany.projetolojajpamaven.model.bo.ContaAPagar;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaCompra;
+import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaFornecedor;
+import com.mycompany.projetolojajpamaven.view.cadastro.TelaCadastroCompra;
 
 public class ControllerCompra implements ActionListener {
 
@@ -113,7 +113,7 @@ public class ControllerCompra implements ActionListener {
                 Ativa(false);
                 LimpaEstadoComponentes(true);
 
-                compra = service.ServiceCompra.Buscar(codigo);
+                compra = com.mycompany.projetolojajpamaven.service.ServiceCompra.Buscar(codigo);
 
                 this.telaCadastroCompra.getjTextField_Faturamento_Id().setText(compra.getId() + "");//1
                 this.telaCadastroCompra.getjFormattedTextField_FaturamentoData().setText(compra.getData());//2
@@ -136,7 +136,7 @@ public class ControllerCompra implements ActionListener {
 
                 this.telaCadastroCompra.getjTextField_Cliente_Email().setText(compra.getFornecedor().getEmail());//10 - 10                
 //
-                compra.setItensDeCompra(service.ServiceItemDeCompra.BuscarListaDeUmaCompra(compra.getId())); //11
+                compra.setItensDeCompra(com.mycompany.projetolojajpamaven.service.ServiceItemDeCompra.BuscarListaDeUmaCompra(compra.getId())); //11
                 atualizarTabelaDeItens();
             }
             // 5- PESQUISAR PRODUTO
@@ -260,7 +260,7 @@ public class ControllerCompra implements ActionListener {
         telaBuscaProduto.setVisible(true);
 
         this.telaCadastroCompra.getjFormattedTextField_ProdutoCodBarras().setText(
-                service.ServiceProduto.Buscar(
+                com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar(
                         telaBuscaProduto.getCodProduto()
                 ).getCodigoDeBarras()
         );
@@ -268,7 +268,7 @@ public class ControllerCompra implements ActionListener {
 
     public void inserirItem() {
         //1º Cria e busca produto pelo Cod Barras
-        Produto produto = service.ServiceProduto.Buscar(this.telaCadastroCompra.getjFormattedTextField_ProdutoCodBarras().getText());
+        Produto produto = com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar(this.telaCadastroCompra.getjFormattedTextField_ProdutoCodBarras().getText());
         //2º Adicionar produto e qtd; atribuindo a responsabilidade a compra de criar ItemDeCompra
         compra.adicionarItem(produto);
         //3º atualizar tabela da tela
@@ -307,7 +307,7 @@ public class ControllerCompra implements ActionListener {
             return false;
         }*/
 
-        return service.ServiceProduto.codigoDeBarrasValido(this.telaCadastroCompra.getjFormattedTextField_ProdutoCodBarras().getText());
+        return com.mycompany.projetolojajpamaven.service.ServiceProduto.codigoDeBarrasValido(this.telaCadastroCompra.getjFormattedTextField_ProdutoCodBarras().getText());
 
     }
 
@@ -353,21 +353,21 @@ public class ControllerCompra implements ActionListener {
         //VENDA OK
         if (codigo == 0) {
             //1º incluir a compra
-            service.ServiceCompra.Incluir(compra);
+            com.mycompany.projetolojajpamaven.service.ServiceCompra.Incluir(compra);
             //Resgatar o Id da Compra
-            compra.setId(service.ServiceCompra.Buscar(compra));
+            compra.setId(com.mycompany.projetolojajpamaven.service.ServiceCompra.Buscar(compra));
             //2º incluir os itens c/ idCompra na tabela de itens de compra no banco
 
             for (ItemDeCompra itemDeCompra : compra.getItensDeCompra()) {
                 itemDeCompra.setCompraId(compra.getId());
 
                 //ESTOQUE: 1º busca estoque pelo produtoId
-                Estoque estoque = service.ServiceEstoque.BuscarEstoquePorIdDoProduto(itemDeCompra.getProduto().getId());
+                Estoque estoque = com.mycompany.projetolojajpamaven.service.ServiceEstoque.BuscarEstoquePorIdDoProduto(itemDeCompra.getProduto().getId());
                 //ESTOQUE: 2º setar a nova qtd no estoque
                 estoque.setQuantidade(estoque.getQuantidade() + itemDeCompra.getQuantidade());
-                service.ServiceEstoque.Atualizar(estoque);
+                com.mycompany.projetolojajpamaven.service.ServiceEstoque.Atualizar(estoque);
                 //VENDA: finalmente inluir-la
-                service.ServiceItemDeCompra.Incluir(itemDeCompra);
+                com.mycompany.projetolojajpamaven.service.ServiceItemDeCompra.Incluir(itemDeCompra);
 
             }
             
@@ -377,25 +377,25 @@ public class ControllerCompra implements ActionListener {
                     .setValor(compra.getValorTotal())
                     .setStatus(false)
                     .createContaAPagar();
-            service.ServiceContaAPagar.Incluir(contaAPagar);
+            com.mycompany.projetolojajpamaven.service.ServiceContaAPagar.Incluir(contaAPagar);
             
 
             //DEBITAR NO ESTOQUE!!!!!!!!!!
         } else {
             //1º atualizar a compra
-            service.ServiceCompra.Atualizar(compra);
+            com.mycompany.projetolojajpamaven.service.ServiceCompra.Atualizar(compra);
 
             //2º deletar itens anterior no banco
             //buscar antes de deletar!
-            List<ItemDeCompra> itensDeCompra = service.ServiceItemDeCompra.BuscarListaDeUmaCompra(compra.getId());
+            List<ItemDeCompra> itensDeCompra = com.mycompany.projetolojajpamaven.service.ServiceItemDeCompra.BuscarListaDeUmaCompra(compra.getId());
 
             for (ItemDeCompra itemDeCompra : itensDeCompra) {
-                Estoque estoque = service.ServiceEstoque.BuscarEstoquePorIdDoProduto(itemDeCompra.getProduto().getId());
+                Estoque estoque = com.mycompany.projetolojajpamaven.service.ServiceEstoque.BuscarEstoquePorIdDoProduto(itemDeCompra.getProduto().getId());
                 estoque.setQuantidade(
                         estoque.getQuantidade() - itemDeCompra.getQuantidade()
                 );
-                service.ServiceEstoque.Atualizar(estoque);
-                service.ServiceItemDeCompra.Deletar(itemDeCompra);
+                com.mycompany.projetolojajpamaven.service.ServiceEstoque.Atualizar(estoque);
+                com.mycompany.projetolojajpamaven.service.ServiceItemDeCompra.Deletar(itemDeCompra);
             }
 
             //3ºatualizar os itens c/ idCompra e incluir na tabela de itens de compra no banco          
@@ -404,11 +404,11 @@ public class ControllerCompra implements ActionListener {
                 item.setCompraId(compra.getId());
                 try {
                     //buscar estoque, depois debitar e atualizar
-                    Estoque estoque = service.ServiceEstoque.Buscar(item.getProduto().getId());
+                    Estoque estoque = com.mycompany.projetolojajpamaven.service.ServiceEstoque.Buscar(item.getProduto().getId());
                     estoque.setQuantidade(estoque.getQuantidade() + item.getQuantidade());
-                    service.ServiceEstoque.Atualizar(estoque);
+                    com.mycompany.projetolojajpamaven.service.ServiceEstoque.Atualizar(estoque);
                     //Incluir item
-                    service.ServiceItemDeCompra.Incluir(item);                    
+                    com.mycompany.projetolojajpamaven.service.ServiceItemDeCompra.Incluir(item);                    
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Estoque insuficiente!");
                     throw new RuntimeException(" \nCLASSE: BairroDAO->Retrive->bairroDAO\nMENSAGEM:"
@@ -417,9 +417,9 @@ public class ControllerCompra implements ActionListener {
                     ); 
                 } 
                 //4º atualizar conta a receber (BUSCA, ATUALIZA VALOR, E ATUALIZA)
-            ContaAPagar contaAPagar = service.ServiceContaAPagar.BuscarIdDaContaAPagarPeloIdDaCompra(compra.getId());
+            ContaAPagar contaAPagar = com.mycompany.projetolojajpamaven.service.ServiceContaAPagar.BuscarIdDaContaAPagarPeloIdDaCompra(compra.getId());
             contaAPagar.setValor(compra.getValorTotal());
-            service.ServiceContaAPagar.Atualizar(contaAPagar);
+            com.mycompany.projetolojajpamaven.service.ServiceContaAPagar.Atualizar(contaAPagar);
             }
         }
 
@@ -438,7 +438,7 @@ public class ControllerCompra implements ActionListener {
 
         int idDoProdutoSelecionado = (int) this.telaCadastroCompra.getjTable_FaturamentoItens().getValueAt(
                 this.telaCadastroCompra.getjTable_FaturamentoItens().getSelectedRow(), 1);
-        Produto produto = service.ServiceProduto.Buscar(idDoProdutoSelecionado);
+        Produto produto = com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar(idDoProdutoSelecionado);
         compra.removerItemDaLista(produto);
         atualizarTabelaDeItens();
 
@@ -458,7 +458,7 @@ public class ControllerCompra implements ActionListener {
         telaBuscaFornecedor.setVisible(true);
 
         compra.setFornecedor(
-                service.ServiceFornecedor.Buscar(
+                com.mycompany.projetolojajpamaven.service.ServiceFornecedor.Buscar(
                         telaBuscaFornecedor.getIdDoFornecedor())
         );
         this.telaCadastroCompra.getjTextField_ClienteId().setText(telaBuscaFornecedor.getIdDoFornecedor()+ "");

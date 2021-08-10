@@ -2,7 +2,7 @@ package com.mycompany.projetolojajpamaven.view.busca;
 
 import javax.swing.JButton;
 import javax.swing.JTable;
-import view.FormModeloBuscas;
+import com.mycompany.projetolojajpamaven.view.FormModeloBuscas;
 
 public class TelaBuscaVenda extends javax.swing.JDialog {
     private int idVenda = 0;

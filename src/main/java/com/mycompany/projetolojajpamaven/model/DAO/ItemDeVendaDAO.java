@@ -3,7 +3,7 @@ package com.mycompany.projetolojajpamaven.model.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
-import model.bo.ItemDeVenda;
+import com.mycompany.projetolojajpamaven.model.bo.ItemDeVenda;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -49,7 +49,7 @@ public class ItemDeVendaDAO implements InterfaceDAO<ItemDeVenda> {
                         .setQuantidade(rs.getInt("quantidade"))
                         .setVendaId(rs.getInt("vendaid"))
                         .setProduto(
-                                service.ServiceProduto.Buscar(rs.getInt("produtoid"))
+                                com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar(rs.getInt("produtoid"))
                         )
                         .setSubTotal(rs.getFloat("subtotal"))
                         .createItemDeVenda();
@@ -84,7 +84,7 @@ public class ItemDeVendaDAO implements InterfaceDAO<ItemDeVenda> {
                 itemDeVenda.setQuantidade(rs.getInt("quantidade"));
                 itemDeVenda.setVendaId(rs.getInt("vendaid"));
                 itemDeVenda.setProduto(
-                        service.ServiceProduto.Buscar(rs.getInt("produtoid"))
+                        com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar(rs.getInt("produtoid"))
                 );
                 itemDeVenda.setSubTotal(rs.getFloat("subtotal"));
 
@@ -210,7 +210,7 @@ public class ItemDeVendaDAO implements InterfaceDAO<ItemDeVenda> {
                         .setVendaId(rs.getInt("vendaid")
                         )//6   
                         .setProduto(
-                                service.ServiceProduto.Buscar(rs.getInt("produtoid"))
+                                com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar(rs.getInt("produtoid"))
                         )//4
                         .setSubTotal(rs.getFloat("subtotal"))//5
                         .createItemDeVenda();
