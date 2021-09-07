@@ -1,36 +1,49 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import com.sun.istack.NotNull;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import org.eclipse.persistence.annotations.Array;
 
-@Entity(name = "venda")
-public class Venda {
+@Entity
+@Table(name="venda")
+public class Venda implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  
+    @Column(name="id")
     private int id;//1
     
     @Column(name="datavenda")
     private String data;//2
     
-    @Column
+    @Column(name="hora")
     private String hora;//3
     
     @Column(name="usercaixa")
     private String userCaixa;//4
     
-    @Column(name="datadevencimento")
+    @Column(name="datavencimento")
     private String dataDeVencimento;//5
     
-    @Column
+    @Column(name="observacao")
     private String observacao;//6
     
     @Column(name="valordesconto")
@@ -39,15 +52,21 @@ public class Venda {
     @Column(name="valortotal")
     private float valorTotal;//8
     
-    @Column
+    @Column(name="status")
     private boolean status;//9
     
-    @JoinColumn(name="pessoafisicaid")
+    @NotNull
+    @JoinColumn(name="pessoafisicaid", referencedColumnName = "id",nullable = false)
     @ManyToOne
     private PessoaFisica pessoaFisica;//10
     
-    //@Column(name="itemdevenda")
-    private List<ItemDeVenda> itensDeVenda;//11
+    @OneToMany(mappedBy = "vendaId", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
+    private List<ItemDeVenda> itensDeVenda = new ArrayList<>();//11
+
+    public Venda() {
+        constroiCaixaItensDataHora();
+        
+    }    
 
     private Venda(VendaBuilder vendaBuilder) {
         this.id = vendaBuilder.id;
@@ -59,9 +78,8 @@ public class Venda {
         this.valorTotal = vendaBuilder.valorTotal;
         this.status = vendaBuilder.status;
         this.pessoaFisica = vendaBuilder.pessoaFisica;
-        this.itensDeVenda = new ArrayList<>(); 
-        dataHora();
-        setUserCaixa("Eliel");
+        //this.itensDeVenda = new ArrayList<>();
+        constroiCaixaItensDataHora();
     }
 
     public int getId() {
@@ -156,6 +174,12 @@ public class Venda {
         return itensDeVenda.size();
     }
 
+    private void constroiCaixaItensDataHora() {
+        this.itensDeVenda = new ArrayList<>(); 
+        dataHora();
+        setUserCaixa("Eliel");
+    }
+
     
     public static class VendaBuilder {
 
@@ -172,6 +196,7 @@ public class Venda {
         private List<ItemDeVenda> itensDeVenda;
 
         public VendaBuilder() {
+            this.itensDeVenda = new ArrayList<>();
         }
 
         public VendaBuilder setId(int id) {
@@ -230,7 +255,11 @@ public class Venda {
         }
 
         public Venda createVenda() {
-            return new Venda(this);
+            if(this == null){
+                return new Venda();
+            }else{
+                return new Venda(this);
+            }
         }
     }
     

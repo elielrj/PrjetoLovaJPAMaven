@@ -4,21 +4,34 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name="cidade")
 public class Cidade implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
     
-    @Column
+    @Column(name="nome")
     private String nome;
     
-    @Column 
+    @Column(name="status")
     private boolean status;
 
+    public Cidade() {
+    }
+
+    public Cidade(int id, String nome, boolean status) {
+        this.id = id;
+        this.nome = nome;
+        this.status = status;
+    }
+    
+
+    
     public Cidade(CidadeBuilder cidadeBuilder) {
         this.id = cidadeBuilder.id;
         this.nome = cidadeBuilder.nome;

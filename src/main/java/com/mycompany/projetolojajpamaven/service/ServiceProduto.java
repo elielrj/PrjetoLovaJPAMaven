@@ -7,43 +7,35 @@ import com.mycompany.projetolojajpamaven.model.DAO.ProdutoDAO;
 public class ServiceProduto {
 
     public static void Incluir(Produto objeto) {
-        ProdutoDAO produtoDAO = new ProdutoDAO();
-        produtoDAO.Create(objeto);
+        ProdutoDAO.getInstance().Create(objeto);
     }
 
     public static void Atualizar(Produto objeto) {
-        ProdutoDAO produtoDAO = new ProdutoDAO();
-        produtoDAO.Update(objeto);
+        ProdutoDAO.getInstance().Update(objeto);
     }
 
     public static List<Produto> Buscar() {
-        ProdutoDAO produtoDAO = new ProdutoDAO();
-        return (produtoDAO.Retrieve());
+       return ProdutoDAO.getInstance().Retrieve();
     }
 
     public static Produto Buscar(int id) {
-        ProdutoDAO produtoDAO = new ProdutoDAO();
-        return produtoDAO.Retrieve(id);
+      return ProdutoDAO.getInstance().Retrieve(id);
     }
 
     public static Produto Buscar(String codigoDeBarrasDoProduto) {
-        ProdutoDAO produtoDAO = new ProdutoDAO();
-        return produtoDAO.Retrieve(codigoDeBarrasDoProduto);
+       return ProdutoDAO.getInstance().Retrieve(codigoDeBarrasDoProduto);
     }
     
     public static void Deletar(Produto objeto) {
-        ProdutoDAO produtoDAO = new ProdutoDAO();
-        produtoDAO.Delete(objeto);
+        ProdutoDAO.getInstance().Delete(objeto);
     }
     
     public static void Deletar(int idProduto) {
-        ProdutoDAO produtoDAO = new ProdutoDAO();
-        produtoDAO.Delete(idProduto);
+        ProdutoDAO.getInstance().Delete(idProduto);
     }
     
     public static boolean codigoDeBarrasValido(String codBarras){
-        ProdutoDAO produtoDAO = new ProdutoDAO();
-        return produtoDAO.codigoDeBarrasValido(codBarras);
+       return ProdutoDAO.getInstance().codigoDeBarrasValido(codBarras);
         
     }
 }

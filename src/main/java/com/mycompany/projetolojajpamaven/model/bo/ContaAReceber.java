@@ -1,28 +1,34 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "contaareceber")
-public class ContaAReceber {
+public class ContaAReceber implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
     
     @JoinColumn(name="vendaid")
-    @ManyToOne
+    //@ManyToOne
     private int vendaId;
     
-    @Column
+    @Column(name="valor")
     private float valor;
     
-    @Column
+    @Column(name="status")
     private boolean status;
+
+    public ContaAReceber() {
+    }
 
     private ContaAReceber(ContaAReceberBuilder contaAReceberBuilder) {
         this.id = contaAReceberBuilder.id;

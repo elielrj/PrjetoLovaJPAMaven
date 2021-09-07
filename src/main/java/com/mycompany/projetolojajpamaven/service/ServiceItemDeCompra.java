@@ -7,32 +7,26 @@ import com.mycompany.projetolojajpamaven.model.DAO.ItemDeCompraDAO;
 public class ServiceItemDeCompra {
 
     public static void Incluir(ItemDeCompra objeto) {
-        ItemDeCompraDAO itemDeCompraDAO = new ItemDeCompraDAO();
-        itemDeCompraDAO.Create(objeto);
+        ItemDeCompraDAO.getInstance().Create(objeto);
     }
 
     public static void Atualizar(ItemDeCompra objeto) {
-        ItemDeCompraDAO itemDeCompraDAO = new ItemDeCompraDAO();
-        itemDeCompraDAO.Update(objeto);
+        ItemDeCompraDAO.getInstance().Update(objeto);
     }
 
     public static List<ItemDeCompra> Buscar() {
-        ItemDeCompraDAO itemDeCompraDAO = new ItemDeCompraDAO();
-        return (itemDeCompraDAO.Retrieve());
+       return ItemDeCompraDAO.getInstance().Retrieve();
     }
 
     public static ItemDeCompra Buscar(int id) {
-        ItemDeCompraDAO itemDeCompraDAO = new ItemDeCompraDAO();
-        return itemDeCompraDAO.Retrieve(id);
+       return ItemDeCompraDAO.getInstance().Retrieve(id);
     }
 
     public static void Deletar(ItemDeCompra objeto) {
-        ItemDeCompraDAO itemDeCompraDAO = new ItemDeCompraDAO();
-        itemDeCompraDAO.Delete(objeto);
+        ItemDeCompraDAO.getInstance().Delete(objeto);
     }
     
     public static List<ItemDeCompra> BuscarListaDeUmaCompra(int idDaCompra) {
-        ItemDeCompraDAO itemDeCompraDAO = new ItemDeCompraDAO();
-        return itemDeCompraDAO.RetrieveListaDeUmaCompra(idDaCompra);
+       return ItemDeCompraDAO.getInstance().RetrieveListaDeUmaCompra(idDaCompra);
     }
 }

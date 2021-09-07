@@ -1,17 +1,19 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "itemdecompra")
-public class ItemDeCompra {
+public class ItemDeCompra implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)   
     private int id;
     
     @Column
@@ -24,9 +26,12 @@ public class ItemDeCompra {
     @ManyToOne
     private Produto produto;
     
-    @JoinColumn(name="compraid")
-    @ManyToOne
+    @Column(name="compraid")
+    //@ManyToOne
     private int compraId;
+
+    public ItemDeCompra() {
+    }
 
     private ItemDeCompra(ItemDeCompraBuilder itemDeCompraBuilder) {
         this.id = itemDeCompraBuilder.id;

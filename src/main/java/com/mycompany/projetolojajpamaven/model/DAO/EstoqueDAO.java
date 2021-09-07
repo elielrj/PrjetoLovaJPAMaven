@@ -6,185 +6,111 @@ import java.sql.ResultSet;
 import java.util.List;
 import com.mycompany.projetolojajpamaven.model.bo.Estoque;
 import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class EstoqueDAO implements InterfaceDAO<Estoque> {
 
+    private static EstoqueDAO instance;
+    protected EntityManager entityManager;
+    
+    public static EstoqueDAO getInstance(){
+        if(instance == null){
+            instance = new EstoqueDAO();
+        }
+        return instance;
+    }
+
+    public EstoqueDAO() {
+    this.entityManager = getEntityManager();
+    
+    }
+    
+    private EntityManager getEntityManager() {
+         EntityManagerFactory factory = Persistence.createEntityManagerFactory("ProjetoLojaJPAMaven");
+        
+        if(entityManager == null){
+            entityManager = factory.createEntityManager();
+        }
+        return entityManager;
+    }
+    
+    
     @Override
     public void Create(Estoque objeto) {
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            pstm = conexao.prepareStatement(SQL.ESTOQUE_CREATE);
-            pstm.setInt(1, objeto.getProdutoId());
-            pstm.setInt(2, objeto.getQuantidade());
-            pstm.executeUpdate();
-            ConectionFactory.closeConnection(conexao, pstm);
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: EstoqueDAO->Create->estoqueDAO\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
+        try{
+        entityManager.getTransaction().begin();
+        entityManager.persist(objeto);
+        entityManager.getTransaction().commit();
+        } catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
         }
     }
 
     @Override
     public List<Estoque> Retrieve() {
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            ResultSet rs = null;
-            pstm = conexao.prepareStatement(SQL.ESTOQUE_RETRIVE_ALL);
-            rs = pstm.executeQuery();
-            List<Estoque> estoques = new ArrayList();
-            while (rs.next()) {
-                Estoque estoque = new Estoque.EstoqueBuilder()
-                        .setId(rs.getInt("id"))
-                        .setProdutoId(rs.getInt("produtoid"))
-                        .setQuantidade(rs.getInt("quantidade"))
-                        .createEstoque();
-                estoques.add(estoque);
-            }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return estoques;
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: EstoqueDAO->Retrive->estoqueDAO\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        }
+        List<Estoque> listaBairros;
+        listaBairros = entityManager.createQuery("Select c From estoque c",Estoque.class).getResultList();
+        return listaBairros;
     }
 
     @Override
     public Estoque Retrieve(int id) {
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            ResultSet rs = null;
-            pstm = conexao.prepareStatement(SQL.ESTOQUE_RETRIVE_ONE_ID);
-            pstm.setInt(1, id);
-            rs = pstm.executeQuery();
-            Estoque estoque = new Estoque.EstoqueBuilder().createEstoque();
-            while (rs.next()) {
-                estoque.setId(rs.getInt("id"));
-                estoque.setProdutoId(rs.getInt("produtoid"));
-                estoque.setQuantidade(rs.getInt("quantidade"));
-            }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return estoque;
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: EstoqueDAO->Retrive(int id)->estoqueDAO\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        }
+       return  entityManager.find(Estoque.class, id);
+
     }
 
     public int RetrieveDeIdEstoquePeloIdProduto(int id) {
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            ResultSet rs = null;
-            pstm = conexao.prepareStatement(SQL.ESTOQUE_RETRIVE_ONE_ID_DO_ESTOQUE);
-            pstm.setInt(1, id);
-            rs = pstm.executeQuery();
-            Estoque estoque = new Estoque.EstoqueBuilder().createEstoque();
-            while (rs.next()) {
-                estoque.setId(rs.getInt("id"));
-
+        for(Estoque e: Retrieve()){
+            if(e.getProdutoId() == id){
+                return e.getId();
             }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return estoque.getId();
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: EstoqueDAO->Retrive(int id)->estoqueDAO\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
         }
+        return 0;
     }
 
     @Override
     public void Update(Estoque objeto) {
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            pstm = conexao.prepareStatement(SQL.ESTOQUE_UPDATE);
-            pstm.setInt(1, objeto.getProdutoId());
-            pstm.setInt(2, objeto.getQuantidade());
-            pstm.setInt(3, objeto.getId());
-            pstm.executeUpdate();
-            ConectionFactory.closeConnection(conexao, pstm);
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: EstoqueDAO->Update->estoqueDAO\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        }
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(objeto);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } 
     }
 
     @Override
     public void Delete(Estoque objeto) {
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            pstm = conexao.prepareStatement(SQL.ESTOQUE_DELETE);
-            pstm.setInt(1, objeto.getId());
-            pstm.executeUpdate();
-            ConectionFactory.closeConnection(conexao, pstm);
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: EstoqueDAO->Delete->estoqueDAO\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        }
+        try{
+            entityManager.getTransaction().begin();
+            Estoque bairro = entityManager.find(Estoque.class, objeto.getId());
+            entityManager.remove(bairro);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } 
     }
 
     public Estoque RetrievePorIdDoProduto(int idProdutoDoEstoque) {
-        Connection conexao = ConectionFactory.getConection();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-        try {
-            pstm = conexao.prepareStatement(SQL.ESTOQUE_RETRIVE_ONE_ID_PRODUTO_DO_ESTOQUE);
-            pstm.setInt(1, idProdutoDoEstoque);
-            rs = pstm.executeQuery();
-            Estoque estoque = new Estoque.EstoqueBuilder().createEstoque();
-            while (rs.next()) {
-                estoque.setId(rs.getInt("id"));
-                estoque.setProdutoId(rs.getInt("produtoid"));
-                estoque.setQuantidade(rs.getInt("quantidade"));
+        for(Estoque e: Retrieve()){
+            if(e.getProdutoId() == idProdutoDoEstoque){
+                return e;
             }
-            return estoque;
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: EstoqueDAO->Retrive(int id)->estoqueDAO\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        } finally {
-            ConectionFactory.closeConnection(conexao, pstm, rs);
         }
+        return null;
     }
     
     public int BuscarAQuantidadeNoEstoqueComOIdDoProduto(int idDoProduto) {
-        Connection conexao = ConectionFactory.getConection();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-        try {
-            pstm = conexao.prepareStatement(SQL.ESTOQUE_RETRIVE_ONE_ID_PRODUTO_DO_ESTOQUE);
-            pstm.setInt(1, idDoProduto);
-            rs = pstm.executeQuery();
-            Estoque estoque = new Estoque.EstoqueBuilder().createEstoque();
-            while (rs.next()) {
-                estoque.setId(rs.getInt("id"));
-                estoque.setProdutoId(rs.getInt("produtoid"));
-                estoque.setQuantidade(rs.getInt("quantidade"));
+        for(Estoque e: Retrieve()){
+            if(e.getProdutoId() == idDoProduto){
+                return e.getQuantidade();
             }
-            return estoque.getQuantidade();
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: EstoqueDAO->Retrive(int id)->estoqueDAO\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        } finally {
-            ConectionFactory.closeConnection(conexao, pstm, rs);
         }
+        return 0;
     }
 }

@@ -1,26 +1,29 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "pessoafisica")
-public class PessoaFisica {
+public class PessoaFisica implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @Column(name="id")
     private int id;//1
     
-    @Column
+    @Column(name="nome")
     private String nome;//2
     
-    @Column
+    @Column(name="rg")
     private String rg;//3
     
-    @Column
+    @Column(name="cpf")
     private String cpf;//4
     
     @Column(name="datanascimento")
@@ -30,26 +33,29 @@ public class PessoaFisica {
     @ManyToOne
     private Endereco endereco;//6
     
-    @Column
+    @Column(name="tipo")
     private String tipo;//7
     
-    @Column
+    @Column(name="telefone1")
     private String telefone1;//8
     
-    @Column
+    @Column(name="telefone2")
     private String telefone2;//9
     
-    @Column
+    @Column(name="email")
     private String email;//10
     
-    @Column
+    @Column(name="observacao")
     private String observacao;//11
     
-    @Column
+    @Column(name="status")
     private boolean status;//12
     
-    @Column
+    @Column(name="complemento")
     private String complemento;//13
+
+    public PessoaFisica() {
+    }
 
     private PessoaFisica(PessoaFisicaBuilder pessoaFisicaBuilder) {
         this.id = pessoaFisicaBuilder.id;

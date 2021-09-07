@@ -7,45 +7,37 @@ import com.mycompany.projetolojajpamaven.model.DAO.ReceberDAO;
 public class ServiceReceber {
 
     public static void Incluir(Receber objeto) {
-        ReceberDAO receberDAO = new ReceberDAO();
-        receberDAO.Create(objeto);
+        ReceberDAO.getInstance().Create(objeto);
     }
 
     public static void Atualizar(Receber objeto) {
-        ReceberDAO receberDAO = new ReceberDAO();
-        receberDAO.Update(objeto);
+        ReceberDAO.getInstance().Update(objeto);
     }
 
     public static List<Receber> Buscar() {
-        ReceberDAO receberDAO = new ReceberDAO();
-        return (receberDAO.Retrieve());
+      return ReceberDAO.getInstance().Retrieve();
     }
-    
+  /*  
     public static List<Receber> BuscarPorVendasNaoRecebidas() {
-        ReceberDAO receberDAO = new ReceberDAO();
-        return (receberDAO.RetrieveBuscarPorVendasNaoRecebidas());
-    }
+      return ReceberDAO.getInstance().RetrieveBuscarPorVendasNaoRecebidas();
+    } 
+*/
     public static List<Receber> BuscarPorVendasRecebidas(int idContaAReceber) {
-        ReceberDAO receberDAO = new ReceberDAO();
-        return (receberDAO.RetrieveBuscarPorVendasRecebidas(idContaAReceber));
+      return ReceberDAO.getInstance().RetrieveBuscarPorVendasRecebidas(idContaAReceber);
     }
 
     public static Receber Buscar(int id) {
-        ReceberDAO receberDAO = new ReceberDAO();
-        return receberDAO.Retrieve(id);
+      return ReceberDAO.getInstance().Retrieve(id);
     }
     
     public static Receber BuscarPorUmaIdVendaRecebido(int idVenda) {
-        ReceberDAO receberDAO = new ReceberDAO();
-        return receberDAO.RetrievePorUmaIdVendaRecebido(idVenda);  
+     return ReceberDAO.getInstance().RetrievePorUmaIdVendaRecebido(idVenda);  
     }
 
     public static void Deletar(Receber objeto) {
-        ReceberDAO receberDAO = new ReceberDAO();
-        receberDAO.Delete(objeto);
+        ReceberDAO.getInstance().Delete(objeto);
     }
     public static void Deletar(int idReceber) {
-        ReceberDAO receberDAO = new ReceberDAO();
-        receberDAO.Delete(idReceber);
+        ReceberDAO.getInstance().Delete(idReceber);
     }
 }

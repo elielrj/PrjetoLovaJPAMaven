@@ -6,140 +6,95 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class PagarDAO implements InterfaceDAO<Pagar> {
 
+    private static PagarDAO instance;
+    protected EntityManager entityManager;
+    
+    public static PagarDAO getInstance(){
+        if(instance == null){
+            instance = new PagarDAO();
+        }
+        return instance;
+    }
+
+    public PagarDAO() {
+        this.entityManager = getEntityManager();
+    }
+    
+    private EntityManager getEntityManager() {
+         EntityManagerFactory factory = Persistence.createEntityManagerFactory("ProjetoLojaJPAMaven");
+        
+        if(entityManager == null){
+            entityManager = factory.createEntityManager();
+        }
+        return entityManager;
+    }
+    
+    
     @Override
     public void Create(Pagar objeto) {
-        Connection conexao = ConectionFactory.getConection();
-
-        PreparedStatement pstm = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.PAGAR_CREATE);
-            pstm.setString(1, objeto.getDataPagamento());
-            pstm.setString(2, objeto.getHora());
-            pstm.setFloat(3, objeto.getValorAcrescimo());
-            pstm.setFloat(4, objeto.getValorPago());
-            pstm.setString(5, objeto.getObservacao());
-            pstm.setInt(6, objeto.getContaAPagar().getId());
-            pstm.executeUpdate();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+       try{
+        entityManager.getTransaction().begin();
+        entityManager.persist(objeto);
+        entityManager.getTransaction().commit();
+        } catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
         }
-        ConectionFactory.closeConnection(conexao, pstm);
     }
 
     @Override
     public List<Pagar> Retrieve() {
-        Connection conexao = ConectionFactory.getConection();
-
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.PAGAR_RETRIVE_ALL);
-            rs = pstm.executeQuery();
-
-            List<Pagar> pagamentos = new ArrayList();
-
-            while (rs.next()) {
-                Pagar pagamento = new Pagar.PagarBuilder()
-                        .setId(rs.getInt("id"))
-                        .setDataPagamento(rs.getString("datapagamento"))
-                        .setHora(rs.getString("hora"))
-                        .setValorAcrescimo(rs.getFloat("valoracrescimo"))
-                        .setValorPago(rs.getFloat("valorpago"))
-                        .setObservacao(rs.getString("observacao"))
-                        .setContaAPagar(
-                                com.mycompany.projetolojajpamaven.service.ServiceContaAPagar.Buscar(rs.getInt("contaapagarid"))
-                        )
-                        .createPagar();
-
-                pagamentos.add(pagamento);
-            }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return pagamentos;
-        } catch (Exception ex) {
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return null;
-        }
+       List<Pagar> listaBairros;
+        listaBairros = entityManager.createQuery("Select c From pagar c",Pagar.class).getResultList();
+        return listaBairros;
     }
 
     @Override
     public Pagar Retrieve(int id) {
-        Connection conexao = ConectionFactory.getConection();
-
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.PAGAR_RETRIVE_ONE_ID);
-            pstm.setInt(1, id);
-            rs = pstm.executeQuery();
-
-            Pagar pagamento = new Pagar.PagarBuilder().createPagar();
-
-            while (rs.next()) {
-                pagamento.setId(rs.getInt("id"));
-                pagamento.setDataPagamento(rs.getString("datapagamento"));
-                pagamento.setHora(rs.getString("hora"));
-                pagamento.setValorAcrescimo(rs.getFloat("valoracrescimo"));
-                pagamento.setValorPago(rs.getFloat("valorpago"));
-                pagamento.setObservacao(rs.getString("observacao"));
-                pagamento.setContaAPagar(
-                        com.mycompany.projetolojajpamaven.service.ServiceContaAPagar.Buscar(rs.getInt("contaapagarid"))
-                );
-            }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return pagamento;
-        } catch (Exception ex) {
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return null;
-        }
+        return  entityManager.find(Pagar.class, id);
     }
 
     @Override
     public void Update(Pagar objeto) {
-        Connection conexao = ConectionFactory.getConection();
-
-        PreparedStatement pstm = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.PAGAR_UPDATE);
-            pstm.setString(1, objeto.getDataPagamento());
-            pstm.setString(2, objeto.getHora());
-            pstm.setFloat(3, objeto.getValorAcrescimo());
-            pstm.setFloat(4, objeto.getValorPago());
-            pstm.setString(5, objeto.getObservacao());
-            pstm.setInt(6, objeto.getContaAPagar().getId());
-            pstm.setInt(7, objeto.getId());
-
-            pstm.executeUpdate();
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        ConectionFactory.closeConnection(conexao, pstm);
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(objeto);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } 
     }
 
     @Override
     public void Delete(Pagar objeto) {
-
-        Connection conexao = ConectionFactory.getConection();
-        PreparedStatement pstm = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.PAGAR_DELETE);
-            pstm.setInt(1, objeto.getId());
-            pstm.executeUpdate();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        ConectionFactory.closeConnection(conexao, pstm);
+try{
+            entityManager.getTransaction().begin();
+            Pagar bairro = entityManager.find(Pagar.class, objeto.getId());
+            entityManager.remove(bairro);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } 
+       
     }
     public void Delete(int idPagar){
-        Delete(Retrieve(idPagar));
+        try{
+            entityManager.getTransaction().begin();
+            Pagar bairro = entityManager.find(Pagar.class, idPagar);
+            entityManager.remove(bairro);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        }
     }
 
 }

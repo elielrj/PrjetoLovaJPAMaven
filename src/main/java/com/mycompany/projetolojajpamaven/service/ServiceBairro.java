@@ -7,42 +7,34 @@ import com.mycompany.projetolojajpamaven.model.DAO.BairroDAO;
 public class ServiceBairro {
 
     public static void Incluir(Bairro objeto) {
-        BairroDAO bairroDAO = new BairroDAO();
-        bairroDAO.Create(objeto);
+        BairroDAO.getInstance().Create(objeto);
     }
 
     public static void Atualizar(Bairro objeto) {
-        BairroDAO bairroDAO = new BairroDAO();
-        bairroDAO.Update(objeto);
+        BairroDAO.getInstance().Update(objeto);
     }
 
     public static List<Bairro> Buscar() {
-        BairroDAO bairroDAO = new BairroDAO();
-        return (bairroDAO.Retrieve());
+        return BairroDAO.getInstance().Retrieve();
     }
 
     public static Bairro Buscar(int id) {
-        BairroDAO bairroDAO = new BairroDAO();
-        return bairroDAO.Retrieve(id);
+        return BairroDAO.getInstance().Retrieve(id);
     }
 
     public static void Deletar(Bairro objeto) {
-        BairroDAO bairroDAO = new BairroDAO();
-        bairroDAO.Delete(objeto);
+        BairroDAO.getInstance().Delete(objeto);
     }
 
     public static void Deletar(int idBairro) {
-        BairroDAO bairroDAO = new BairroDAO();
-        bairroDAO.Delete(idBairro);
+        BairroDAO.getInstance().Delete(idBairro);
     }
 
     public static List<Bairro> BuscarPorCidade(int idCidade) {
-        BairroDAO bairroDAO = new BairroDAO();
-        return bairroDAO.RetrieveForCity(idCidade);
+        return BairroDAO.getInstance().RetrieveForCity(idCidade);
     }
 
     public static int BuscarIdDaCidade(int idBairro) {
-        BairroDAO bairroDAO = new BairroDAO();
-        return bairroDAO.RetrieveIdTheCity(idBairro);
+        return BairroDAO.getInstance().RetrieveIdTheCity(idBairro);
     }
 }

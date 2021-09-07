@@ -7,39 +7,30 @@ import com.mycompany.projetolojajpamaven.model.DAO.CompraDAO;
 public class ServiceCompra {
 
     public static void Incluir(Compra objeto) {
-
-        CompraDAO compraDAO = new CompraDAO();
-        compraDAO.Create(objeto);
-
+        CompraDAO.getInstance().Create(objeto);
     }
 
     public static void Atualizar(Compra objeto) {
-        CompraDAO compraDAO = new CompraDAO();
-        compraDAO.Update(objeto);
+        CompraDAO.getInstance().Update(objeto);
     }
 
     public static List<Compra> Buscar() {
-        CompraDAO compraDAO = new CompraDAO();
-        return (compraDAO.Retrieve());
+        return CompraDAO.getInstance().Retrieve();
     }
 
     public static Compra Buscar(int id) {
-        CompraDAO compraDAO = new CompraDAO();
-        return compraDAO.Retrieve(id);
+        return CompraDAO.getInstance().Retrieve(id);
     }
 
     public static void Deletar(Compra objeto) {
-        CompraDAO compraDAO = new CompraDAO();
-        compraDAO.Delete(objeto);
+        CompraDAO.getInstance().Delete(objeto);
     }
     
     public static void Deletar(int idDaCompra) {
-        CompraDAO compraDAO = new CompraDAO();
-        compraDAO.Delete(idDaCompra);
+        CompraDAO.getInstance().Delete(idDaCompra);
     }
     
     public static int Buscar(Compra compra) {
-        CompraDAO compraDAO = new CompraDAO();
-        return compraDAO.Retrieve(compra);
+        return CompraDAO.getInstance().Retrieve(compra).getId();
     }
 }

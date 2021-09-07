@@ -10,311 +10,161 @@ import com.mycompany.projetolojajpamaven.model.bo.ContaAReceber;
 import com.mycompany.projetolojajpamaven.model.bo.Estoque;
 import com.mycompany.projetolojajpamaven.model.bo.ItemDeVenda;
 import com.mycompany.projetolojajpamaven.model.bo.PessoaFisica;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public class VendaDAO implements InterfaceDAO<Venda> {
+    
+    private static VendaDAO instance;
+    protected EntityManager entityManager;
+    
+    public static VendaDAO getInstance(){
+        if(instance== null){
+            instance = new VendaDAO();
+        }
+        return instance;
+    }
+
+    public VendaDAO() {
+        this.entityManager = getEntityManager();
+    }
+    
+    private EntityManager getEntityManager() {
+         EntityManagerFactory factory = Persistence.createEntityManagerFactory("ProjetoLojaJPAMaven");
+        
+        if(entityManager == null){
+            entityManager = factory.createEntityManager();
+        }
+        return entityManager;
+    }
+    
+
+    
 
     @Override
     public void Create(Venda objeto) {
-
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            pstm = conexao.prepareStatement(SQL.VENDA_CREATE);
-            pstm.setString(1, objeto.getData());
-            pstm.setString(2, objeto.getHora());
-            pstm.setString(3, objeto.getDataDeVencimento());
-            pstm.setString(4, objeto.getObservacao());
-            pstm.setFloat(5, objeto.getValorDoDesconto());
-            pstm.setFloat(6, objeto.getValorTotal());
-            pstm.setBoolean(7, objeto.getStatus());
-            pstm.setInt(8, objeto.getPessoaFisica().getId());
-            pstm.setString(9, objeto.getUserCaixa());
-            pstm.executeUpdate();
-            ConectionFactory.closeConnection(conexao, pstm);
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: VendaDAO->Create-\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.persist(objeto);
+            entityManager.getTransaction().commit();
+        } catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
         }
+
+        
     }
 
     @Override
     public Venda Retrieve(int id) {
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            ResultSet rs = null;
-            pstm = conexao.prepareStatement(SQL.VENDA_RETRIVE_ONE_ID);
-            pstm.setInt(1, id);
-            rs = pstm.executeQuery();
-            Venda venda = new Venda.VendaBuilder().createVenda();
-            while (rs.next()) {
-                venda.setId(rs.getInt("id"));
-                venda.setData(rs.getString("datavenda"));
-                venda.setHora(rs.getString("hora"));
-                venda.setDataDeVencimento(rs.getString("datavencimento"));
-                venda.setObservacao(rs.getString("observacao"));
-                venda.setValorDoDesconto(rs.getFloat("valordesconto"));
-                venda.setValorTotal(rs.getFloat("valortotal"));
-                venda.setStatus(rs.getBoolean("status"));
-                venda.setPessoaFisica(
-                        com.mycompany.projetolojajpamaven.service.ServicePessoaFisica.Buscar(rs.getInt("pessoafisicaid"))
-                );
-                venda.setUserCaixa(rs.getString("usercaixa"));
-            }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return venda;
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: VendaDAO->Retrive-\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        }
+        return  entityManager.find(Venda.class, id);
     }
 
     @Override
     public List<Venda> Retrieve() {
-        Connection conexao = ConectionFactory.getConection();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-        List<Venda> vendas = new ArrayList();
-        try {
-            pstm = conexao.prepareStatement(SQL.VENDA_RETRIVE_ALL);
-            rs = pstm.executeQuery();
-
-            while (rs.next()) {
-                Venda venda = new Venda.VendaBuilder()
-                        .setId(rs.getInt("id"))
-                        .setData(rs.getString("datavenda"))
-                        .setHora(rs.getString("hora"))
-                        .setDataDeVencimento(rs.getString("datavencimento"))
-                        .setObservacao(rs.getString("observacao"))
-                        .setValorDoDesconto(rs.getFloat("valordesconto"))
-                        .setValorTotal(rs.getFloat("valortotal"))
-                        .setStatus(rs.getBoolean("status"))
-                        .setPessoaFisica(
-                                com.mycompany.projetolojajpamaven.service.ServicePessoaFisica.Buscar(rs.getInt("pessoafisicaid"))
-                        )
-                        .setUserCaixa(rs.getString("usercaixa"))
-                        .createVenda();
-                vendas.add(venda);
-            }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return vendas;
-        } catch (Exception ex) {
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return null;
-        }
+        List<Venda> listaBairros;
+        listaBairros = entityManager.createQuery("Select c From venda c",Venda.class).getResultList();
+        return listaBairros;
     }
 
     public List<Venda> RetrieveBuscaVendaDeUmCliente(PessoaFisica pessoaFisica) {
-        Connection conexao = ConectionFactory.getConection();
-
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.VENDA_RETRIVE_ONE_ID_PESSOA_FISICA_ID);
-            pstm.setInt(1, pessoaFisica.getId());
-            rs = pstm.executeQuery();
-            List<Venda> vendas = new ArrayList();
-
-            while (rs.next()) {
-                Venda venda = new Venda.VendaBuilder()
-                        .setId(rs.getInt("id"))
-                        .setData(rs.getString("datavenda"))
-                        .setHora(rs.getString("hora"))
-                        .setDataDeVencimento(rs.getString("datavencimento"))
-                        .setObservacao(rs.getString("observacao"))
-                        .setValorDoDesconto(rs.getFloat("valordesconto"))
-                        .setValorTotal(rs.getFloat("valortotal"))
-                        .setStatus(rs.getBoolean("status"))
-                        .setPessoaFisica(
-                                com.mycompany.projetolojajpamaven.service.ServicePessoaFisica.Buscar(rs.getInt("pessoafisicaid"))
-                        )
-                        .setUserCaixa(rs.getString("usercaixa"))
-                        .setItensDeVenda(
-                                com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.BuscarUmaListaDeItemDeVendaPeloIdDaVenda(
-                                        rs.getInt("id")
-                                )
-                        )
-                        .createVenda();
-                vendas.add(venda);
-            }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return vendas;
-        } catch (Exception ex) {
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return null;
-        }
+       List<Venda> lista = new ArrayList<>();
+       
+       for(Venda v : Retrieve()){
+           if(v.getPessoaFisica().getNome().equalsIgnoreCase(pessoaFisica.getNome())){
+               lista.add(v);
+           }
+       }
+       return lista;
     }
 
     public List<Venda> RetrieveBuscaVendaDeUmClientePorIDPFeData(PessoaFisica pessoaFisica, String data) {
-        Connection conexao = ConectionFactory.getConection();
-
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.VENDA_RETRIVE_POR_PESSOA_FISICA_ID_AND_DATA_DA_VENDA);
-            pstm.setInt(1, pessoaFisica.getId());
-            pstm.setString(2, data);
-            rs = pstm.executeQuery();
-            List<Venda> vendas = new ArrayList();
-
-            while (rs.next()) {
-                Venda venda = new Venda.VendaBuilder()
-                        .setId(rs.getInt("id"))
-                        .setData(rs.getString("datavenda"))
-                        .setHora(rs.getString("hora"))
-                        .setDataDeVencimento(rs.getString("datavencimento"))
-                        .setObservacao(rs.getString("observacao"))
-                        .setValorDoDesconto(rs.getFloat("valordesconto"))
-                        .setValorTotal(rs.getFloat("valortotal"))
-                        .setStatus(rs.getBoolean("status"))
-                        .setPessoaFisica(
-                                com.mycompany.projetolojajpamaven.service.ServicePessoaFisica.Buscar(rs.getInt("pessoafisicaid"))
-                        )
-                        .setUserCaixa(rs.getString("usercaixa"))
-                        .setItensDeVenda(
-                                com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.BuscarUmaListaDeItemDeVendaPeloIdDaVenda(
-                                        rs.getInt("id")
-                                )
-                        )
-                        .createVenda();
-                vendas.add(venda);
-            }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return vendas;
-        } catch (Exception ex) {
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return null;
-        }
+        List<Venda> lista = new ArrayList<>();
+       
+       for(Venda v : Retrieve()){
+           if(v.getPessoaFisica().getId() == pessoaFisica.getId()){
+               if(v.getData() == data){
+                   lista.add(v);
+               }
+           }
+       }
+       return lista;
     }
     
     @Override
     public void Update(Venda objeto) {
-        Connection conexao = ConectionFactory.getConection();
-
-        PreparedStatement pstm = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.VENDA_UPDATE);
-
-            pstm.setString(1, objeto.getData());
-            pstm.setString(2, objeto.getHora());
-            pstm.setString(3, objeto.getDataDeVencimento());
-            pstm.setString(4, objeto.getObservacao());
-            pstm.setFloat(5, objeto.getValorDoDesconto());
-            pstm.setFloat(6, objeto.getValorTotal());
-            pstm.setBoolean(7, objeto.getStatus());
-            pstm.setInt(8, objeto.getPessoaFisica().getId());
-            pstm.setString(9, objeto.getUserCaixa());
-            pstm.setInt(10, objeto.getId());
-            pstm.executeUpdate();
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        ConectionFactory.closeConnection(conexao, pstm);
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(objeto);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } 
     }
 
     @Override
     public void Delete(Venda objeto) {
-        ContaAReceber contaaReceber = com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.BuscarIdDaContaAReceberPeloIdDaVenda(objeto.getId());
-        com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Deletar(contaaReceber);
-        for (ItemDeVenda i : objeto.getItensDeVenda()) {
-            Estoque estoque = com.mycompany.projetolojajpamaven.service.ServiceEstoque.BuscarEstoquePorIdDoProduto(i.getProduto().getId());
-            estoque.setQuantidade(estoque.getQuantidade() + i.getQuantidade());
-            com.mycompany.projetolojajpamaven.service.ServiceEstoque.Atualizar(estoque);
-            com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.Deletar(i);
-        }
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            pstm = conexao.prepareStatement(SQL.VENDA_DELETE);
-            pstm.setInt(1, objeto.getId());
-            pstm.executeUpdate();
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: VendaDAO->Delete\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        }
+        try{
+            entityManager.getTransaction().begin();
+            Venda bairro = entityManager.find(Venda.class, objeto.getId());
+            entityManager.remove(bairro);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        }   
     }
 
     public void Delete(int idVenda) {
-        Venda venda = com.mycompany.projetolojajpamaven.service.ServiceVenda.Buscar(idVenda);
-        //Delete(venda);
-        /*Connection conexao = ConectionFactory.getConection();
-        PreparedStatement pstm = null;
-
-        try {
-            Venda venda = service.ServiceVenda.BuscarObjetoVendaPeloClienteValorTotalEData(idVenda);
-            for (ItemDeVenda i : venda.getItensDeVenda()) {
-                Estoque estoque = service.ServiceEstoque.BuscarEstoquePorIdDoProduto(i.getProduto().getId());
-                estoque.setQuantidade(estoque.getQuantidade() + i.getQuantidade());
-                service.ServiceEstoque.Atualizar(estoque);
-                service.ServiceItemDeVenda.Deletar(i);
-            }
-
-            ContaAReceber contaaReceber = service.ServiceContaAReceber.BuscarIdDaContaAReceberPeloIdDaVenda(idVenda);
-            service.ServiceContaAReceber.Deletar(contaaReceber);
-
-            pstm = conexao.prepareStatement(SQL.VENDA_DELETE);
-            pstm.setInt(1, venda.getId());
-            pstm.executeUpdate();
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: BairroDAO->Retrive->bairroDAO\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        }*/
-        ContaAReceber contaaReceber = com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.BuscarIdDaContaAReceberPeloIdDaVenda(idVenda);
-        com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Deletar(contaaReceber);
-        for (ItemDeVenda i : venda.getItensDeVenda()) {
-            Estoque estoque = com.mycompany.projetolojajpamaven.service.ServiceEstoque.BuscarEstoquePorIdDoProduto(i.getProduto().getId());
-            estoque.setQuantidade(estoque.getQuantidade() + i.getQuantidade());
-            com.mycompany.projetolojajpamaven.service.ServiceEstoque.Atualizar(estoque);
-            com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.Deletar(i);
-        }
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            pstm = conexao.prepareStatement(SQL.VENDA_DELETE);
-            pstm.setInt(1, idVenda);
-            pstm.executeUpdate();
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: VendaDAO->Delete IdVenda\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        }
+        try{
+            entityManager.getTransaction().begin();
+            Venda bairro = entityManager.find(Venda.class, idVenda);
+            entityManager.remove(bairro);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } 
     }
 
     public int RetrieveObjetoVendaPeloClienteValorTotalEData(Venda venda) {
-
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            ResultSet rs = null;
-            pstm = conexao.prepareStatement(SQL.VENDA_RETRIVE_VENDA_OBJ);
-            pstm.setFloat(1, venda.getValorTotal());
-            pstm.setInt(2, venda.getPessoaFisica().getId());
-            pstm.setString(3, venda.getData());
-            rs = pstm.executeQuery();
-            while (rs.next()) {
-                venda.setId(rs.getInt("id"));//1
+/*
+        for(Venda v: Retrieve()){
+            if(v.getPessoaFisica().getNome().equalsIgnoreCase(venda.getPessoaFisica().getNome())){
+                if(v.getData().equals(venda.getData())){
+                    if(v.getValorTotal() == venda.getValorTotal()){
+                        return v.getId();
+                    }
+                }
             }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return venda.getId();
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: VendaDAO->Retrive\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
         }
+        return 0;        
+  
+        List<Venda> listaBairros; */
+        List<Venda> v = new ArrayList<>();
+        
+        Query query = entityManager.createQuery("Select c From venda c where c.pessoaFisica = :pessoa and c.data = :data and c.valorTotal = :valor", Venda.class);
+        query.setParameter("pessoa", venda.getPessoaFisica());
+        query.setParameter("data", venda.getData());
+        query.setParameter("valor", venda.getValorTotal());
+        
+        v = query.getResultList();
+        
+        
+        for (Venda ve : v){
+            return ve.getId();
+        }
+        
+     return 0;
+    }
+
+    public int BuscarProximoId(){
+        List<Venda> listaBairros;
+        listaBairros = entityManager.createQuery("Select c From venda c",Venda.class).getResultList();
+        return listaBairros.size()+1;
     }
 
 }

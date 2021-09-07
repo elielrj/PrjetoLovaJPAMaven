@@ -1,23 +1,26 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "pagar")
-public class Pagar {
+public class Pagar implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
+    @Column(name="id")
     private int id;//1
     
     @Column(name="datapagamento")
     private String dataPagamento;//2
     
-    @Column
+    @Column(name="hora")
     private String hora;//3
    // private float valorDesconto;//4
     
@@ -27,7 +30,7 @@ public class Pagar {
     @Column(name="valorpago")
     private float valorPago;//6
     
-    @Column
+    @Column(name="observacao")
     private String observacao;//7
     //private Compra compra;//8
     //private boolean status;//9
@@ -35,6 +38,9 @@ public class Pagar {
     @JoinColumn(name="contaapagarid")
     @ManyToOne
     private ContaAPagar contaAPagar;
+
+    public Pagar() {
+    }
 
     private Pagar(PagarBuilder pagarBuilder) {
         this.id = pagarBuilder.id;

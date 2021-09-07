@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="ProjetoLojaJPAMaven" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.mycompany.projetolojajpamaven.model.bo.Bairro</class>
+    <class>com.mycompany.projetolojajpamaven.model.bo.Cidade</class>
+    <class>com.mycompany.projetolojajpamaven.model.bo.Compra</class>
+    <class>com.mycompany.projetolojajpamaven.model.bo.ContaAPagar</class>
+    <class>com.mycompany.projetolojajpamaven.model.bo.ContaAReceber</class>
+    <class>com.mycompany.projetolojajpamaven.model.bo.Endereco</class>
+    <class>com.mycompany.projetolojajpamaven.model.bo.Estoque</class>
+    <class>com.mycompany.projetolojajpamaven.model.bo.Fornecedor</class>
+    <class>com.mycompany.projetolojajpamaven.model.bo.ItemDeCompra</class>
+    <class>com.mycompany.projetolojajpamaven.model.bo.ItemDeVenda</class>
+    <class>com.mycompany.projetolojajpamaven.model.bo.Pagar</class>
+    <class>com.mycompany.projetolojajpamaven.model.bo.PessoaFisica</class>
+    <class>com.mycompany.projetolojajpamaven.model.bo.Produto</class>
+    <class>com.mycompany.projetolojajpamaven.model.bo.Receber</class>
+    <class>com.mycompany.projetolojajpamaven.model.bo.Venda</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/espacoecofit?verifyServerCertificate=false&amp;useSSL=false&amp;serverTimezone=UTC"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="root"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySql8Dialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+    </properties>
+  </persistence-unit>
+</persistence>

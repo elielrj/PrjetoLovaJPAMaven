@@ -1,20 +1,29 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import com.sun.istack.NotNull;
+import com.sun.istack.Nullable;
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity(name = "itemdevenda")
-public class ItemDeVenda {
+public class ItemDeVenda implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)   
+    @Column(name="id")
     private int id;//1
     
-    @Column
+    @Column(name="quantidade")
     private int quantidade;//3
     
     @JoinColumn(name="produtoid")
@@ -24,9 +33,13 @@ public class ItemDeVenda {
     @Column(name="subtotal")
     private float subTotal;//5
     
-    @JoinColumn(name="vendaid")
+    @NotNull
     @ManyToOne
-    private int vendaId;//6
+    @JoinColumn(name = "vendaid", referencedColumnName = "id", nullable = false)
+    private Venda vendaId;//6
+
+    public ItemDeVenda() {
+    }
 
     private ItemDeVenda(ItemDeVendaBuilder itemDeVendaBuilder) {
         this.id = itemDeVendaBuilder.id;
@@ -68,11 +81,11 @@ public class ItemDeVenda {
         this.subTotal = subTotal;
     }
 
-    public int getVendaId() {
+    public Venda getVendaId() {
         return vendaId;
     }
 
-    public void setVendaId(int vendaId) {
+    public void setVendaId(Venda vendaId) {
         this.vendaId = vendaId;
     }
 
@@ -83,7 +96,7 @@ public class ItemDeVenda {
         private int quantidade;
         private Produto produto;
         private float subTotal;
-        private int vendaId;
+        private Venda vendaId;
 
         public ItemDeVendaBuilder() {
         }
@@ -103,7 +116,7 @@ public class ItemDeVenda {
             return this;
         }
 
-        public ItemDeVendaBuilder setVendaId(int vendaId) {
+        public ItemDeVendaBuilder setVendaId(Venda vendaId) {
             this.vendaId = vendaId;
             return this;
         }

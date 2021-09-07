@@ -1,18 +1,21 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name="produto")
-public class Produto {
+public class Produto implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)   
+    @Column(name="id")
     private int id;//1
     
-    @Column
+    @Column(name="descricao")
     private String descricao;//2
     
     @Column(name="unidadedecompra")
@@ -24,17 +27,20 @@ public class Produto {
     @Column(name="correlacaounidade")
     private String correlacaoUnidade;//5
     
-    @Column
+    @Column(name="valor")
     private float valor;//6
     
     @Column(name="codigodebarras")
     private String codigoDeBarras;//7
     
-    @Column
+    @Column(name="status")
     private boolean status;//8
     
-    @Column
+    @Column(name="observacao")
     private String observacao;//9
+
+    public Produto() {
+    }
 
     private Produto(ProdutoBuilder produtoBuilder) {
         this.id = produtoBuilder.id;

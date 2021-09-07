@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import com.mycompany.projetolojajpamaven.model.bo.ContaAReceber;
 import com.mycompany.projetolojajpamaven.model.bo.Estoque;
 import com.mycompany.projetolojajpamaven.model.bo.ItemDeVenda;
+import com.mycompany.projetolojajpamaven.model.bo.PessoaFisica;
 import com.mycompany.projetolojajpamaven.model.bo.Produto;
 import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaPessoaFisica;
 import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaProduto;
@@ -51,10 +52,10 @@ public class ControllerVenda implements ActionListener {
                         if (validarCodigoBarras()) {
                             inserirItem();
                         } else {
-                            JOptionPane.showMessageDialog(null, "C√≥d de Barras inv√°lido");
+                            JOptionPane.showMessageDialog(null, "CÛdigo de Barras inv·lilido");
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "N√£o existe um faturamento em andamento");
+                        JOptionPane.showMessageDialog(null, "N„o existe um faturamento em andamento");
                     }
                 } else if (evt.getKeyCode() == KeyEvent.VK_F1) {
                     buscaCodigoDeBarrasDoProduto();
@@ -83,10 +84,10 @@ public class ControllerVenda implements ActionListener {
                         if (validarCodigoBarras()) {
                             inserirItem();
                         } else {
-                            JOptionPane.showMessageDialog(null, "C√≥d de Barras inv√°lido");
+                            JOptionPane.showMessageDialog(null, "CÛdigo de Barras inv·lido");
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "N√£o existe um faturamento em andamento");
+                        JOptionPane.showMessageDialog(null, "N„o existe um faturamento em andamento");
                     }
                 } else if (evt.getKeyCode() == KeyEvent.VK_F1) {
                     buscaCodigoDeBarrasDoProduto();
@@ -116,10 +117,10 @@ public class ControllerVenda implements ActionListener {
                         if (validarCodigoBarras()) {
                             inserirItem();
                         } else {
-                            JOptionPane.showMessageDialog(null, "C√≥d de Barras inv√°lido");
+                            JOptionPane.showMessageDialog(null, "CÛd de Barras inv·lido");
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "N√£o existe um faturamento em andamento");
+                        JOptionPane.showMessageDialog(null, "N„o existe um faturamento em andamento");
                     }
                 } else if (evt.getKeyCode() == KeyEvent.VK_F1) {
                     buscaCodigoDeBarrasDoProduto();
@@ -190,16 +191,16 @@ public class ControllerVenda implements ActionListener {
                 //CLIENTE - PESSOA F√?SICA
                 this.telaCadastroVenda.getjTextField_ClienteId().setText(venda.getPessoaFisica().getId() + "");//10 - 1
                 this.telaCadastroVenda.getjTextField_Cliente_Nome().setText(venda.getPessoaFisica().getNome());//10 - 2
-                // N√£o necess√°rio: 3,4,5
+                // N„o necess√°rio: 3,4,5
                 this.telaCadastroVenda.getjTextField_Cliente_Cidade().setText(venda.getPessoaFisica().getEndereco().getBairro().getCidade().getNome());//10 - 6?
                 this.telaCadastroVenda.getjTextField_Cliente_Bairro().setText(venda.getPessoaFisica().getEndereco().getBairro().getNome());//10 - 6?
-                // N√£o necess√°rio 7
+                // N„o necess√°rio 7
                 this.telaCadastroVenda.getjTextField_Cliente_Tel1().setText(venda.getPessoaFisica().getTelefone1());//10 -8 
                 this.telaCadastroVenda.getjTextField_Cliente_Tel2().setText(venda.getPessoaFisica().getTelefone2());//10 - 9
                 this.telaCadastroVenda.getjComboBox_alunoOuPersonal().setSelectedItem(venda.getPessoaFisica().getTipo());
                 this.telaCadastroVenda.getjTextField_Cliente_Email().setText(venda.getPessoaFisica().getEmail());//10 - 10                
-//
-                venda.setItensDeVenda(com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.BuscarUmaListaDeItemDeVendaPeloIdDaVenda(venda.getId())); //11
+JOptionPane.showConfirmDialog(null, "antes de itens");
+                //venda.setItensDeVenda(com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.BuscarUmaListaDeItemDeVendaPeloIdDaVenda(venda.getId())); //11
                 atualizarTabelaDeItens();
             }
             // 5- PESQUISAR PRODUTO
@@ -211,11 +212,11 @@ public class ControllerVenda implements ActionListener {
                 if (validarCodigoBarras()) {
                     inserirItem();
                 } else {
-                    JOptionPane.showMessageDialog(null, "C√≥d de Barras inv√°lido");
+                    JOptionPane.showMessageDialog(null, "CÛd de Barras inv·lido");
                     this.telaCadastroVenda.getjFormattedTextField_ProdutoCodBarras().requestFocus();
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "N√£o existe um faturamento em andamento");
+                JOptionPane.showMessageDialog(null, "N„o existe um faturamento em andamento");
                 this.telaCadastroVenda.getjComboBoxStatus().requestFocus();
             }
             // 8 - SAIR
@@ -369,10 +370,10 @@ public class ControllerVenda implements ActionListener {
         //CLIENTE - PESSOA F√?SICA
         this.telaCadastroVenda.getjTextField_ClienteId().setText(venda.getPessoaFisica().getId() + "");//10 - 1
         this.telaCadastroVenda.getjTextField_Cliente_Nome().setText(venda.getPessoaFisica().getNome());//10 - 2
-        // N√£o necess√°rio: 3,4,5
+        // N„o necess√°rio: 3,4,5
         this.telaCadastroVenda.getjTextField_Cliente_Cidade().setText(venda.getPessoaFisica().getEndereco().getBairro().getCidade().getNome());//10 - 6?
         this.telaCadastroVenda.getjTextField_Cliente_Bairro().setText(venda.getPessoaFisica().getEndereco().getBairro().getNome());//10 - 6?
-        // N√£o necess√°rio 7
+        // N„o necess√°rio 7
         this.telaCadastroVenda.getjTextField_Cliente_Tel1().setText(venda.getPessoaFisica().getTelefone1());//10 -8 
         this.telaCadastroVenda.getjTextField_Cliente_Tel2().setText(venda.getPessoaFisica().getTelefone2());//10 - 9
         this.telaCadastroVenda.getjComboBox_alunoOuPersonal().setSelectedItem(venda.getPessoaFisica().getTipo());
@@ -398,7 +399,9 @@ public class ControllerVenda implements ActionListener {
             return false;
         }*/
 
-        return com.mycompany.projetolojajpamaven.service.ServiceProduto.codigoDeBarrasValido(this.telaCadastroVenda.getjFormattedTextField_ProdutoCodBarras().getText());
+        return com.mycompany.projetolojajpamaven.service.ServiceProduto.codigoDeBarrasValido(
+                (this.telaCadastroVenda.getjFormattedTextField_ProdutoCodBarras().getText())
+        );
 
     }
 
@@ -440,18 +443,37 @@ public class ControllerVenda implements ActionListener {
         venda.setValorTotal(Float.parseFloat(this.telaCadastroVenda.getjLabel_FaturamentoValorTotal().getText()));//8
         venda.setStatus(this.telaCadastroVenda.getjComboBoxStatus().getSelectedItem().equals("Faturando"));//9
         //ATRIBUI√á√ÉO DA PESSOA F√?SICA √â FEITA NA BUSCA - 10
-
+        
+        venda.setPessoaFisica(
+                buscaPessoaFisica(
+                        Integer.parseInt(this.telaCadastroVenda.getjTextField_ClienteId().getText())
+                )
+        );
+        
         //VENDA OK
         if (codigo == 0) {
+            
+            
             //1¬∫ incluir a venda
             com.mycompany.projetolojajpamaven.service.ServiceVenda.Incluir(venda);
             //Resgatar o Id da Venda
-            venda.setId(com.mycompany.projetolojajpamaven.service.ServiceVenda.BuscarObjetoVendaPeloClienteValorTotalEData(venda));
+           /* int idDaVenda = com.mycompany.projetolojajpamaven.service.ServiceVenda.BuscarObjetoVendaPeloClienteValorTotalEData(venda);
+            //Venda vendaAtualizada = com.mycompany.projetolojajpamaven.service.ServiceVenda.Buscar(idDaVenda);
+            
+            for(ItemDeVenda i : com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.Buscar()){
+                if(i.getVendaId() == null){
+                    
+                    com.mycompany.projetolojajpamaven.service.ServiceVenda.Atualizar(vendaAtualizada);
+                }
+            
+            }
+            */
+            
             //2¬∫ incluir os itens c/ idVenda na tabela de itens de venda no banco           
 
             for (ItemDeVenda itemDeVenda : venda.getItensDeVenda()) {
-                itemDeVenda.setVendaId(venda.getId());
-                
+                itemDeVenda.setVendaId(venda);//venda.getId());
+                //!!com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.Incluir(itemDeVenda);
 
                 //ESTOQUE: 1¬∫ busca estoque pelo produtoId
                 Estoque estoque = com.mycompany.projetolojajpamaven.service.ServiceEstoque.BuscarEstoquePorIdDoProduto(itemDeVenda.getProduto().getId());
@@ -459,7 +481,7 @@ public class ControllerVenda implements ActionListener {
                 estoque.setQuantidade(estoque.getQuantidade() - itemDeVenda.getQuantidade());
                 com.mycompany.projetolojajpamaven.service.ServiceEstoque.Atualizar(estoque);
                 //VENDA: finalmente incluir-la
-                com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.Incluir(itemDeVenda);
+                //!!com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.Incluir(itemDeVenda);
 
             }
 
@@ -474,7 +496,7 @@ public class ControllerVenda implements ActionListener {
         } else {
             //1¬∫ atualizar a venda
             com.mycompany.projetolojajpamaven.service.ServiceVenda.Atualizar(venda);
-
+            JOptionPane.showMessageDialog(null, "tewte itens");
             //2¬∫ deletar itens anterior no banco
             //buscar antes de deletar!
             List<ItemDeVenda> itensDeVenda = com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.BuscarUmaListaDeItemDeVendaPeloIdDaVenda(venda.getId());
@@ -491,7 +513,7 @@ public class ControllerVenda implements ActionListener {
             //3¬∫atualizar os itens c/ idVenda e incluir na tabela de itens de venda no banco          
             for (ItemDeVenda item : venda.getItensDeVenda()) {
                 //Setar o IDVenda no item
-                item.setVendaId(venda.getId());
+                item.setVendaId(venda);//venda.getId());
                 try {
                     //buscar estoque, depois debitar e atualizar
                     Estoque estoque = com.mycompany.projetolojajpamaven.service.ServiceEstoque.Buscar(item.getProduto().getId());
@@ -558,10 +580,10 @@ public class ControllerVenda implements ActionListener {
         //CLIENTE - PESSOA F√?SICA
         this.telaCadastroVenda.getjTextField_ClienteId().setText(venda.getPessoaFisica().getId() + "");//10 - 1
         this.telaCadastroVenda.getjTextField_Cliente_Nome().setText(venda.getPessoaFisica().getNome());//10 - 2
-        // N√£o necess√°rio: 3,4,5
+        // N„o necess√°rio: 3,4,5
         this.telaCadastroVenda.getjTextField_Cliente_Cidade().setText(venda.getPessoaFisica().getEndereco().getBairro().getCidade().getNome());//10 - 6?
         this.telaCadastroVenda.getjTextField_Cliente_Bairro().setText(venda.getPessoaFisica().getEndereco().getBairro().getNome());//10 - 6?
-        // N√£o necess√°rio 7
+        // N„o necess√°rio 7
         this.telaCadastroVenda.getjTextField_Cliente_Tel1().setText(venda.getPessoaFisica().getTelefone1());//10 -8 
         this.telaCadastroVenda.getjTextField_Cliente_Tel2().setText(venda.getPessoaFisica().getTelefone2());//10 - 9
         this.telaCadastroVenda.getjComboBox_alunoOuPersonal().setSelectedItem(venda.getPessoaFisica().getTipo());
@@ -619,4 +641,11 @@ public class ControllerVenda implements ActionListener {
         dado = dado.replaceAll("\\,", ".");
         return dado;
     }
+
+    private PessoaFisica buscaPessoaFisica(int idPessoaFisica) {
+        return com.mycompany.projetolojajpamaven.service.ServicePessoaFisica.Buscar(idPessoaFisica);
+    }
 }
+
+
+

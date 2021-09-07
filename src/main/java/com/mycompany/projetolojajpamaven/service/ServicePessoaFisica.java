@@ -8,42 +8,34 @@ import com.mycompany.projetolojajpamaven.model.DAO.PessoaFisicaDAO;
 public class ServicePessoaFisica {
 
     public static void Incluir(PessoaFisica objeto) {
-        PessoaFisicaDAO alunoDAO = new PessoaFisicaDAO();
-        alunoDAO.Create(objeto);
+        PessoaFisicaDAO.getInstance().Create(objeto);
     }
 
     public static void Atualizar(PessoaFisica objeto) {
-        PessoaFisicaDAO alunoDAO = new PessoaFisicaDAO();
-        alunoDAO.Update(objeto);
+        PessoaFisicaDAO.getInstance().Update(objeto);
     }
 
     public static List<PessoaFisica> Buscar() {
-        PessoaFisicaDAO alunoDAO = new PessoaFisicaDAO();
-        return (alunoDAO.Retrieve());
+      return PessoaFisicaDAO.getInstance().Retrieve();
     }
 
     public static PessoaFisica Buscar(int id) {
-        PessoaFisicaDAO alunoDAO = new PessoaFisicaDAO();
-        return alunoDAO.Retrieve(id);
+       return PessoaFisicaDAO.getInstance().Retrieve(id);
     }
 
     public static void Deletar(PessoaFisica objeto) {
-        PessoaFisicaDAO alunoDAO = new PessoaFisicaDAO();
-        alunoDAO.Delete(objeto);
+        PessoaFisicaDAO.getInstance().Delete(objeto);
     }
     
     public static void Deletar(int idPessoaFisica) {
-        PessoaFisicaDAO alunoDAO = new PessoaFisicaDAO();
-        alunoDAO.Delete(idPessoaFisica);
+        PessoaFisicaDAO.getInstance().Delete(idPessoaFisica);
     }
 
     public static List<PessoaFisica> BuscarAluno() {
-        PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
-        return (pessoaFisicaDAO.RetrieveAluno());
+       return PessoaFisicaDAO.getInstance().RetrieveAluno();
     }
 
     public static List<PessoaFisica> BuscarPersonal() {
-        PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
-        return (pessoaFisicaDAO.RetrievePersonal());
+      return PessoaFisicaDAO.getInstance().RetrievePersonal();
     }
 }

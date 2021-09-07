@@ -7,42 +7,26 @@ import com.mycompany.projetolojajpamaven.model.DAO.ContaAPagarDAO;
 public class ServiceContaAPagar {
 
     public static void Incluir(ContaAPagar objeto) {
-        ContaAPagarDAO contaAPagarDAO = new ContaAPagarDAO();
-        contaAPagarDAO.Create(objeto);
+        ContaAPagarDAO.getInstance().Create(objeto);
     }
 
     public static void Atualizar(ContaAPagar objeto) {
-        ContaAPagarDAO contaAPagarDAO = new ContaAPagarDAO();
-        contaAPagarDAO.Update(objeto);
+        ContaAPagarDAO.getInstance().Update(objeto);
     }
 
     public static List<ContaAPagar> Buscar() {
-        ContaAPagarDAO contaAPagarDAO = new ContaAPagarDAO();
-        return (contaAPagarDAO.Retrieve());
+        return ContaAPagarDAO.getInstance().Retrieve();
     }
 
     public static ContaAPagar Buscar(int id) {
-        ContaAPagarDAO contaAPagarDAO = new ContaAPagarDAO();
-        return contaAPagarDAO.Retrieve(id);
+        return ContaAPagarDAO.getInstance().Retrieve(id);
     }
 
     public static void Deletar(ContaAPagar objeto) {
-        ContaAPagarDAO contaAPagarDAO = new ContaAPagarDAO();
-        contaAPagarDAO.Delete(objeto);
-    }
-/*
-    public static void Deletar(int idContaAPagar) {
-        ContaAPagarDAO contaAPagarDAO = new ContaAPagarDAO();
-        contaAPagarDAO.Delete(idContaAPagar);
+        ContaAPagarDAO.getInstance().Delete(objeto);
     }
 
-    public static List<ContaAPagar> BuscarPorCidade(int idCidade) {
-        ContaAPagarDAO contaAPagarDAO = new ContaAPagarDAO();
-        return contaAPagarDAO.RetrieveForCity(idCidade);
-    }
-*/
     public static ContaAPagar BuscarIdDaContaAPagarPeloIdDaCompra(int idDaCompra) {
-        ContaAPagarDAO contaAPagarDAO = new ContaAPagarDAO();
-        return contaAPagarDAO.RetrieveIdDaContaAPagarrPeloIdDaCompra(idDaCompra);
+        return ContaAPagarDAO.getInstance().RetrieveIdDaContaAPagarrPeloIdDaCompra(idDaCompra);
     }
 }

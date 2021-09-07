@@ -6,223 +6,105 @@ import java.util.List;
 import com.mycompany.projetolojajpamaven.model.bo.ItemDeVenda;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 
 public class ItemDeVendaDAO implements InterfaceDAO<ItemDeVenda> {
 
+    private static ItemDeVendaDAO instance;
+    protected EntityManager entityManager;
+    
+    public static ItemDeVendaDAO getInstance(){
+        if(instance == null){
+            instance = new ItemDeVendaDAO();
+        }
+        return instance;
+    }
+
+    public ItemDeVendaDAO() {
+        this.entityManager = getEntityManager();
+    }
+    
+    private EntityManager getEntityManager() {
+         EntityManagerFactory factory = Persistence.createEntityManagerFactory("ProjetoLojaJPAMaven");
+        
+        if(entityManager == null){
+            entityManager = factory.createEntityManager();
+        }
+        return entityManager;
+    }
+    
+    
     @Override
     public void Create(ItemDeVenda objeto) {
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            pstm = conexao.prepareStatement(SQL.ITEM_DE_VENDA_CREATE);
-            pstm.setInt(1, objeto.getQuantidade());//3
-            pstm.setInt(2, objeto.getVendaId());//4
-            pstm.setInt(3, objeto.getProduto().getId());//5
-            pstm.setFloat(4, objeto.getSubTotal());//6
-            pstm.executeUpdate();
-            ConectionFactory.closeConnection(conexao, pstm);
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: ItemDeVendaDAO->Create\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
+       try{
+        entityManager.getTransaction().begin();
+        entityManager.persist(objeto);
+        entityManager.getTransaction().commit();
+        } catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
         }
     }
 
     @Override
     public List<ItemDeVenda> Retrieve() {
-        Connection conexao = ConectionFactory.getConection();
-
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.ITEM_DE_VENDA_RETRIVE_ALL);
-            rs = pstm.executeQuery();
-
-            List<ItemDeVenda> itensDeVenda = new ArrayList();
-
-            while (rs.next()) {
-                ItemDeVenda itemDeVenda = new ItemDeVenda.ItemDeVendaBuilder()
-                        .setId(rs.getInt("id"))
-                        .setQuantidade(rs.getInt("quantidade"))
-                        .setVendaId(rs.getInt("vendaid"))
-                        .setProduto(
-                                com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar(rs.getInt("produtoid"))
-                        )
-                        .setSubTotal(rs.getFloat("subtotal"))
-                        .createItemDeVenda();
-                itensDeVenda.add(itemDeVenda);
-            }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return itensDeVenda;
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: ItemDeVendaDAO->Retrive\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        }
+         List<ItemDeVenda> listaBairros;
+        listaBairros = entityManager.createQuery("Select c From itemdevenda c",ItemDeVenda.class).getResultList();
+        return listaBairros;
     }
 
     @Override
     public ItemDeVenda Retrieve(int id) {
-        Connection conexao = ConectionFactory.getConection();
-
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.ITEM_DE_VENDA_RETRIVE_ONE_ID);
-            pstm.setInt(1, id);
-            rs = pstm.executeQuery();
-
-            ItemDeVenda itemDeVenda = new ItemDeVenda.ItemDeVendaBuilder().createItemDeVenda();
-
-            while (rs.next()) {
-                itemDeVenda.setId(rs.getInt("id"));
-                itemDeVenda.setQuantidade(rs.getInt("quantidade"));
-                itemDeVenda.setVendaId(rs.getInt("vendaid"));
-                itemDeVenda.setProduto(
-                        com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar(rs.getInt("produtoid"))
-                );
-                itemDeVenda.setSubTotal(rs.getFloat("subtotal"));
-
-            }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return itemDeVenda;
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: ItemDeVendaDAO->RetriveID\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        }
+        return  entityManager.find(ItemDeVenda.class, id);
     }
 
     @Override
     public void Update(ItemDeVenda objeto) {
-        Connection conexao = ConectionFactory.getConection();
-
-        PreparedStatement pstm = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.ITEM_DE_VENDA_UPDATE);
-
-            pstm.setInt(1, objeto.getQuantidade());
-            pstm.setInt(2, objeto.getVendaId());
-            pstm.setInt(3, objeto.getProduto().getId());
-            pstm.setFloat(4, objeto.getSubTotal());
-            pstm.setInt(5, objeto.getId());
-            pstm.executeUpdate();
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: ItemDeVendaDAO->Update\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        }
-        ConectionFactory.closeConnection(conexao, pstm);
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(objeto);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } 
     }
 
     @Override
     public void Delete(ItemDeVenda objeto) {
-        Connection conexao = ConectionFactory.getConection();
-        PreparedStatement pstm = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.ITEM_DE_VENDA_DELETE);
-            pstm.setInt(1, objeto.getId());
-            pstm.executeUpdate();
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: ItemDeVendaDAO->Delete Objeto Item \nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        }
-        ConectionFactory.closeConnection(conexao, pstm);
+       try{
+            entityManager.getTransaction().begin();
+            ItemDeVenda bairro = entityManager.find(ItemDeVenda.class, objeto.getId());
+            entityManager.remove(bairro);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        }      
     }
 
     public void Delete(int idVenda) {
-        Connection conexao = ConectionFactory.getConection();
-        PreparedStatement pstm = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.ITEM_DE_VENDA_DELETE_TODOS_ID_VENDA);
-            pstm.setInt(1, idVenda);
-            pstm.executeUpdate();
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: ItemDeVendaDAO->Delete\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        }
-        ConectionFactory.closeConnection(conexao, pstm);
+       try{
+            entityManager.getTransaction().begin();
+            ItemDeVenda bairro = entityManager.find(ItemDeVenda.class, idVenda);
+            entityManager.remove(bairro);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } 
     }
-//??????????????????????????????????????????????????????????
-
-    /* public List<ItemDeVenda> RetrieveTodosOsItensDeUmaVenda(int idDaVenda) {
-        Connection conexao = ConectionFactory.getConection();
-
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.ITEM_DE_VENDA_DELETE_TODOS_ID_VENDA);
-            pstm.setInt(1, idDaVenda);
-            rs = pstm.executeQuery();
-
-            List<ItemDeVenda> itensDeVenda = new ArrayList<>();
-
-            while (rs.next()) {
-                ItemDeVenda itemDeVenda = new ItemDeVenda.ItemDeVendaBuilder()
-                        .setId(rs.getInt("id"))
-                        .setQuantidade(rs.getInt("quantidade"))
-                        .setVendaId(rs.getInt("vendaid"))
-                        .setProduto(
-                                service.ServiceProduto.Buscar(rs.getInt("produtoid"))
-                        )
-                        .setSubTotal(rs.getFloat("subtotal"))
-                        .createItemDeVenda();
-                itensDeVenda.add(itemDeVenda);
-            }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return itensDeVenda;
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: ItemDeVendaDAO->RetrieveTodosOsItensDeUmaVenda\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        }
-    }*/
+    
     public List<ItemDeVenda> RetrieveUmaListaDeItemDeVendaPeloIdDaVenda(int idDaVenda) {
-
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            ResultSet rs = null;
-            pstm = conexao.prepareStatement(SQL.ITEM_DE_VENDA_RETRIVE_ALL_POR_VENDAID);
-            pstm.setInt(1, idDaVenda);
-            rs = pstm.executeQuery();
-            List<ItemDeVenda> itensDeVenda = new ArrayList<>();
-            while (rs.next()) {
-                ItemDeVenda itemDeVenda = new ItemDeVenda.ItemDeVendaBuilder()
-                        .setId(rs.getInt("id"))//1
-                        .setQuantidade(rs.getInt("quantidade"))//3
-                        .setVendaId(rs.getInt("vendaid")
-                        )//6   
-                        .setProduto(
-                                com.mycompany.projetolojajpamaven.service.ServiceProduto.Buscar(rs.getInt("produtoid"))
-                        )//4
-                        .setSubTotal(rs.getFloat("subtotal"))//5
-                        .createItemDeVenda();
-                itensDeVenda.add(itemDeVenda);
+        List<ItemDeVenda> lista = new ArrayList<>();
+        for (ItemDeVenda i : Retrieve()){
+            if(i.getVendaId().getId()== idDaVenda){
+                lista.add(i);
             }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return itensDeVenda;
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: ItemDeVendaDAO->RetrieveUmaListaDeItemDeVendaPeloIdDaVenda\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
         }
+        return lista;
     }
 }

@@ -8,33 +8,27 @@ import com.mycompany.projetolojajpamaven.model.bo.PessoaFisica;
 public class ServiceVenda {
 
     public static void Incluir(Venda objeto) {
-        VendaDAO vendaDAO = new VendaDAO();
-        vendaDAO.Create(objeto);
+        VendaDAO.getInstance().Create(objeto);
     }
 
     public static void Atualizar(Venda objeto) {
-        VendaDAO vendaDAO = new VendaDAO();
-        vendaDAO.Update(objeto);
+        VendaDAO.getInstance().Update(objeto);
     }
 
     public static List<Venda> Buscar() {
-        VendaDAO vendaDAO = new VendaDAO();
-        return vendaDAO.Retrieve();
+      return VendaDAO.getInstance().Retrieve();
     }
 
     public static Venda Buscar(int id) {
-        VendaDAO vendaDAO = new VendaDAO();
-        return vendaDAO.Retrieve(id);
+      return VendaDAO.getInstance().Retrieve(id);
     }
     
     public static int BuscarObjetoVendaPeloClienteValorTotalEData(Venda venda) {
-        VendaDAO vendaDAO = new VendaDAO();
-        return vendaDAO.RetrieveObjetoVendaPeloClienteValorTotalEData(venda);
+       return VendaDAO.getInstance().RetrieveObjetoVendaPeloClienteValorTotalEData(venda);
     }
 
     public static void Deletar(Venda objeto) {
-        VendaDAO vendaDAO = new VendaDAO();
-        vendaDAO.Delete(objeto);
+        VendaDAO.getInstance().Delete(objeto);
     }
     /*
     public static void Deletar(int idVenda) {
@@ -43,11 +37,13 @@ public class ServiceVenda {
     }*/
     
     public static  List<Venda> RetriveBuscaVendaDeUmCliente(PessoaFisica pessoaFisica){
-        VendaDAO vendaDAO = new VendaDAO();
-        return vendaDAO.RetrieveBuscaVendaDeUmCliente(pessoaFisica);
+      return VendaDAO.getInstance().RetrieveBuscaVendaDeUmCliente(pessoaFisica);
     }
     public static  List<Venda> RetriveBuscaVendaDeUmClientePelaIDPFeData(PessoaFisica pessoaFisica, String data){
-        VendaDAO vendaDAO = new VendaDAO();
-        return vendaDAO.RetrieveBuscaVendaDeUmClientePorIDPFeData(pessoaFisica, data);
+      return VendaDAO.getInstance().RetrieveBuscaVendaDeUmClientePorIDPFeData(pessoaFisica, data);
+    }
+    
+    public static int BuscarProximoId(){
+        return VendaDAO.getInstance().BuscarProximoId();
     }
 }

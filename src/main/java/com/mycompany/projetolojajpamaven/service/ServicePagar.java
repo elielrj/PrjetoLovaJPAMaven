@@ -7,31 +7,25 @@ import com.mycompany.projetolojajpamaven.model.DAO.PagarDAO;
 public class ServicePagar {
 
     public static void Incluir(Pagar objeto) {
-        PagarDAO pagarDAO = new PagarDAO();
-        pagarDAO.Create(objeto);
+        PagarDAO.getInstance().Create(objeto);
     }
 
     public static void Atualizar(Pagar objeto) {
-        PagarDAO pagarDAO = new PagarDAO();
-        pagarDAO.Update(objeto);
+        PagarDAO.getInstance().Update(objeto);
     }
 
     public static List<Pagar> Buscar() {
-        PagarDAO pagarDAO = new PagarDAO();
-        return (pagarDAO.Retrieve());
+       return PagarDAO.getInstance().Retrieve();
     }
 
     public static Pagar Buscar(int id) {
-        PagarDAO pagarDAO = new PagarDAO();
-        return pagarDAO.Retrieve(id);
+       return PagarDAO.getInstance().Retrieve(id);
     }
 
     public static void Deletar(Pagar objeto) {
-        PagarDAO pagarDAO = new PagarDAO();
-        pagarDAO.Delete(objeto);
+        PagarDAO.getInstance().Delete(objeto);
     }
     public static void Deletar(int idPagar) {
-        PagarDAO pagarDAO = new PagarDAO();
-        pagarDAO.Delete(idPagar);
+        PagarDAO.getInstance().Delete(idPagar);
     }
 }

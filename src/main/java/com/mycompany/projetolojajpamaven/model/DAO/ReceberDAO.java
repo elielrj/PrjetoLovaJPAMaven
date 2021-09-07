@@ -7,231 +7,124 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import static com.mycompany.projetolojajpamaven.service.ServiceReceber.Deletar;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class ReceberDAO implements InterfaceDAO<Receber> {
 
+    private static ReceberDAO instance;
+    protected EntityManager entityManager;
+    
+    public static ReceberDAO getInstance(){
+        if(instance == null){
+            instance = new ReceberDAO();
+        }
+        return instance;
+    }
+
+    public ReceberDAO() {
+        this.entityManager = getEntityManager();
+    }
+    
+    private EntityManager getEntityManager() {
+      EntityManagerFactory factory = Persistence.createEntityManagerFactory("ProjetoLojaJPAMaven");
+        
+        if(entityManager == null){
+            entityManager = factory.createEntityManager();
+        }
+        return entityManager;   
+    }
+    
+    
     @Override
     public void Create(Receber objeto) {
-        Connection conexao = ConectionFactory.getConection();
-        PreparedStatement pstm = null;
-        try {
-            pstm = conexao.prepareStatement(SQL.RECEBER_CREATE);
-            pstm.setString(1, objeto.getDataRecebimento());
-            pstm.setString(2, objeto.getHora());
-            pstm.setFloat(3, objeto.getValorAcrescimo());
-            pstm.setFloat(4, objeto.getValorRecebido());
-            pstm.setString(5, objeto.getObservacao());
-            pstm.setInt(6, objeto.getContaAReceber().getId());
-            pstm.executeUpdate();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        try{
+        entityManager.getTransaction().begin();
+        entityManager.persist(objeto);
+        entityManager.getTransaction().commit();
+        } catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
         }
-
-        ConectionFactory.closeConnection(conexao, pstm);
     }
 
     @Override
     public List<Receber> Retrieve() {
-
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            ResultSet rs = null;
-            List<Receber> recebimentos = new ArrayList();
-            pstm = conexao.prepareStatement(SQL.RECEBER_RETRIVE_ALL);
-            rs = pstm.executeQuery();
-
-            while (rs.next()) {
-                Receber recebimento = new Receber.ReceberBuilder()
-                        .setId(rs.getInt("id"))
-                        .setDataRecebimento(rs.getString("datarecebimento"))
-                        .setHora(rs.getString("hora"))
-                        .setValorAcrescimo(rs.getFloat("valoracrescimo"))
-                        .setValorRecebido(rs.getFloat("valorrecebido"))
-                        .setObservacao(rs.getString("observacao"))
-                        .setContaAReceber(
-                                com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Buscar(rs.getInt("contaareceberid"))
-                        )
-                        .createReceber();
-                recebimentos.add(recebimento);
-            }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return recebimentos;
-        } catch (Exception ex) {
-            return null;
-        }
-        
+        List<Receber> listaBairros;
+        listaBairros = entityManager.createQuery("Select c From receber c",Receber.class).getResultList();
+        return listaBairros;
     }
-    
+    /*
      public List<Receber> RetrieveBuscarPorVendasNaoRecebidas() {
-
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            ResultSet rs = null;
-            List<Receber> recebimentos = new ArrayList();
-            pstm = conexao.prepareStatement(SQL.RECEBER_RETRIVE_ALL_VENDAS_NAO_RECEBIDAS);
-            rs = pstm.executeQuery();
-
-            while (rs.next()) {
-                Receber recebimento = new Receber.ReceberBuilder()
-                        .setId(rs.getInt("id"))
-                        .setDataRecebimento(rs.getString("datarecebimento"))
-                        .setHora(rs.getString("hora"))
-                        .setValorAcrescimo(rs.getFloat("valoracrescimo"))
-                        .setValorRecebido(rs.getFloat("valorrecebido"))
-                        .setObservacao(rs.getString("observacao"))
-                        .setContaAReceber(
-                                com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Buscar(rs.getInt("contaareceberid"))
-                        )
-                        .createReceber();
-                recebimentos.add(recebimento);
-            }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return recebimentos;
-        } catch (Exception ex) {
-            return null;
-        }
-        
+         
     }
-
+*/
      public List<Receber> RetrieveBuscarPorVendasRecebidas(int idContaAReceber) {
+         List<Receber> lista = new ArrayList<>();
+         
+         for(Receber r : Retrieve()){
+             if(r.getContaAReceber().getId() == idContaAReceber){
+                 lista.add(r);
+             }
+         }
+         return lista;
+     }
 
-        try {
-            Connection conexao = ConectionFactory.getConection();
-            PreparedStatement pstm = null;
-            ResultSet rs = null;
-            List<Receber> recebimentos = new ArrayList();
-            pstm = conexao.prepareStatement(SQL.RECEBER_RETRIVE_ALL_VENDAS_RECEBIDAS);
-            pstm.setInt(1, idContaAReceber);
-            rs = pstm.executeQuery();
-
-            while (rs.next()) {
-                Receber recebimento = new Receber.ReceberBuilder()
-                        .setId(rs.getInt("id"))
-                        .setDataRecebimento(rs.getString("datarecebimento"))
-                        .setHora(rs.getString("hora"))
-                        .setValorAcrescimo(rs.getFloat("valoracrescimo"))
-                        .setValorRecebido(rs.getFloat("valorrecebido"))
-                        .setObservacao(rs.getString("observacao"))
-                        .setContaAReceber(
-                                com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Buscar(rs.getInt("contaareceberid"))
-                        )
-                        .createReceber();
-                recebimentos.add(recebimento);
-            }
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-            return recebimentos;
-        } catch (Exception ex) {
-            return null;
-        }
-        
-    }
+         
      
     @Override
     public Receber Retrieve(int id) {
-        Connection conexao = ConectionFactory.getConection();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-        try {
-            pstm = conexao.prepareStatement(SQL.RECEBER_RETRIVE_ONE_ID);
-            pstm.setInt(1, id);
-            rs = pstm.executeQuery();
-            Receber recebimento = new Receber.ReceberBuilder().createReceber();
-            while (rs.next()) {
-                recebimento.setId(rs.getInt("id"));
-                recebimento.setDataRecebimento(rs.getString("datarecebimento"));
-                recebimento.setHora(rs.getString("hora"));
-                recebimento.setValorAcrescimo(rs.getFloat("valoracrescimo"));
-                recebimento.setValorRecebido(rs.getFloat("valorrecebido"));
-                recebimento.setObservacao(rs.getString("observacao"));
-                recebimento.setContaAReceber(
-                        com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Buscar(rs.getInt("contaareceberid"))
-                );
-            }
-            return recebimento;
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: VendaDAO->Delete IdVenda\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        } finally {
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-        }
+         return  entityManager.find(Receber.class, id);
+         
     }
 
     @Override
     public void Update(Receber objeto) {
-        Connection conexao = ConectionFactory.getConection();
-
-        PreparedStatement pstm = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.RECEBER_UPDATE);
-            pstm.setString(1, objeto.getDataRecebimento());
-            pstm.setString(2, objeto.getHora());
-            pstm.setFloat(3, objeto.getValorAcrescimo());
-            pstm.setFloat(4, objeto.getValorRecebido());
-            pstm.setString(5, objeto.getObservacao());
-            pstm.setInt(6, objeto.getContaAReceber().getId());
-            pstm.setInt(7, objeto.getId());
-
-            pstm.executeUpdate();
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(objeto);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
         }
-        ConectionFactory.closeConnection(conexao, pstm);
+         
     }
 
     @Override
     public void Delete(Receber objeto) {
 
-        Connection conexao = ConectionFactory.getConection();
-        PreparedStatement pstm = null;
-
-        try {
-            pstm = conexao.prepareStatement(SQL.RECEBER_DELETE);
-            pstm.setInt(1, objeto.getId());
-            pstm.executeUpdate();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        ConectionFactory.closeConnection(conexao, pstm);
+         try{
+            entityManager.getTransaction().begin();
+            Receber bairro = entityManager.find(Receber.class, objeto.getId());
+            entityManager.remove(bairro);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } 
     }
 
     public void Delete(int idReceber) {
-        Deletar(Retrieve(idReceber));
+        try{
+            entityManager.getTransaction().begin();
+            Receber bairro = entityManager.find(Receber.class, idReceber);
+            entityManager.remove(bairro);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        } 
+        
     }
 
     public Receber RetrievePorUmaIdVendaRecebido(int idVenda) {
-        Connection conexao = ConectionFactory.getConection();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-        try {
-            pstm = conexao.prepareStatement(SQL.RECEBER_RETRIVE_ONE_ID_DA_CONTA_A_RECEBER);
-            pstm.setInt(1, idVenda);
-            rs = pstm.executeQuery();
-            Receber recebimento = new Receber.ReceberBuilder().createReceber();
-            while (rs.next()) {
-                recebimento.setId(rs.getInt("id"));
-                recebimento.setDataRecebimento(rs.getString("datarecebimento"));
-                recebimento.setHora(rs.getString("hora"));
-                recebimento.setValorAcrescimo(rs.getFloat("valoracrescimo"));
-                recebimento.setValorRecebido(rs.getFloat("valorrecebido"));
-                recebimento.setObservacao(rs.getString("observacao"));
-                recebimento.setContaAReceber(
-                        com.mycompany.projetolojajpamaven.service.ServiceContaAReceber.Buscar(rs.getInt("contaareceberid"))
-                );
-            }
-            return recebimento;
-        } catch (Exception ex) {
-            throw new RuntimeException(" \nCLASSE: VendaDAO->Delete IdVenda\nMENSAGEM:"
-                    + ex.getMessage() + "\nLOCALIZADO:"
-                    + ex.getLocalizedMessage()
-            );
-        } finally {
-            ConectionFactory.closeConnection(conexao, pstm, rs);
-        }
+       for (Receber r : Retrieve()){
+           if(r.getContaAReceber().getVendaId() == idVenda){
+               return r;
+           }
+       }
+       return null;
     }
 }

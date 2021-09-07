@@ -1,28 +1,37 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name="bairro")
-public class Bairro {
+public class Bairro implements Serializable  {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
     
-    @Column
+    @Column(name="nome")
     private String nome;    //OBRIGATÓRIO
     
-    @Column
+    @Column(name="status")
     private boolean status; //OBRIGATÓRIO
     
     @JoinColumn(name="cidadeid")
     @ManyToOne
     private Cidade cidade;  //OBRIGATÓRIO
+
+    public Bairro() {
+    }
+
+  
 
     private Bairro(BairroBuilder bairroBuilder) {
         this.id = bairroBuilder.id;

@@ -13,6 +13,7 @@ import com.mycompany.projetolojajpamaven.model.bo.Endereco;
 
 import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaFornecedor;
 import com.mycompany.projetolojajpamaven.view.cadastro.TelaCadastroFornecedor;
+import java.util.List;
 
 public class ControllerFornecedor implements ActionListener {
 
@@ -46,20 +47,21 @@ public class ControllerFornecedor implements ActionListener {
             Ativa(true);
             LimpaEstadoComponentes(false);
         } else if (e.getSource() == this.telaCadastroFornecedor.getjButtonGravar()) {
-            //2º Fornecedor c/ endereço já existente     
+            //2º Fornecedor c/ endereço já existente    
+            Endereco endereco = gravarEndereco();
             Fornecedor fornecedor = new Fornecedor.FornecedorBuilder()
                     .setRazaoSocial(this.telaCadastroFornecedor.getjTextFieldRazaoSocial().getText())//2
                     .setInscricaoEstadual(this.telaCadastroFornecedor.getjFormattedTextFieldInscEst().getText())//3
                     .setCnpj(this.telaCadastroFornecedor.getjFormattedTextFieldCnpj().getText())//4
-                    .setEndereco(
-                            new Endereco.EnderecoBuilder()
+                    .setEndereco(endereco
+                            /*new Endereco.EnderecoBuilder()
                                     //5-1 ID 
                                     .setLogradouro(this.telaCadastroFornecedor.getjTextField_EnderecoLogradouro().getText())//5-2
                                     .setNumero(this.telaCadastroFornecedor.getjTextField_EnderecoNumero().getText())//5-3
                                     .setBairro((Bairro) this.telaCadastroFornecedor.getjComboBox_EnderecoBairro().getSelectedItem())//5-4
                                     .setCep(this.telaCadastroFornecedor.getjFormattedTextField_EnderecoCEP().getText())//5-5
                                     .setStatus(this.telaCadastroFornecedor.getjComboBoxStatus().getSelectedItem().equals("Sim"))//5-6
-                                    .createEndereco()
+                                    .createEndereco()*/
                     )//5
                     .setTelefone1(this.telaCadastroFornecedor.getjFormattedTextFieldTel1().getText())//6
                     .setTelefone2(this.telaCadastroFornecedor.getjFormattedTextFieldtel2().getText())//7
@@ -165,6 +167,37 @@ public class ControllerFornecedor implements ActionListener {
                 componente.setEnabled(estadoCompo);
             }
         }
+    }
+
+    private Endereco gravarEndereco() {
+        
+        Endereco endereco = 
+        new Endereco.EnderecoBuilder()
+                                    //5-1 ID 
+                                    .setLogradouro(this.telaCadastroFornecedor.getjTextField_EnderecoLogradouro().getText())//5-2
+                                    .setNumero(this.telaCadastroFornecedor.getjTextField_EnderecoNumero().getText())//5-3
+                                    .setBairro((Bairro) this.telaCadastroFornecedor.getjComboBox_EnderecoBairro().getSelectedItem())//5-4
+                                    .setCep(this.telaCadastroFornecedor.getjFormattedTextField_EnderecoCEP().getText())//5-5
+                                    .setStatus(this.telaCadastroFornecedor.getjComboBoxStatus().getSelectedItem().equals("Sim"))//5-6
+                                    .createEndereco();
+        com.mycompany.projetolojajpamaven.service.ServiceEndereco.Incluir(endereco);
+        List<Endereco> enderecos = com.mycompany.projetolojajpamaven.service.ServiceEndereco.Buscar();
+        
+        for(Endereco e : enderecos){
+            if(e.getLogradouro().equals(endereco.getLogradouro())){
+                if(e.getNumero().equals(endereco.getNumero())){
+                    if(e.getCep().equals(endereco.getCep())){
+                        if(e.getBairro().getNome().equals(endereco.getBairro().getNome())){
+                            return e;
+                        }
+                    }
+                }
+            }
+        }
+        
+     return null;
+        
+    
     }
 
 }

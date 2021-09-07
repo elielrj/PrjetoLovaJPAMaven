@@ -7,47 +7,27 @@ import com.mycompany.projetolojajpamaven.model.DAO.ContaAReceberDAO;
 public class ServiceContaAReceber {
 
     public static void Incluir(ContaAReceber objeto) {
-        ContaAReceberDAO contaAReceberDAO = new ContaAReceberDAO();
-        contaAReceberDAO.Create(objeto);
+        ContaAReceberDAO.getInstance().Create(objeto);
     }
 
     public static void Atualizar(ContaAReceber objeto) {
-        ContaAReceberDAO contaAReceberDAO = new ContaAReceberDAO();
-        contaAReceberDAO.Update(objeto);
+        ContaAReceberDAO.getInstance().Update(objeto);
     }
 
     public static List<ContaAReceber> Buscar() {
-        ContaAReceberDAO contaAReceberDAO = new ContaAReceberDAO();
-        return (contaAReceberDAO.Retrieve());
+       return  ContaAReceberDAO.getInstance().Retrieve();
     }
-    /*
-    public static List<ContaAReceber> BuscarUmaListaDeRecebimentosDeUmaVenda(int idVenda) {
-        ContaAReceberDAO contaAReceberDAO = new ContaAReceberDAO();
-        return (contaAReceberDAO.RetrieveBuscarUmaListaDeRecebimentosDeUmaVenda(idVenda));
-    }*/
 
     public static ContaAReceber Buscar(int id) {
-        ContaAReceberDAO contaAReceberDAO = new ContaAReceberDAO();
-        return contaAReceberDAO.Retrieve(id);
+       return ContaAReceberDAO.getInstance().Retrieve(id);
     }
 
     public static void Deletar(ContaAReceber objeto) {
-        ContaAReceberDAO contaAReceberDAO = new ContaAReceberDAO();
-        contaAReceberDAO.Delete(objeto);
-    }
-/*
-    public static void Deletar(int idContaAReceber) {
-        ContaAReceberDAO contaAReceberDAO = new ContaAReceberDAO();
-        contaAReceberDAO.Delete(idContaAReceber);
+        ContaAReceberDAO.getInstance().Delete(objeto);
     }
 
-    public static List<ContaAReceber> BuscarPorCidade(int idCidade) {
-        ContaAReceberDAO contaAReceberDAO = new ContaAReceberDAO();
-        return contaAReceberDAO.RetrieveForCity(idCidade);
-    }*/
 
     public static ContaAReceber BuscarIdDaContaAReceberPeloIdDaVenda(int idDaVenda) {
-        ContaAReceberDAO contaAReceberDAO = new ContaAReceberDAO();
-        return contaAReceberDAO.RetrieveIdDaContaAReceberPeloIdDaVenda(idDaVenda);
+        return ContaAReceberDAO.getInstance().RetrieveIdDaContaAReceberPeloIdDaVenda(idDaVenda);
     }
 }

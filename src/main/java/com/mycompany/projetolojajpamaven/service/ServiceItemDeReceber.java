@@ -7,27 +7,22 @@ import com.mycompany.projetolojajpamaven.model.DAO.ReceberDAO;
 public class ServiceItemDeReceber {
 
     public static void Incluir(Receber objeto) {
-        ReceberDAO receberDAO = new ReceberDAO();
-        receberDAO.Create(objeto);
+        ReceberDAO.getInstance().Create(objeto);
     }
 
     public static void Atualizar(Receber objeto) {
-        ReceberDAO receberDAO = new ReceberDAO();
-        receberDAO.Update(objeto);
+        ReceberDAO.getInstance().Update(objeto);
     }
 
     public static List<Receber> Buscar() {
-        ReceberDAO receberDAO = new ReceberDAO();
-        return (receberDAO.Retrieve());
+       return ReceberDAO.getInstance().Retrieve();
     }
 
     public static Receber Buscar(int id) {
-        ReceberDAO receberDAO = new ReceberDAO();
-        return receberDAO.Retrieve(id);
+      return ReceberDAO.getInstance().Retrieve(id);
     }
 
     public static void Deletar(Receber objeto) {
-        ReceberDAO receberDAO = new ReceberDAO();
-        receberDAO.Delete(objeto);
+        ReceberDAO.getInstance().Delete(objeto);
     }
 }

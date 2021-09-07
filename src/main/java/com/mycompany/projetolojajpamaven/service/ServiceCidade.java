@@ -7,41 +7,28 @@ import com.mycompany.projetolojajpamaven.model.DAO.CidadeDAO;
 public class ServiceCidade {
 
     public static void Incluir(Cidade objeto) {
-            CidadeDAO cidadeDAO = new CidadeDAO();
-            cidadeDAO.Create(objeto);
+        CidadeDAO.getInstance().Create(objeto);
     }
 
     public static void Atualizar(Cidade objeto) {
-        
-            CidadeDAO cidadeDAO = new CidadeDAO();
-            cidadeDAO.Update(objeto);
+        CidadeDAO.getInstance().Update(objeto);
         
     }
 
     public static List<Cidade> Buscar() {
-        
-            CidadeDAO cidadeDAO = new CidadeDAO();
-            return (cidadeDAO.Retrieve());
-        
+        return CidadeDAO.getInstance().Retrieve();
     }
 
-    public static Cidade Buscar(int id) {
-            CidadeDAO cidadeDAO = new CidadeDAO();
-            return cidadeDAO.Retrieve(id);
-        
+    public static Cidade Buscar(int id) {            
+            return CidadeDAO.getInstance().Retrieve(id);        
     }
 
     public static void Deletar(Cidade objeto) {
-        
-            CidadeDAO cidadeDAO = new CidadeDAO();
-            cidadeDAO.Delete(objeto);
+        CidadeDAO.getInstance().Delete(objeto);
         
     }
 
     public static void Deletar(int idCidade) {
-        
-            CidadeDAO cidadeDAO = new CidadeDAO();
-            cidadeDAO.Delete(idCidade);
-        
+        CidadeDAO.getInstance().Delete(idCidade);        
     }
 }

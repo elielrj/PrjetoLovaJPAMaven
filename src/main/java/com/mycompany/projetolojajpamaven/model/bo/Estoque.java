@@ -1,25 +1,32 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "estoque")
-public class Estoque {
+public class Estoque implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  
+    @Column(name="id")
     private int id;
     
-    @JoinColumn(name="produtoid")
-    @ManyToOne
+    //@JoinColumn(name="produtoid")
+    //@ManyToOne
+    @Column(name="produtoid")
     private int produtoId;
     
-    @Column
+    @Column(name="quantidade")
     private int quantidade;
+
+    public Estoque() {
+    }
 
     private Estoque(EstoqueBuilder estoqueBuilder) {
         this.id = estoqueBuilder.id;

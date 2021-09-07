@@ -13,6 +13,7 @@ import com.mycompany.projetolojajpamaven.model.bo.Endereco;
 
 import com.mycompany.projetolojajpamaven.view.busca.TelaBuscaPessoaFisica;
 import com.mycompany.projetolojajpamaven.view.cadastro.TelaCadastroPessoaFisica;
+import java.util.List;
 
 public class ControllerPessoaFisica implements ActionListener {
 
@@ -46,22 +47,22 @@ public class ControllerPessoaFisica implements ActionListener {
             Ativa(true);
             LimpaEstadoComponentes(false);
         } else if (e.getSource() == this.telaCadastroPessoaFisica.getjButtonGravar()) {
-
+            Endereco endereco = gravarEndereco();
             PessoaFisica pessoaFisica = new PessoaFisica.PessoaFisicaBuilder()
                     .setNome(this.telaCadastroPessoaFisica.getjTextFieldNome().getText())
                     .setRg(this.telaCadastroPessoaFisica.getjFormattedTextFieldRg().getText())
                     .setCpf(this.telaCadastroPessoaFisica.getjFormattedTextFieldCpf().getText())
                     .setDataDeNascimento(this.telaCadastroPessoaFisica.getjFormattedTextFieldDataNascimento().getText())
-                    .setEndereco(
-                            new Endereco.EnderecoBuilder()
+                    .setEndereco(endereco
+/*                            new Endereco.EnderecoBuilder()
                                     .setLogradouro(this.telaCadastroPessoaFisica.getjTextField_EnderecoLogradouro().getText())
                                     .setNumero(this.telaCadastroPessoaFisica.getjTextField_EnderecoNr().getText())
                                     .setBairro((Bairro) this.telaCadastroPessoaFisica.getjComboBox_EnderecoBairro().getSelectedItem())
                                     .setCep(this.telaCadastroPessoaFisica.getjFormattedTextField_EnderecoCEP().getText())
                                     .setStatus(this.telaCadastroPessoaFisica.getjComboBoxStatus().getSelectedItem().equals("Sim"))
-                                    .createEndereco()
+                                    .createEndereco()*/
                     )
-                    .setTipo((String) this.telaCadastroPessoaFisica.getjComboBoxTipo().getSelectedItem())
+                  .setTipo((String) this.telaCadastroPessoaFisica.getjComboBoxTipo().getSelectedItem())
                     .setTelefone1(this.telaCadastroPessoaFisica.getjFormattedTextFieldTel1().getText())
                     .setTelefone2(this.telaCadastroPessoaFisica.getjFormattedTextFieldTel2().getText())
                     .setEmail(this.telaCadastroPessoaFisica.getjTextFieldEmail().getText())
@@ -176,6 +177,34 @@ public class ControllerPessoaFisica implements ActionListener {
                 componente.setEnabled(estadoCompo);
             }
         }
+    }
+
+    private Endereco gravarEndereco() {
+        Endereco endereco = 
+        new Endereco.EnderecoBuilder()
+                                    .setLogradouro(this.telaCadastroPessoaFisica.getjTextField_EnderecoLogradouro().getText())
+                                    .setNumero(this.telaCadastroPessoaFisica.getjTextField_EnderecoNr().getText())
+                                    .setBairro((Bairro) this.telaCadastroPessoaFisica.getjComboBox_EnderecoBairro().getSelectedItem())
+                                    .setCep(this.telaCadastroPessoaFisica.getjFormattedTextField_EnderecoCEP().getText())
+                                    .setStatus(this.telaCadastroPessoaFisica.getjComboBoxStatus().getSelectedItem().equals("Sim"))
+                                    .createEndereco();
+        com.mycompany.projetolojajpamaven.service.ServiceEndereco.Incluir(endereco);
+        List<Endereco> enderecos = com.mycompany.projetolojajpamaven.service.ServiceEndereco.Buscar();
+        
+        for(Endereco e : enderecos){
+            if(e.getLogradouro().equals(endereco.getLogradouro())){
+                if(e.getNumero().equals(endereco.getNumero())){
+                    if(e.getCep().equals(endereco.getCep())){
+                        if(e.getBairro().getNome().equals(endereco.getBairro().getNome())){
+                            return e;
+                        }
+                    }
+                }
+            }
+        }
+        
+     return null;
+        
     }
 
 }

@@ -7,43 +7,35 @@ import com.mycompany.projetolojajpamaven.model.DAO.EstoqueDAO;
 public class ServiceEstoque {
 
     public static void Incluir(Estoque objeto) {
-        EstoqueDAO estoqueDAO = new EstoqueDAO();
-        estoqueDAO.Create(objeto);
+        EstoqueDAO.getInstance().Create(objeto);
     }
 
     public static void Atualizar(Estoque objeto) {
-        EstoqueDAO estoqueDAO = new EstoqueDAO();
-        estoqueDAO.Update(objeto);
+        EstoqueDAO.getInstance().Update(objeto);
     }
 
     public static List<Estoque> Buscar() {
-        EstoqueDAO estoqueDAO = new EstoqueDAO();
-        return (estoqueDAO.Retrieve());
+       return EstoqueDAO.getInstance().Retrieve();
     }
 
     public static Estoque Buscar(int id) {
-        EstoqueDAO estoqueDAO = new EstoqueDAO();
-        return estoqueDAO.Retrieve(id);
+       return EstoqueDAO.getInstance().Retrieve(id);
     }
     
     public static void Deletar(Estoque objeto) {
-        EstoqueDAO estoqueDAO = new EstoqueDAO();
-        estoqueDAO.Delete(objeto);
+        EstoqueDAO.getInstance().Delete(objeto);
     }
     
     public static Estoque BuscarEstoquePorIdDoProduto(int idDoProduto) {
-        EstoqueDAO estoqueDAO = new EstoqueDAO();
-        return estoqueDAO.RetrievePorIdDoProduto(idDoProduto);
+      return EstoqueDAO.getInstance().RetrievePorIdDoProduto(idDoProduto);
     }
     
     public static Estoque BuscarEstoquePorIdPeloProduto(int idDoProduto) {
-        EstoqueDAO estoqueDAO = new EstoqueDAO();
-        return estoqueDAO.RetrievePorIdDoProduto(idDoProduto);
+        return EstoqueDAO.getInstance().RetrievePorIdDoProduto(idDoProduto);
     }
     
     
     public static int BuscarAQuantidadeNoEstoqueComOIdDoProduto(int idDoProduto) {
-        EstoqueDAO estoqueDAO = new EstoqueDAO();
-        return estoqueDAO.BuscarAQuantidadeNoEstoqueComOIdDoProduto(idDoProduto);
+       return EstoqueDAO.getInstance().BuscarAQuantidadeNoEstoqueComOIdDoProduto(idDoProduto);
     }
 }

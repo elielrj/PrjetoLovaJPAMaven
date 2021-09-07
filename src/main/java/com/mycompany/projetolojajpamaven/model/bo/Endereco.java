@@ -1,34 +1,40 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "endereco")
-public class Endereco {
+public class Endereco implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @Column(name="id")
     private int id;//1
     
-    @Column
+    @Column(name="logradouro")
     private String logradouro;//2
     
-    @Column
+    @Column(name="numero")
     private String numero;//3
     
     @JoinColumn(name="bairroid")
     @ManyToOne
     private Bairro bairro;//4
     
-    @Column
+    @Column(name="cep")
     private String cep;//5
     
-    @Column
+    @Column(name="status")
     private boolean status;//6
+
+    public Endereco() {
+    }
 
     private Endereco(EnderecoBuilder enderecoBuilder) {
         this.id = enderecoBuilder.id;

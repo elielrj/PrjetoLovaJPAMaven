@@ -1,17 +1,20 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "fornecedor")
-public class Fornecedor {
+public class Fornecedor implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
+    @Column(name="id")
     private int id;//1
     
     @Column(name="razaosocial")
@@ -20,30 +23,33 @@ public class Fornecedor {
     @Column(name="inscricaoestadual")
     private String inscricaoEstadual;//3
     
-    @Column
+    @Column(name="cnpj")
     private String cnpj;//4
     
     @JoinColumn(name="enderecoid")
     @ManyToOne
     private Endereco endereco;//5
     
-    @Column
+    @Column(name="telefone1")
     private String telefone1;//6
     
-    @Column
+    @Column(name="telefone2")
     private String telefone2;//7
     
-    @Column
+    @Column(name="email")
     private String email;//8
     
-    @Column
+    @Column(name="observacao")
     private String observacao;//9
     
-    @Column
+    @Column(name="status")
     private boolean status;//10
     
-    @Column
+    @Column(name="complemento")
     private String complemento;//11
+
+    public Fornecedor() {
+    }
 
     private Fornecedor(FornecedorBuilder fornecedorBuilder) {
         this.id = fornecedorBuilder.id;

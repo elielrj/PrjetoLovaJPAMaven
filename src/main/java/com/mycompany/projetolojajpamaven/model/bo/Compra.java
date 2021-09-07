@@ -1,5 +1,6 @@
 package com.mycompany.projetolojajpamaven.model.bo;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -7,27 +8,30 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "compra")
-public class Compra {
+public class Compra implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  
+    @Column(name="id")
     private int id;
     
     @Column(name="datacompra")
     private String data;
     
-    @Column
+    @Column(name="hora")
     private String hora;
     
     @Column(name="datavencimento")
     private String dataDeVencimento;
     
-    @Column
+    @Column(name="observacao")
     private String observacao;
     
     @Column(name="valordesconto")
@@ -36,18 +40,22 @@ public class Compra {
     @Column(name="valortotal")
     private float valorTotal;
     
-    @Column
+    @Column(name="status")
     private boolean status;
     
-    //@Column(name="itemdecompra")
+    @JoinColumn(name="compraid")
+    @JoinTable(name="itemdecompra")
     private List<ItemDeCompra> itensDeCompra;
     
     @JoinColumn(name="fornecedorid")
     @ManyToOne
     private Fornecedor fornecedor;
     
-   // @Column(name="usercaixa")
+    @Column(name="usercaixa")
     private String userCaixa;
+
+    public Compra() {
+    }
 
     private Compra(CompraBuilder compraBuilder) {
         this.id = compraBuilder.id;

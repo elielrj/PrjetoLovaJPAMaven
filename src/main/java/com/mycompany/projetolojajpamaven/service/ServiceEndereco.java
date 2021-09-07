@@ -7,37 +7,30 @@ import com.mycompany.projetolojajpamaven.model.DAO.EnderecoDAO;
 public class ServiceEndereco {
 
     public static void Incluir(Endereco objeto) {
-        EnderecoDAO enderecoDAO = new EnderecoDAO();
-        enderecoDAO.Create(objeto);
+        EnderecoDAO.getInstance().Create(objeto);
     }
 
     public static void Atualizar(Endereco objeto) {
-        EnderecoDAO enderecoDAO = new EnderecoDAO();
-        enderecoDAO.Update(objeto);
+        EnderecoDAO.getInstance().Update(objeto);
     }
 
     public static List<Endereco> Buscar() {
-        EnderecoDAO enderecoDAO = new EnderecoDAO();
-        return (enderecoDAO.Retrieve());
+        return EnderecoDAO.getInstance().Retrieve();
     }
 
     public static Endereco Buscar(int id) {
-        EnderecoDAO enderecoDAO = new EnderecoDAO();
-        return enderecoDAO.Retrieve(id);
+       return EnderecoDAO.getInstance().Retrieve(id);
     }
 
     public static void Deletar(Endereco objeto) {
-        EnderecoDAO enderecoDAO = new EnderecoDAO();
-        enderecoDAO.Delete(objeto);
+        EnderecoDAO.getInstance().Delete(objeto);
     }
 
     public static void Deletar(int idEndereco) {
-        EnderecoDAO enderecoDAO = new EnderecoDAO();
-        enderecoDAO.Delete(idEndereco);
+        EnderecoDAO.getInstance().Delete(idEndereco);
     }
 
     public static int BuscarPorId(Endereco endereco) {
-        EnderecoDAO enderecoDAO = new EnderecoDAO();
-        return enderecoDAO.RetrievePorId(endereco);
+        return EnderecoDAO.getInstance().RetrievePorId(endereco);
     }
 }
