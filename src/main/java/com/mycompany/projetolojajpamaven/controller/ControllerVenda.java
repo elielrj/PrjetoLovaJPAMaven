@@ -199,7 +199,7 @@ public class ControllerVenda implements ActionListener {
                 this.telaCadastroVenda.getjTextField_Cliente_Tel2().setText(venda.getPessoaFisica().getTelefone2());//10 - 9
                 this.telaCadastroVenda.getjComboBox_alunoOuPersonal().setSelectedItem(venda.getPessoaFisica().getTipo());
                 this.telaCadastroVenda.getjTextField_Cliente_Email().setText(venda.getPessoaFisica().getEmail());//10 - 10                
-JOptionPane.showConfirmDialog(null, "antes de itens");
+//JOptionPane.showConfirmDialog(null, "antes de itens");
                 //venda.setItensDeVenda(com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.BuscarUmaListaDeItemDeVendaPeloIdDaVenda(venda.getId())); //11
                 atualizarTabelaDeItens();
             }
@@ -496,7 +496,7 @@ JOptionPane.showConfirmDialog(null, "antes de itens");
         } else {
             //1º atualizar a venda
             com.mycompany.projetolojajpamaven.service.ServiceVenda.Atualizar(venda);
-            JOptionPane.showMessageDialog(null, "tewte itens");
+            //JOptionPane.showMessageDialog(null, "tewte itens");
             //2º deletar itens anterior no banco
             //buscar antes de deletar!
             List<ItemDeVenda> itensDeVenda = com.mycompany.projetolojajpamaven.service.ServiceItemDeVenda.BuscarUmaListaDeItemDeVendaPeloIdDaVenda(venda.getId());

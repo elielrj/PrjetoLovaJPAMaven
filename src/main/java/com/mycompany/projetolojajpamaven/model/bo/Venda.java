@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.eclipse.persistence.annotations.Array;
 
-@Entity
+@Entity(name="venda")
 @Table(name="venda")
 public class Venda implements Serializable {
 
@@ -62,7 +62,7 @@ public class Venda implements Serializable {
     
     @OneToMany(mappedBy = "vendaId", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     private List<ItemDeVenda> itensDeVenda = new ArrayList<>();//11
-
+    
     public Venda() {
         constroiCaixaItensDataHora();
         
@@ -171,11 +171,11 @@ public class Venda implements Serializable {
     }
     
     public int quantidadeDeItensNaLista(){
-        return itensDeVenda.size();
+        return getItensDeVenda().size();
     }
 
     private void constroiCaixaItensDataHora() {
-        this.itensDeVenda = new ArrayList<>(); 
+        this.setItensDeVenda(new ArrayList<>()); 
         dataHora();
         setUserCaixa("Eliel");
     }
@@ -270,7 +270,7 @@ public class Venda implements Serializable {
                 .setQuantidade(quantidade)
                 .setProduto(produto)
                 .createItemDeVenda();
-        for(ItemDeVenda i : itensDeVenda){
+        for(ItemDeVenda i : getItensDeVenda()){
             if(itemDeVenda.getProduto().getId() == i.getProduto().getId()){
                 i.setQuantidade(itemDeVenda.getQuantidade() + i.getQuantidade());
                 i.atualizarSubTotal();
@@ -278,7 +278,7 @@ public class Venda implements Serializable {
             }
         }
         itemDeVenda.atualizarSubTotal();
-        itensDeVenda.add(itemDeVenda);
+        getItensDeVenda().add(itemDeVenda);
     }
     
     public  void adicionarItem(Produto produto){
@@ -287,13 +287,13 @@ public class Venda implements Serializable {
     
     public void removerItemDaLista(Produto produto){
         
-        for(ItemDeVenda i : itensDeVenda){
+        for(ItemDeVenda i : getItensDeVenda()){
             if (i.getProduto().getId() == produto.getId()){
                 if (i.getQuantidade() > 1){
                     i.setQuantidade(i.getQuantidade() -1 );
                     break;
                 } else if (i.getQuantidade() == 1){
-                    itensDeVenda.remove(i);
+                    getItensDeVenda().remove(i);
                     break;
                 }
             }
@@ -301,7 +301,7 @@ public class Venda implements Serializable {
     }
     
     public boolean existeItemNaLista(int idDaLinhaSelecionada) {
-        if(idDaLinhaSelecionada > itensDeVenda.size())
+        if(idDaLinhaSelecionada > getItensDeVenda().size())
             return false;        
         return true;
     }
@@ -324,7 +324,7 @@ public class Venda implements Serializable {
     }
     
     public void removerTodosOsItensDaLista(){
-        itensDeVenda.clear();
+        getItensDeVenda().clear();
     }
     
    
@@ -332,7 +332,7 @@ public class Venda implements Serializable {
     public float calcularValorTotal(){
        float total = 0;
         
-        for (ItemDeVenda itemDeVenda : itensDeVenda){
+        for (ItemDeVenda itemDeVenda : getItensDeVenda()){
             total += itemDeVenda.calcularSubTotal();
         }
         return total;

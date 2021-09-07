@@ -5,6 +5,7 @@ import com.sun.istack.Nullable;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,7 +35,7 @@ public class ItemDeVenda implements Serializable {
     private float subTotal;//5
     
     @NotNull
-    @ManyToOne
+    @ManyToOne//(fetch = FetchType.EAGER)
     @JoinColumn(name = "vendaid", referencedColumnName = "id", nullable = false)
     private Venda vendaId;//6
 

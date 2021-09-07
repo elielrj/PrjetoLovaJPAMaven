@@ -117,6 +117,7 @@ com\mycompany\projetolojajpamaven\view\cadastro\TelaCadastroProduto$1.class
 com\mycompany\projetolojajpamaven\view\cadastro\TelaCadastroVenda$10.class
 com\mycompany\projetolojajpamaven\view\busca\TelaBuscaCompra.class
 com\mycompany\projetolojajpamaven\controller\ControllerCompra$1.class
+com\mycompany\projetolojajpamaven\view\teste.class
 com\mycompany\projetolojajpamaven\service\ServiceCompra.class
 com\mycompany\projetolojajpamaven\controller\ControllerFornecedor.class
 com\mycompany\projetolojajpamaven\view\cadastro\TelaCadastroEndereco$6.class
